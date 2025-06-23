@@ -4,17 +4,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Users</title>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script src="assets/user.js"></script>
+    <!-- bootstrap & datatables css libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.bootstrap5.css">
 </head>
 <body>
     <div class="container">
-        <h2>Users</h2>
-        <button type="button" class="btn btn-md btn-primary" data-bs-toggle="modal" data-bs-target="#user-modal">Add User</button>
-        <table class="table">
+        <br>
+        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#user-modal">Add User</button>
+        <hr>
+        <table id="user-table" class="table table-striped">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -25,9 +24,32 @@
                     <th>Actions</th>
                 </tr>
             </thead>
+            <tbody>
+                <tr>
+                    <td>test</td>
+                    <td>test</td>
+                    <td>test</td>
+                    <td>test</td>
+                    <td>test</td>
+                    <td>test</td>
+                </tr>
+            </tbody>
         </table>
     </div>
 
     <?php include 'modals/user-modals.php'; ?>
+
+        <!-- jquery library -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
+    <!-- bootstrap & datatables javascript libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.3.2/js/dataTables.bootstrap5.js"></script>
+
+    <!-- sweetalert libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="assets/user.js"></script>
 </body>
 </html>

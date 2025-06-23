@@ -10,7 +10,7 @@ class User extends Database {
     private $password;
 
     public function __construct() {
-        $this->connect(self::TABLE_NAME);
+        parent::__construct(self::TABLE_NAME);
     }
 
     public function setFirstname($fname) {
@@ -58,5 +58,9 @@ class User extends Database {
         $this->executeQuery();
 
         return $this->getRowCount();
+    }
+
+    public function getAll() {
+        return $this->sqlFetchAll();
     }
 }
