@@ -7,13 +7,17 @@
     <!-- bootstrap & datatables css libraries -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.bootstrap5.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <div class="container">
         <br>
-        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#user-modal">Add User</button>
+        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#user-modal">
+            <i class="fas fa-plus"></i> Add User
+        </button>
         <hr>
-        <table id="user-table" class="table table-striped">
+        <table id="user-table" class="table table-striped table-bordered">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -50,6 +54,7 @@
     <!-- sweetalert libraries -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <script src="assets/utilities.js"></script>
     <script src="assets/user.js"></script>
 </body>
 </html>

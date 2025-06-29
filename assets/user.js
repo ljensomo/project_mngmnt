@@ -12,13 +12,11 @@ var userTable = new DataTable("#user-table",{
         }},
         {data: "username"},
         {data: function(data){
-            return data.is_active ? "Active" : "Inactive";
-        }},
+            return data.is_active ? "<span class='badge bg-success'>Active</span>" : "<span class='badge bg-danger'>Inactive</span>";
+        }, className: "text-center"},
         {data: "date_created", className: "text-center"},
         {data: function(data){
-            let button = "<button class='btn btn-warning btn-sm' onclick='editUser(" + data.id + ")'>Edit</button>";
-            button += " <button class='btn btn-danger btn-sm' onclick='deleteUser(" + data.id + ")'>Delete</button>";
-            return button;
+            return createDataTableButtons({edit: true, delete: true, data: data.id});
         }, className: "text-center"}
 
     ]
