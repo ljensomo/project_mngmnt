@@ -12,10 +12,10 @@ if(isset($_POST['fname']) && isset($_POST['lname'])) {
     $user->setPassword(); // Default password, can be changed later
 
     if($user->add()) {
-        echo json_encode(['success' => true, 'message' => 'User ('.$_POST['fname'].' '.$_POST['lname'].') registered successfully.']);
+        echo json_encode(['success' => true, 'message' => 'User ('.$_POST['fname'].' '.$_POST['lname'].') has been registered successfully.']);
     } else {
         echo json_encode(['success' => false, 'message' => 'Failed to register user.']);
     }
 } else {
-    echo json_encode(['status' => 'error', 'message' => 'Invalid access']);
+    echo json_encode(['success' => false, 'message' => 'Invalid access!']);
 }

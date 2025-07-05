@@ -29,14 +29,6 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>test</td>
-                    <td>test</td>
-                    <td>test</td>
-                    <td>test</td>
-                    <td>test</td>
-                    <td>test</td>
-                </tr>
             </tbody>
         </table>
     </div>

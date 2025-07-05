@@ -4,6 +4,7 @@ class User extends Database {
 
     const TABLE_NAME = 'users';
 
+    private $id;
     private $first_name;
     private $last_name;
     private $username;
@@ -19,6 +20,10 @@ class User extends Database {
 
     public function setLastname($lname) {
         $this->last_name = $lname;
+    }
+
+    public function setUserId($id) {
+        $this->id = $id;
     }
 
     public function setUsername() {
@@ -49,6 +54,20 @@ class User extends Database {
         ]);
     }
 
+    public function update(){
+        return $this->sqlUpdate(
+            [
+                'first_name' => $this->first_name,
+                'last_name' => $this->last_name,
+                'id' => $this->id
+            ]
+        );
+    }
+
+    public function deleteById($id){
+        return $this->sqlDelete($id);
+    }
+
     public function getUserNameCount(){
         $this->setQuery('SELECT id FROM users WHERE first_name = ? AND last_name = ?');
         $this->setParameters([
@@ -62,5 +81,9 @@ class User extends Database {
 
     public function getAll() {
         return $this->sqlFetchAll();
+    }
+
+    public function getById($id) {
+        return $this->sqlFetchById($id);
     }
 }

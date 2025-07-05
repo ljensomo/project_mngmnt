@@ -99,6 +99,37 @@ class Database {
         return $this;
     }
 
+    public function sqlUpdate($parameters, $condition = null){
+        $this->update_query = 'UPDATE '.$this->table_name.' SET ';
+
+        // build parameterized columns
+        $x = 1;
+        $column_count = count($parameters);
+        $query_parameterized = [];
+        while($x <= $column_count ){
+            $query_parameterized[] = key($parameters) . ' = ?';
+            next($parameters);
+            $x++;
+        }
+
+        $this->update_query .= implode(',', $query_parameterized);
+
+        if ($condition) {
+            $this->buildSelectWhereClause($condition);
+        }
+
+        $this->setQuery($this->update_query);
+        $this->setParameters(array_values($parameters));
+        
+        return $this->executeQuery();
+    }
+
+    public function sqlDelete($id){
+        $this->setQuery('DELETE FROM '.$this->table_name.' WHERE id = ?');
+        $this->setParameters([$id]);
+        return $this->executeQuery();
+    }
+
     public function sqlFetchAll($condition = null){
         $this->buildSelectWhereClause($condition);
         $this->setQuery($this->select_query);
@@ -109,6 +140,13 @@ class Database {
     public function sqlFetchSingle($condition = null){
         $this->buildSelectWhereClause($condition);
         $this->setQuery($this->select_query);
+        $this->executeQuery();
+        return $this->stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public function sqlFetchById($id){
+        $this->setQuery($this->select_query.' WHERE id = ?');
+        $this->setParameters(array($id));
         $this->executeQuery();
         return $this->stmt->fetch(\PDO::FETCH_ASSOC);
     }
