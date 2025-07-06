@@ -1,14 +1,14 @@
-const userUtility = "utilities/user/";
-const element = {
+const user = {
     modalId: "#user-modal",
     modalEditId: "#user-edit-modal",
     formId: "#user-form",
-    tableId: "#user-table"
+    tableId: "#user-table",
+    utilityURL: "utilities/user/",
 }
 
 let userTable = initDataTable({
-    tableId: element.tableId,
-    ajaxUrl: userUtility + "get-all.php",
+    tableId: user.tableId,
+    ajaxUrl: user.utilityURL + "get-all.php",
     columns: [
         {data: "id"},
         {data: function(data) {
@@ -27,32 +27,32 @@ let userTable = initDataTable({
 
 createEdtRecordHandler({
     btnClass: ".btn-edit-user",
-    utilityURL: userUtility + "get.php",
+    utilityURL: user.utilityUrl + "get.php",
     callback: function(data) {
         $("#user-id").val(data.id);
         $("#first-name").val(data.first_name);
         $("#last-name").val(data.last_name);
-        $(element.modalEditId).modal("toggle");
+        $(user.modalEditId).modal("toggle");
     }
 });
 
 createDltRecordHandler({
     btnClass: ".btn-delete-user",
-    utilityURL: userUtility + "delete.php",
+    utilityURL: user.utilityUrl + "delete.php",
     dataTable: userTable,
 });
 
 createFrmSubmitHandler([
     {
-        formId: element.formId,
-        utilityURL: userUtility + "add.php",
+        formId: user.formId,
+        utilityURL: user.utilityUrl + "add.php",
         dataTable: userTable,
-        modalId: element.modalId
+        modalId: user.modalId
     },
     {
         formId: "#user-edit-form",
-        utilityURL: userUtility + "update.php",
+        utilityURL: user.utilityUrl + "update.php",
         dataTable: userTable,
-        modalId: element.modalEditId
+        modalId: user.modalEditId
     }
  ]);

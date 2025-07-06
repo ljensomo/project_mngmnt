@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Users</title>
+    <title>Projects</title>
 
     <?php include 'includes/css-assets.html'; ?>
 </head>
@@ -11,18 +11,19 @@
     <?php include 'includes/topbar.php'; ?>
     <div class="container">
         <br>
-        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#user-modal">
-            <i class="fas fa-plus"></i> Add User
+        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#project-modal">
+            <i class="fas fa-plus"></i> New Project
         </button>
         <hr>
-        <table id="user-table" class="table table-striped table-bordered">
+        <table id="project-table" class="table table-striped table-bordered">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Username</th>
+                    <th>Project Name</th>
+                    <th>Description</th>
                     <th>Status</th>
                     <th>Date Created</th>
+                    <th>Created By</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -31,13 +32,13 @@
         </table>
     </div>
 
-    <?php include 'modals/user-modals.php'; ?>
+    <?php include 'modals/project-modals.php'; ?>
 
     <?php include 'includes/js-assets.html'; ?>
 
     <!-- custom scripts -->
     <script src="assets/utilities.js"></script>
-    <script src="assets/user.js"></script>
+    <script src="assets/project.js"></script>
 </body>
 
 </html>
