@@ -1,6 +1,14 @@
 // Function to create a button with specified parameters
 function createButton(parameter){
-    let button = $("<button>");
+    let button = "";
+
+    if(parameter.anchor){
+        button = $("<a>");
+        button.attr("href", parameter.href ? parameter.href : "#");
+        button.attr("role", "button");
+    }else{
+        button = $("<button>");
+    }
 
     let type = parameter && parameter.type ? parameter.type : "primary";
     button.addClass("btn btn-sm btn-"+type);
@@ -43,27 +51,37 @@ function reloadDataTable(table){
 }
 
 // Function to create buttons for DataTable actions
-function createDataTableBtns(parameter){
+function createDataTableBtns(button){
     let buttons = "";
 
-    if(parameter.edit){
-        
+    if(button.view){
         buttons += createButton({
-            type: "warning",
-            icon: "fa-user-pen",
-            id: "edit-user",
-            data: parameter.data
+            anchor: true,
+            href: button.href,
+            type: "info",
+            icon: "fa-eye",
+            id: "view-"+button.name,
+            data: button.data
         });
     }
 
-    if(parameter.delete){
-        
+    if(button.edit){
+        buttons += " "; // Add space between buttons
+        buttons += createButton({
+            type: "warning",
+            icon: "fa-pen-to-square",
+            id: "edit-"+button.name,
+            data: button.data
+        });
+    }
+
+    if(button.delete){
         buttons += " "; // Add space between buttons
         buttons += createButton({
             type: "danger",
             icon: "fa-trash",
-            id: "delete-user",
-            data: parameter.data
+            id: "delete-"+button.name,
+            data: button.data
         });
     }
 

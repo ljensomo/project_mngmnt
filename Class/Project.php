@@ -43,7 +43,27 @@ class Project extends Database {
         ]);
     }
 
+    public function update() {
+        return $this->sqlUpdate(
+            [
+                'project_name' => $this->name,
+                'description' => $this->description,
+                'status' => $this->status,
+                'created_by' => $this->created_by,
+                'id' => $this->id
+            ],
+        );
+    }
+
+    public function deleteById($id) {
+        return $this->sqlDelete($id);
+    }
+
     public function getAll() {
         return $this->sqlFetchAll();
+    }
+
+    public function getById($id) {
+        return $this->sqlFetchById($id);
     }
 }

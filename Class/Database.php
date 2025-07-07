@@ -7,6 +7,7 @@ class Database {
     private $password = '';
     public $conn;
 
+    private $fetchMode;
     private $table_name;
 
     private $query;
@@ -21,6 +22,8 @@ class Database {
 
         $this->setDefaultQuery();
         $this->connect();
+
+        $this->fetchMode = \PDO::FETCH_ASSOC;
     }
 
     public function setDefaultQuery() {
@@ -151,6 +154,12 @@ class Database {
         return $this->stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
+    public function where($condition){
+        $this->buildSelectWhereClause(['where' => $condition]);
+
+        return $this;
+    }
+
     public function buildSelectWhereClause($conditions){
 
         if($conditions != null){
@@ -170,5 +179,19 @@ class Database {
                 $this->parameters[] = $condition['value'];
             }
         }
+    }
+
+    public function get(){
+
+        $this->setQuery($this->select_query);
+        $this->setParameters($this->parameters);
+
+        return $this->fetch();
+    }
+
+    public function fetch(){
+        
+        $this->executeQuery();
+        return $this->stmt->fetch($this->fetchMode);
     }
 }

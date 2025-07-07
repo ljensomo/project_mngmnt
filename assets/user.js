@@ -2,13 +2,14 @@ const user = {
     modalId: "#user-modal",
     modalEditId: "#user-edit-modal",
     formId: "#user-form",
+    formEditId: "#user-edit-form",
     tableId: "#user-table",
-    utilityURL: "utilities/user/",
+    utilityUrl: "utilities/user/",
 }
 
 let userTable = initDataTable({
     tableId: user.tableId,
-    ajaxUrl: user.utilityURL + "get-all.php",
+    ajaxUrl: user.utilityUrl + "get-all.php",
     columns: [
         {data: "id"},
         {data: function(data) {
@@ -20,7 +21,7 @@ let userTable = initDataTable({
         }, className: "text-center"},
         {data: "date_created", className: "text-center"},
         {data: function(data) {
-            return createDataTableBtns({edit: true, delete: true, data: data.id});
+            return createDataTableBtns({edit: true, delete: true, data: data.id, name: "user"});
         }, className: "text-center"}
     ]
 });
@@ -50,7 +51,7 @@ createFrmSubmitHandler([
         modalId: user.modalId
     },
     {
-        formId: "#user-edit-form",
+        formId: user.formEditId,
         utilityURL: user.utilityUrl + "update.php",
         dataTable: userTable,
         modalId: user.modalEditId
