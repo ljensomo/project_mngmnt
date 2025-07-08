@@ -82,7 +82,10 @@
         </div>
     </div>
 
-    <?php include 'includes/js-assets.html'; ?>
+    <?php 
+        include 'modals/project-task-modals.php';
+        include 'includes/js-assets.html';
+    ?>
 
     <!-- custom scripts -->
     <script src="assets/utilities.js"></script>

@@ -182,15 +182,18 @@ class Database {
     }
 
     public function get(){
-
         $this->setQuery($this->select_query);
         $this->setParameters($this->parameters);
-
         return $this->fetch();
     }
 
+    public function getAll(){
+        $this->setQuery($this->select_query);
+        $this->setParameters($this->parameters);
+        return $this->fetchAll();
+    }
+
     public function fetch(){
-        
         $this->executeQuery();
         return $this->stmt->fetch($this->fetchMode);
     }

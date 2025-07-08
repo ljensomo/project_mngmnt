@@ -65,11 +65,23 @@ function createDataTableBtns(button){
         });
     }
 
+    if(button.custom){
+        button.custom.forEach(function(customButton) {
+            buttons += " "; // Add space between buttons
+            buttons += createButton({
+                type: customButton.type || "secondary",
+                icon: customButton.icon || "fa-cog",
+                id: customButton.id || "custom-"+button.name,
+                data: button.data
+            });
+        });
+    }
+
     if(button.edit){
         buttons += " "; // Add space between buttons
         buttons += createButton({
-            type: "warning",
-            icon: "fa-pen-to-square",
+            type: button.editType === undefined ? "warning" : button.editType,
+            icon: button.editIcon === undefined ? "fa-pen-to-square" : button.editIcon,
             id: "edit-"+button.name,
             data: button.data
         });
@@ -79,7 +91,7 @@ function createDataTableBtns(button){
         buttons += " "; // Add space between buttons
         buttons += createButton({
             type: "danger",
-            icon: "fa-trash",
+            icon: button.deleteIcon === undefined ? "fa-trash" : button.deleteIcon,
             id: "delete-"+button.name,
             data: button.data
         });

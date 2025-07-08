@@ -10,9 +10,12 @@ class ProjectTask extends Database {
     private $description;
     private $status;
     private $assigned_to;
+    private $created_by;
 
-    public function __construct() {
+    public function __construct($project_id = null) {
         parent::__construct(self::TABLE_NAME);
+
+        $this->setProjectId($project_id);
     }
 
     public function setId($id) {
@@ -36,14 +39,40 @@ class ProjectTask extends Database {
     }
 
     public function setAssignedTo($assigned_to) {
-        $this->assigned_to = $assigned_to;
+        if($assigned_to == '' || $assigned_to == null || !isset($assigned_to)) {
+            $this->assigned_to = null;
+        } else {
+            $this->assigned_to = $assigned_to;
+        }
     }
 
-    public function getAll(){
+    public function setCreatedBy($created_by) {
+        $this->created_by = $created_by;
+    }
+
+    public function add() {
+        return $this->sqlInsert([
+            'project_id' => $this->project_id,
+            'task' => $this->task_name,
+            'description' => $this->description,
+            'status' => $this->status,
+            'assigned_to' => $this->assigned_to
+        ]);
+    }
+
+    public function deleteById($id) {
+        return $this->sqlDelete($id);
+    }
+
+    public function getProjectTasks(){
         return $this->sqlSelect()->where([
             'column_name' => 'project_id',
             'operator' => '=',
             'value' => $this->project_id
-        ])->get();
+        ])->getAll();
+    }
+
+    public function getById($id) {
+        return $this->sqlFetchById($id);
     }
 }
