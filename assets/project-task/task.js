@@ -5,19 +5,27 @@ const task = {
     formEditId: "#task-edit-form",
     tableId: "#task-table",
     utilityUrl: "utilities/project-task/",
-    projectId: $("#project-id").val()
 }
-
-$("#project-id2, #project-id3").val(task.projectId);
 
 let taskTable = initDataTable({
     tableId: task.tableId,
-    ajaxUrl: task.utilityUrl + "get-all.php?pid=" + task.projectId,
+    ajaxUrl: task.utilityUrl + "get-all.php?pid=" + projectId,
     columns: [
         {data: "id"},
+        {data: function(data) {
+            switch(data.task_type) {
+                case 1:
+                    return "Enhancement";
+                case 2:
+                    return "Bug";
+                default:
+                    return "Unknown";
+            }
+        }},
         {data: "task"},
+        {data: "description"},
         {data: function(data){
-            return data.assigned_to ? data.assigned_to : "(Unassigned)";
+            return data.assigned_to ? data.first_name+" "+data.last_name : "(Unassigned)";
         }},
         {data: function(data){
             switch(data.status) {
@@ -32,22 +40,33 @@ let taskTable = initDataTable({
             }
         }},
         {data: "date_created", className: "text-center"},
+        {data: "date_completed", className: "text-center"},
         {data: function(data) {
             return createDataTableBtns({
                 edit: true,
                 delete: true,
                 deleteIcon: "fa-xmark",
-                custom:[
-                    {
-                        type: "success",
-                        icon: "fa-check",
-                    }
-                ],
                 data: data.id, 
                 name: "task",
             });
         }, className: "text-center"}
-    ]
+    ],
+    createdRow: function(row, data, dataIndex) {
+        switch(data["status"]) {
+            case 1:
+                $(row).addClass("table-info");
+                break;
+            case 2:
+                $(row).addClass("table-warning");
+                break;
+            case 3:
+                $(row).addClass("table-success");
+                break;
+            case 4:
+                $(row).addClass("table-secondary");
+                break;
+        }
+    }
 });
 
 createFrmSubmitHandler([
@@ -76,9 +95,10 @@ createEdtRecordHandler({
     utilityURL: task.utilityUrl + "get.php",
     callback: function(data){
         $("#task-id").val(data.id);
-        $("#task-name").val(data.task);
+        $("#task-type").val(data.task_type ? data.task_type : "");
+        $("#task").val(data.task);
         $("#description").val(data.description);
-        $("#assigned-to").val(data.assigned_to ? data.assigned_to : "");
+        $("#e-task-assign-to").val(data.assigned_to ? data.assigned_to : "");
         $("#status").val(data.status);
         $(task.modalEditId).modal("toggle");
     }

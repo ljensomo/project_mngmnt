@@ -7,8 +7,15 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="" id="task-form">
-                <input type="hidden" name="project-id" id="project-id2">
+                <input type="hidden" name="project-id" id="a-task-project-id">
                 <div class="modal-body">
+                    <div class="mb-3">
+                        <select name="type" class="form-control">
+                            <option value="">-- Select Type</option>
+                            <option value="1">Enhancement</option>
+                            <option value="2">Bug</option>
+                        </select>
+                    </div>
                     <div class="mb-3">
                         <input class="form-control" type="text" name="task" placeholder="Task Name" aria-label="Project Name" required>
                     </div>
@@ -16,7 +23,7 @@
                         <textarea class="form-control" name="description" placeholder="Description" required></textarea>
                     </div>
                     <div class="mb-3">
-                        <select name="assign-to" id="assign-to" class="form-control">
+                        <select name="assign-to" id="a-task-assign-to" class="form-control">
                             <option value="">-- Assign To</option>
                         </select>
                     </div>
@@ -30,7 +37,6 @@
     </div>
 </div>
 
-
 <!-- Modal -->
 <div class="modal fade" id="task-edit-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -40,9 +46,16 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="" id="task-edit-form">
-                <input type="hidden" name="project-id" id="project-id3">
-                <input type="hidden" name="task-id" id="task-id">
+                <input type="hidden" name="project_id" id="e-task-project-id">
+                <input type="hidden" name="task_id" id="task-id">
                 <div class="modal-body">
+                    <div class="mb-3">
+                        <select name="type" class="form-control" id="task-type" required>
+                            <option value="">-- Select Type</option>
+                            <option value="1">Enhancement</option>
+                            <option value="2">Bug</option>
+                        </select>
+                    </div>
                     <div class="mb-3">
                         <input class="form-control" type="text" name="task" placeholder="Task Name" id="task" aria-label="Project Name" required>
                     </div>
@@ -50,7 +63,7 @@
                         <textarea class="form-control" name="description" placeholder="Description" id="description" required></textarea>
                     </div>
                     <div class="mb-3">
-                        <select name="assign-to" id="assign-to2" class="form-control">
+                        <select name="assign_to" id="e-task-assign-to" class="form-control">
                             <option value="">-- Assign To</option>
                         </select>
                     </div>

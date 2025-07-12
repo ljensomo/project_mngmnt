@@ -10,7 +10,7 @@
 
 <body>
     <?php include 'includes/topbar.php'; ?>
-    <div class="container">
+    <div class="container-fluid">
         <br>
         <div class="card">
             <div class="card-body">
@@ -37,7 +37,7 @@
         </div>
     </div>
 
-    <?php include 'modals/project-modals.php'; ?>
+    <?php include 'modals/project-modals.html'; ?>
 
     <?php include 'includes/js-assets.html'; ?>
 

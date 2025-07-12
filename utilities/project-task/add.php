@@ -4,9 +4,10 @@ require_once '../../Class/Database.php';
 require_once '../../Class/ProjectTask.php';
 require_once '../../utilities/utilities.php';
 
-isValidRequest([$_POST['task'], $_POST['description']]);
+isValidRequest([$_POST['task'], $_POST['type'], $_POST['description']]);
 
 $task = new ProjectTask($_POST['project-id']);
+$task->setType($_POST['type']);
 $task->setTaskName($_POST['task']);
 $task->setDescription($_POST['description']);
 $task->setStatus(1);

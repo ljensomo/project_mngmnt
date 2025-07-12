@@ -1,0 +1,68 @@
+<!-- Add Modal -->
+<div class="modal fade" id="feature-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Add New Feature</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="" id="feature-form">
+                <input type="hidden" name="project-id" id="a-feature-project-id">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <select name="module" id="module-options" class="form-control" required>
+                            <option value="">-- Select Module</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <input class="form-control" type="text" name="feature" placeholder="Feature" aria-label="Feature" required>
+                    </div>
+                    <div class="mb-3">
+                        <textarea class="form-control" name="description" placeholder="Description" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Edit Modal -->
+<div class="modal fade" id="feature-edit-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Edit Feature Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="" id="feature-edit-form">
+                <input type="hidden" name="project_id" id="e-feature-project-id">
+                <input type="hidden" name="feature_id" id="feature-id">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <input class="form-control" type="text" name="feature" placeholder="Feature" id="feature" aria-label="Feature" required>
+                    </div>
+                    <div class="mb-3">
+                        <textarea class="form-control" name="description" placeholder="Description" id="feature-description" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <select name="status" id="feature-status" class="form-control" required>
+                            <option value="1">Open</option>
+                            <option value="2">In Progress</option>
+                            <option value="3">Completed</option>
+                            <option value="4">On Hold</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

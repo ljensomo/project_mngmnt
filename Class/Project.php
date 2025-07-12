@@ -64,6 +64,20 @@ class Project extends Database {
     }
 
     public function getById($id) {
-        return $this->sqlFetchById($id);
+        return $this->sqlSelect([
+                'projects.id',
+                'projects.project_name',
+                'projects.description',
+                'projects.status',
+                'projects.created_by',
+                'projects.date_created',
+                'CONCAT(users.first_name, " ", users.last_name) AS created_by_name'
+               
+            ])->join('users', 'users.id = projects.created_by', 'LEFT JOIN')
+            ->where([
+                'column_name' => 'projects.id',
+                'operator' => '=',
+                'value' => $id
+            ])->get();
     }
 }

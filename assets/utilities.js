@@ -25,7 +25,7 @@ function createButton(parameter){
     }
 
     if(parameter.data) {
-        button.attr("row-data", parameter.data);
+        button.attr("row-id", parameter.data);
     }
 
     return button[0].outerHTML;
@@ -40,7 +40,8 @@ function initDataTable(parameter){
             dataSrc: "data",
         },
         processing: true,
-        columns: parameter.columns
+        columns: parameter.columns,
+        createdRow: parameter.createdRow
     });
 
     return table;
@@ -151,7 +152,7 @@ function frmSubmitHandler(parameter){
 // Function to create a delete record handler
 function createDltRecordHandler(parameter){
     $(document).on("click", parameter.btnClass, function() {
-        let userId = $(this).attr("row-data");
+        let userId = $(this).attr("row-id");
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -185,10 +186,10 @@ function createDltRecordHandler(parameter){
 
 function createEdtRecordHandler(parameter){
     $(document).on("click", parameter.btnClass, function() {
-        let userId = $(this).attr("row-data");
+        let userId = $(this).attr("row-id");
         $.ajax({
             url: parameter.utilityURL,
-            type: "POST",
+            type: "GET",
             data: {id: userId},
             dataType: "json"
         }).done(function(response) {
@@ -201,6 +202,43 @@ function createEdtRecordHandler(parameter){
         }).fail(function(jqXHR, textStatus, errorThrown) {
             console.error("Error fetching selected record:", textStatus, errorThrown);
             Swal.fire('ERROR!', 'Failed to fetch selected record.', 'error');
+        });
+    });
+}
+
+function populateSelect(options){
+    options.forEach(function(option){
+        $.ajax({
+            url: option.url,
+            type: "GET",
+            dataType: "json"
+        }).done(function(response){
+            $.each(response.data, function(index, data) {
+                let opt = $("<option>");
+                opt.val(data[option.value]);
+                let text = "";
+
+                if(Array.isArray(option.text)){
+                    for(let column of option.text){
+                        text += data[column]+" ";
+                    }
+                }else{
+                    text = data[option.text];
+                }
+
+                opt.text(text);
+
+                if(Array.isArray(option.selectId)){
+                    option.selectId.forEach(function(selectId) {
+                        $(selectId).append(opt.clone());
+                    });
+                }else{
+                    $(option.selectId).append(opt);
+                }
+            });
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            console.error("Error populating select:", textStatus, errorThrown);
+            Swal.fire('ERROR!', 'Failed to populate select options.', 'error');
         });
     });
 }

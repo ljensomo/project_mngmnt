@@ -94,36 +94,43 @@ class Database {
         return $this->executeQuery();
     }
 
-    public function sqlSelect($condition = null){
-        $this->select_query = 'SELECT * FROM '.$this->table_name;
+    public function sqlSelect($select = "*"){
+
+        if(is_array($select)){
+            $select = implode(',', $select);
+        }
+
+        $this->select_query = 'SELECT '.$select.' FROM '.$this->table_name;
         $this->parameters = array();
         
-        $this->buildSelectWhereClause($condition);
         return $this;
     }
 
     public function sqlUpdate($parameters, $condition = null){
-        $this->update_query = 'UPDATE '.$this->table_name.' SET ';
-
         // build parameterized columns
         $x = 1;
-        $column_count = count($parameters);
-        $query_parameterized = [];
-        while($x <= $column_count ){
-            $query_parameterized[] = key($parameters) . ' = ?';
-            next($parameters);
+        $query_parameters = [];
+        foreach($parameters as $key => $parameter){
+            if ($key != 'id') {
+
+                $this->update_query .= $key . ' = ?';
+                $query_parameters[] = $parameter;
+
+                if ($x < (count($parameters) - 1) ) $this->update_query .= ', ';
+            }
+
+            if($key === 'id' && $x === 1){
+                continue;
+            }
             $x++;
         }
 
-        $this->update_query .= implode(',', $query_parameterized);
+        $this->update_query .= ' WHERE id = ?';
 
-        if ($condition) {
-            $this->buildSelectWhereClause($condition);
-        }
+        $query_parameters[] = $parameters['id'];
 
         $this->setQuery($this->update_query);
-        $this->setParameters(array_values($parameters));
-        
+        $this->setParameters($query_parameters);
         return $this->executeQuery();
     }
 
@@ -179,6 +186,11 @@ class Database {
                 $this->parameters[] = $condition['value'];
             }
         }
+    }
+
+    public function join($table, $onCondition, $joinType = 'INNER JOIN') {
+        $this->select_query .= " $joinType $table ON $onCondition";
+        return $this;
     }
 
     public function get(){
