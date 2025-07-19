@@ -27,6 +27,7 @@ let moduleTable = initDataTable({
             }
         }},
         {data: "date_created", className: "text-center"},
+        {data: "date_completed", className: "text-center"},
         {data: function(data) {
             return createDataTableBtns({
                 edit: true,
@@ -48,7 +49,7 @@ let moduleTable = initDataTable({
                 $(row).addClass("table-success");
                 break;
             case 4:
-                $(row).addClass("table-secondary");
+                $(row).addClass("table-danger");
                 break;
         }
     }

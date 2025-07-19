@@ -26,6 +26,7 @@
                             <th>Description</th>
                             <th>Status</th>
                             <th>Date Created</th>
+                            <th>Date Completed</th>
                             <th>Created By</th>
                             <th>Actions</th>
                         </tr>

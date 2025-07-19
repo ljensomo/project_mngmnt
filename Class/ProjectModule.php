@@ -56,6 +56,7 @@ class ProjectModule extends Database {
             'module' => $this->module,
             'description' => $this->description,
             'status' => $this->status,
+            'date_completed' => $this->status == 3 ? date('Y-m-d H:i:s') : null,
             'id' => $this->id
         ]);
     }
@@ -71,6 +72,7 @@ class ProjectModule extends Database {
                 'project_modules.description',
                 'project_modules.status',
                 'project_modules.date_created',
+                'project_modules.date_completed',
                 'CONCAT(users.first_name, " ", users.last_name) AS created_by',
             ])->join('users', 'users.id = project_modules.created_by', 'LEFT JOIN')
             ->where([

@@ -16,9 +16,11 @@ class Database {
 
     private $select_query;
     private $update_query;
+    private $columns = [];
 
-    public function __construct($table_name) {
+    public function __construct($table_name, $columns = []) {
         $this->table_name = $table_name;
+        $this->columns = $columns;
 
         $this->setDefaultQuery();
         $this->connect();
@@ -94,13 +96,14 @@ class Database {
         return $this->executeQuery();
     }
 
-    public function sqlSelect($select = "*"){
+    public function sqlSelect($columns = []){
 
-        if(is_array($select)){
-            $select = implode(',', $select);
+        $query_columns = $this->getTableColumns();
+        foreach ($columns as $column) {
+           array_push($query_columns, $column); 
         }
 
-        $this->select_query = 'SELECT '.$select.' FROM '.$this->table_name;
+        $this->select_query = 'SELECT '.implode(',',$query_columns).' FROM '.$this->table_name;
         $this->parameters = array();
         
         return $this;
@@ -201,12 +204,24 @@ class Database {
 
     public function getAll(){
         $this->setQuery($this->select_query);
-        $this->setParameters($this->parameters);
+
+        if($this->parameters){
+            $this->setParameters($this->parameters);
+        }
+
         return $this->fetchAll();
     }
 
     public function fetch(){
         $this->executeQuery();
         return $this->stmt->fetch($this->fetchMode);
+    }
+
+    public function getTableColumns(){
+        $select_columns = [];
+        foreach ($this->columns as $column) {
+            array_push($select_columns, $this->table_name.'.'.$column);
+        }
+        return $select_columns;
     }
 }

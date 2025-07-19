@@ -3,15 +3,26 @@
 class Project extends Database {
 
     const TABLE_NAME = 'projects';
+    const COLUMNS = [
+        'id',
+        'project_name',
+        'description',
+        'status',
+        'created_by',
+        'date_created',
+        'date_completed'
+    ];
 
     private $id;
     private $name;
     private $description;
     private $status;
     private $created_by;
+    private $select_columns = array();
 
     public function __construct() {
-        parent::__construct(self::TABLE_NAME);
+        parent::__construct(self::TABLE_NAME, self::COLUMNS);
+
     }
 
     public function setId($id) {
@@ -50,6 +61,7 @@ class Project extends Database {
                 'description' => $this->description,
                 'status' => $this->status,
                 'created_by' => $this->created_by,
+                'date_completed' => $this->status == 3 ? date('Y-m-d H:i:s') : null,
                 'id' => $this->id
             ],
         );
@@ -59,20 +71,16 @@ class Project extends Database {
         return $this->sqlDelete($id);
     }
 
-    public function getAll() {
-        return $this->sqlFetchAll();
+    public function getProjects() {
+        return $this->sqlSelect([
+                'CONCAT(users.first_name, " ", users.last_name) AS created_by_name'
+            ])->join('users', 'users.id = projects.created_by', 'INNER JOIN')
+            ->getAll();
     }
 
     public function getById($id) {
         return $this->sqlSelect([
-                'projects.id',
-                'projects.project_name',
-                'projects.description',
-                'projects.status',
-                'projects.created_by',
-                'projects.date_created',
                 'CONCAT(users.first_name, " ", users.last_name) AS created_by_name'
-               
             ])->join('users', 'users.id = projects.created_by', 'LEFT JOIN')
             ->where([
                 'column_name' => 'projects.id',

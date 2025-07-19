@@ -27,7 +27,8 @@ let projectTable = initDataTable({
             }
         }},
         {data: "date_created", className: "text-center"},
-        {data: "created_by", className: "text-center"},
+        {data: "date_completed", className: "text-center"},
+        {data: "created_by_name", className: "text-center"},
         {data: function(data) {
             return createDataTableBtns({
                 edit: true, 
