@@ -6,6 +6,8 @@ This project is created to my manage project ideas, list down modules and featur
 - [Features](#features)
 - [Installation](#installation)
 - [Technologies](#technologies)
+- [Contact](#contact)
+- [Project Status](#project-status)
 
 ## Features
 - System Authentication (Login/Logout)
@@ -25,10 +27,10 @@ This project is created to my manage project ideas, list down modules and featur
 
 ### Steps
 1. **Clone the repository:**
-   git clone https://github.com/ljensomo/project_mngmnt.git
-   cd project_mngmnt
+- git clone https://github.com/ljensomo/project_mngmnt.git
+  - cd project_mngmnt
 
-## Technologies Used
+## Technologies
 - PHP
 - MySQL
 - Javascript
@@ -45,3 +47,9 @@ This project is created to my manage project ideas, list down modules and featur
   - https://cdn.datatables.net/2.3.2/js/dataTables.bootstrap5.js
 - Font Awesome
   - https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css
+
+## Contact
+- LJ Ensomo - [ensomolj@gmail.com](mailto:ensomolj@gmail.com)
+
+## Project Status
+This project is actively updated for new ideas and features can think of.
