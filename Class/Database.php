@@ -74,6 +74,8 @@ class Database {
     }
 
     public function getRowCount() {
+        $this->setQuery($this->select_query);
+        $this->executeQuery();    
         return $this->stmt->rowCount();
     }
 
@@ -182,6 +184,10 @@ class Database {
                     $logical_operator = 'AND';
                 }
 
+                if(!array_key_exists('operator', $condition)){
+                    $condition['operator'] = '=';
+                }
+
                 $query_condition = ' ' . $logical_operator . ' ' . $condition['column_name'] . ' ' .$condition['operator'] . ' ?';
                 $this->select_query .= $query_condition;
 
@@ -198,16 +204,11 @@ class Database {
 
     public function get(){
         $this->setQuery($this->select_query);
-        $this->setParameters($this->parameters);
         return $this->fetch();
     }
 
     public function getAll(){
         $this->setQuery($this->select_query);
-
-        if($this->parameters){
-            $this->setParameters($this->parameters);
-        }
 
         return $this->fetchAll();
     }

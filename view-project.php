@@ -72,30 +72,30 @@
                                 <tr class="table-primary">
                                     <td><strong>Open</strong></td>
                                     <td>Currently open and not yet started.</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td id="task-1">0</td>
+                                    <td id="module-1">0</td>
+                                    <td id="feature-1">0</td>
                                 </tr>
                                 <tr class="table-secondary">
                                     <td><strong>In Progress</strong></td>
                                     <td>Currently being worked on.</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td id="task-2">0</td>
+                                    <td id="module-2">0</td>
+                                    <td id="feature-2">0</td>
                                 </tr>
                                 <tr class="table-success">
                                     <td><strong>Completed</strong></td>
                                     <td>Has been completed successfully.</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td id="task-3">0</td>
+                                    <td id="module-3">0</td>
+                                    <td id="feature-3">0</td>
                                 </tr>
                                 <tr class="table-danger">
                                     <td><strong>On Hold</strong></td>
                                     <td>Currently on hold and not being worked on.</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td id="task-4">0</td>
+                                    <td id="module-4">0</td>
+                                    <td id="feature-4">0</td>
                                 </tr>
                             </tbody>
                         </table>

@@ -18,7 +18,7 @@
                     <i class="fas fa-plus"></i> New Project
                 </button>
                 <hr>
-                <table id="project-table" class="table table-striped table-bordered">
+                <table id="project-table" class="table table-bordered">
                     <thead>
                         <tr>
                             <th>ID</th>

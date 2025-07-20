@@ -3,6 +3,17 @@
 class ProjectFeature extends Database {
 
     const TABLE_NAME = 'project_features';
+    const COLUMNS = [
+        'id',
+        'project_id',
+        'module_id',
+        'feature',
+        'description',
+        'status',
+        'created_by',
+        'date_created',
+        'date_completed'
+    ];
 
     private $id;
     private $project_id;
@@ -13,7 +24,7 @@ class ProjectFeature extends Database {
     private $created_by;
 
     public function __construct($project_id = null) {
-        parent::__construct(self::TABLE_NAME);
+        parent::__construct(self::TABLE_NAME, self::COLUMNS);
 
         $this->setProjectId($project_id);
     }
@@ -73,22 +84,28 @@ class ProjectFeature extends Database {
 
     public function getProjectFeatures(){
         return $this->sqlSelect([
-                'project_features.id',
-                'project_features.feature',
-                'project_features.description',
-                'project_features.status',
-                'project_features.date_created',
-                'project_features.date_completed',
                 'CONCAT(users.first_name, " ", users.last_name) AS created_by',
                 'project_modules.module AS module_name'
             ])->join('users', 'users.id = project_features.created_by', 'LEFT JOIN')
             ->join('project_modules', 'project_modules.id = project_features.module_id', 'INNER JOIN')
             ->where([
                 'column_name' => 'project_features.project_id',
-                'operator' => '=',
                 'value' => $this->project_id
             ])->getAll();
     }
+
+    public function getProjectFeaturesByStatus($status){
+        return $this->sqlSelect()
+            ->where([
+                'column_name' => 'status',
+                'value' => $status
+            ])
+            ->where([
+                'column_name' => 'project_id',
+                'value' => $this->project_id
+            ])
+            ->getRowCount();
+    }   
 
     public function getById($id) {
         return $this->sqlFetchById($id);

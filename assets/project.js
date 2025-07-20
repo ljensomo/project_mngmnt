@@ -39,7 +39,23 @@ let projectTable = initDataTable({
                 href: "view-project.php?id=" + data.id
             });
         }, className: "text-center"}
-    ]
+    ],
+    createdRow: function(row, data, dataIndex) {
+        switch(data["status"]) {
+            case 1:
+                $(row).addClass("table-info");
+                break;
+            case 2:
+                $(row).addClass("table-warning");
+                break;
+            case 3:
+                $(row).addClass("table-success");
+                break;
+            case 4:
+                $(row).addClass("table-secondary");
+                break;
+        }
+    }
 });
 
 createFrmSubmitHandler([

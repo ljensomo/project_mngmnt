@@ -3,6 +3,18 @@
 class ProjectTask extends Database {
 
     const TABLE_NAME = 'project_tasks';
+    const COLUMNS = [
+        'id',
+        'project_id',
+        'task_type',
+        'task',
+        'description',
+        'status',
+        'assigned_to',
+        'created_by',
+        'date_created',
+        'date_completed'
+    ];
 
     private $id;
     private $project_id;
@@ -14,7 +26,7 @@ class ProjectTask extends Database {
     private $created_by;
 
     public function __construct($project_id = null) {
-        parent::__construct(self::TABLE_NAME);
+        parent::__construct(self::TABLE_NAME, self::COLUMNS);
 
         $this->setProjectId($project_id);
     }
@@ -100,6 +112,18 @@ class ProjectTask extends Database {
                 'operator' => '=',
                 'value' => $this->project_id
             ])->getAll();
+    }
+
+    public function getProjectTasksByStatus($status){
+        return $this->sqlSelect()
+            ->where([
+                'column_name' => 'status',
+                'value' => $status
+            ])
+            ->where([
+                'column_name' => 'project_id',
+                'value' => $this->project_id
+            ])->getRowCount();
     }
 
     public function getById($id) {

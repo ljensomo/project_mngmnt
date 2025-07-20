@@ -76,3 +76,30 @@ $(document).on("click", ".project-nav-link", function(e){
     $("#"+tab_name).show();
     
 });
+
+// load dashboard data
+$.ajax({
+    url: "utilities/project/get-dashboard.php?pid="+projectId,
+    type: "GET",
+    dataType: "json",
+    success: function(data) {
+        $("#task-1").text(data.tasks.open);
+        $("#module-1").text(data.modules.open);
+        $("#feature-1").text(data.features.open);
+
+        $("#task-2").text(data.tasks.in_progress);
+        $("#module-2").text(data.modules.in_progress);
+        $("#feature-2").text(data.features.in_progress);
+
+        $("#task-3").text(data.tasks.completed);
+        $("#module-3").text(data.modules.completed);
+        $("#feature-3").text(data.features.completed);
+
+        $("#task-4").text(data.tasks.on_hold);
+        $("#module-4").text(data.modules.on_hold);
+        $("#feature-4").text(data.features.on_hold);
+    },
+    error: function(xhr, status, error) {
+        console.error("Error fetching dashboard data:", error);
+    }
+});
