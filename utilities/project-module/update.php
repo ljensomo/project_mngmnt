@@ -11,6 +11,7 @@ $module->setId($_POST['module_id']);
 $module->setModule($_POST['module']);
 $module->setDescription($_POST['description']);
 $module->setStatus($_POST['status']);
+$module->setVersion($_POST['version_id']);
 
 if($module->update()) {
     echo json_encode(['success' => true, 'message' => 'Module ('.$_POST['module'].') has been updated successfully.']);

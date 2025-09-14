@@ -6,14 +6,15 @@ require_once '../../utilities/utilities.php';
 
 isValidRequest([$_POST['feature_id'], $_POST['feature'], $_POST['description']]);
 
-$task = new ProjectFeature($_POST['project_id']);
-$task->setId($_POST['feature_id']);
-$task->setFeature($_POST['feature']);
-$task->setDescription($_POST['description']);
-$task->setStatus($_POST['status']);
+$feature = new ProjectFeature($_POST['project_id']);
+$feature->setId($_POST['feature_id']);
+$feature->setFeature($_POST['feature']);
+$feature->setDescription($_POST['description']);
+$feature->setStatus($_POST['status']);
+$feature->setVersion($_POST['version_id']);
 
-if($task->update()) {
+if($feature->update()) {
     echo json_encode(['success' => true, 'message' => 'Feature ('.$_POST['feature'].') has been updated successfully.']);
 } else {
-    echo json_encode(['success' => false, 'message' => 'Failed to update task.']);
+    echo json_encode(['success' => false, 'message' => 'Failed to update feature.']);
 }

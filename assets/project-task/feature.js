@@ -27,6 +27,7 @@ let featureTable = initDataTable({
                     return "On Hold";
             }
         }},
+        {data: "version_number"},
         {data: "date_created", className: "text-center"},
         {data: "date_completed", className: "text-center"},
         {data: function(data) {
@@ -85,6 +86,7 @@ createEdtRecordHandler({
         $("#feature").val(data.feature);
         $("#feature-description").val(data.description);
         $("#feature-status").val(data.status);
+        $("#feature-edit-version").val(data.version_id);
         $(feature.modalEditId).modal("toggle");
     }
 });

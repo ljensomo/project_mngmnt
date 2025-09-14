@@ -22,6 +22,7 @@ class ProjectFeature extends Database {
     private $description;
     private $status;
     private $created_by;
+    private $version_id;
 
     public function __construct($project_id = null) {
         parent::__construct(self::TABLE_NAME, self::COLUMNS);
@@ -57,6 +58,10 @@ class ProjectFeature extends Database {
         $this->created_by = $created_by;
     }
 
+    public function setVersion($version_id) {
+        $this->version_id = $version_id;
+    }
+
     public function add() {
         return $this->sqlInsert([
             'project_id' => $this->project_id,
@@ -64,7 +69,8 @@ class ProjectFeature extends Database {
             'feature' => $this->feature,
             'description' => $this->description,
             'status' => $this->status,
-            'created_by' => $this->created_by
+            'created_by' => $this->created_by,
+            'version_id' => $this->version_id
         ]);
     }
 
@@ -74,6 +80,7 @@ class ProjectFeature extends Database {
             'description' => $this->description,
             'status' => $this->status,
             'date_completed' => $this->status == 3 ? date('Y-m-d H:i:s') : null,
+            'version_id' => $this->version_id,
             'id' => $this->id
         ]);
     }
@@ -85,9 +92,11 @@ class ProjectFeature extends Database {
     public function getProjectFeatures(){
         return $this->sqlSelect([
                 'CONCAT(users.first_name, " ", users.last_name) AS created_by',
-                'project_modules.module AS module_name'
+                'project_modules.module AS module_name',
+                'project_versions.version_number'
             ])->join('users', 'users.id = project_features.created_by', 'LEFT JOIN')
             ->join('project_modules', 'project_modules.id = project_features.module_id', 'INNER JOIN')
+            ->join('project_versions', 'project_versions.id = project_features.version_id', 'LEFT JOIN')
             ->where([
                 'column_name' => 'project_features.project_id',
                 'value' => $this->project_id
