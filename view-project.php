@@ -116,6 +116,9 @@
                     <li class="nav-item">
                         <a class="nav-link project-nav-link" href="#">Features</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link project-nav-link" href="#">Versions</a>
+                    </li>
                 </ul>
             </div>
             <div class="card-body">
@@ -123,6 +126,7 @@
                     include 'includes/project/tasks-tab.html';
                     include 'includes/project/modules-tab.html';
                     include 'includes/project/features-tab.html';
+                    include 'includes/project/version-tab.html';
                 ?>
             </div>
         </div>
@@ -133,7 +137,7 @@
         include 'modals/project-task-modals.html';
         include 'modals/project-module-modals.html';
         include 'modals/project-feature-modals.html';
-
+        include 'modals/project-version-modals.html';
         include 'includes/js-assets.html';
     ?>
 
@@ -143,7 +147,7 @@
     <script src="assets/project-task/task.js"></script>
     <script src="assets/project-task/module.js"></script>
     <script src="assets/project-task/feature.js"></script>
-
+    <script src="assets/project-task/version.js"></script>
 </body>
 
 </html>
