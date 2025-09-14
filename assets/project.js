@@ -11,7 +11,7 @@ let projectTable = initDataTable({
     tableId: project.tableId,
     ajaxUrl: project.utilityUrl + "get-all.php",
     columns: [
-        {data: "id"},
+        {data: "id", visible: false},
         {data: "project_name"},
         {data: "description"},
         {data: function(data){

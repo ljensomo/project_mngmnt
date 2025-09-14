@@ -11,7 +11,7 @@ let featureTable = initDataTable({
     tableId: feature.tableId,
     ajaxUrl: feature.utilityUrl + "get-all.php?pid=" + projectId,
     columns: [
-        {data: "id"},
+        {data: "id", visible: false},
         {data: "module_name"},
         {data: "feature"},
         {data: "description"},

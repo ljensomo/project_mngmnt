@@ -11,7 +11,7 @@ let moduleTable = initDataTable({
     tableId: module.tableId,
     ajaxUrl: module.utilityUrl + "get-all.php?pid=" + projectId,
     columns: [
-        {data: "id"},
+        {data: "id", visible: false},
         {data: "module"},
         {data: "description"},
         {data: function(data){
