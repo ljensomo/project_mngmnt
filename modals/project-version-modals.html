@@ -3,29 +3,31 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Create New Task</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Create New Version</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="" id="version-form">
                 <input type="hidden" name="project-id" id="a-version-project-id">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <select name="type" class="form-control">
-                            <option value="">-- Select Type</option>
-                            <option value="1">Enhancement</option>
-                            <option value="2">Bug</option>
+                        <input class="form-control" type="text" name="version_number" placeholder="Version" aria-label="Version" required>
+                    </div>
+                    <div class="mb-3">
+                        <textarea class="form-control" name="remarks" placeholder="Remarks"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <select name="status" id="status" class="form-control">
+                            <option value="">-- Select Status</option>
+                            <option value="1">Development</option>
+                            <option value="2">Published</option>
+                            <option value="3">Active</option>
+                            <option value="4">Archived</option>
+                            <option value="5">Withdrawn</option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <input class="form-control" type="text" name="task" placeholder="Task Name" aria-label="Project Name" required>
-                    </div>
-                    <div class="mb-3">
-                        <textarea class="form-control" name="description" placeholder="Description" required></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <select name="assign-to" id="a-task-assign-to" class="form-control">
-                            <option value="">-- Assign To</option>
-                        </select>
+                        <label for="release_date" class="form-label">Release Date</label>
+                        <input type="date" class="form-control" name="release_date" placeholder="Release Date" aria-label="Release Date">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -45,35 +47,28 @@
                 <h5 class="modal-title" id="staticBackdropLabel">Edit Version Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="" id="task-edit-form">
-                <input type="hidden" name="project_id" id="e-task-project-id">
-                <input type="hidden" name="task_id" id="task-id">
+            <form action="" id="version-edit-form">
+                <input type="hidden" name="project_id" id="e-version-project-id">
+                <input type="hidden" name="version_id" id="version-id">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <select name="type" class="form-control" id="task-type" required>
-                            <option value="">-- Select Type</option>
-                            <option value="1">Enhancement</option>
-                            <option value="2">Bug</option>
+                        <input class="form-control" type="text" name="version_number" placeholder="Version" id="version-number" aria-label="Version" required>
+                    </div>
+                    <div class="mb-3">
+                        <textarea class="form-control" name="remarks" id="version-remarks" placeholder="Remarks"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <select name="status" id="version-status" class="form-control" required>
+                            <option value="1">Development</option>
+                            <option value="2">Published</option>
+                            <option value="3">Active</option>
+                            <option value="4">Archived</option>
+                            <option value="5">Withdrawn</option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <input class="form-control" type="text" name="task" placeholder="Task Name" id="task" aria-label="Project Name" required>
-                    </div>
-                    <div class="mb-3">
-                        <textarea class="form-control" name="description" placeholder="Description" id="description" required></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <select name="assign_to" id="e-task-assign-to" class="form-control">
-                            <option value="">-- Assign To</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <select name="status" id="status" class="form-control" required>
-                            <option value="1">Open</option>
-                            <option value="2">In Progress</option>
-                            <option value="3">Completed</option>
-                            <option value="4">On Hold</option>
-                        </select>
+                        <label for="release_date" class="form-label">Release Date</label>
+                        <input type="date" class="form-control" name="release_date" id="version-release-date" placeholder="Release Date" aria-label="Release Date">
                     </div>
                 </div>
                 <div class="modal-footer">

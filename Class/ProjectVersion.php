@@ -65,7 +65,8 @@ class ProjectVersion extends Database {
             'version_number' => $this->version_number,
             'remarks' => $this->remarks,
             'release_date' => $this->release_date,
-            'status' => $this->status
+            'status' => $this->status,
+            'id' => $this->id
         ]);
     }
 

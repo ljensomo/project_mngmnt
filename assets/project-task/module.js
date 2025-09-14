@@ -26,6 +26,7 @@ let moduleTable = initDataTable({
                     return "On Hold";
             }
         }},
+        {data: "version_number"},
         {data: "date_created", className: "text-center"},
         {data: "date_completed", className: "text-center"},
         {data: function(data) {
@@ -84,6 +85,7 @@ createEdtRecordHandler({
         $("#module").val(data.module);
         $("#module-description").val(data.description);
         $("#module-status").val(data.status);
+        $("#module-edit-version").val(data.version_id);
         $(module.modalEditId).modal("toggle");
     }
 });

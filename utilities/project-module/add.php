@@ -11,6 +11,8 @@ $module->setModule($_POST['module']);
 $module->setDescription($_POST['description']);
 $module->setStatus(1);
 $module->setCreatedBy(1);
+$module->setVersion($_POST['version_id']);
+
 if($module->add()) {
     echo json_encode(['success' => true, 'message' => 'Module ('.$_POST['module'].') has been created successfully.']);
 } else {

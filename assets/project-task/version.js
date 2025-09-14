@@ -7,6 +7,8 @@ const version = {
     utilityUrl: "utilities/project-version/",
 }
 
+$("#a-version-project-id, #e-version-project-id").val(projectId);
+
 let versionTable = initDataTable({
     tableId: version.tableId,
     ajaxUrl: version.utilityUrl + "get-all.php?pid=" + projectId,
@@ -34,6 +36,7 @@ let versionTable = initDataTable({
         {data: "date_created"},
         {data: function(data) {
             return createDataTableBtns({
+                edit: true,
                 delete: true,
                 deleteIcon: "fa-xmark",
                 data: data.id, 
@@ -69,11 +72,10 @@ createEdtRecordHandler({
     utilityURL: version.utilityUrl + "get.php",
     callback: function(data){
         $("#version-id").val(data.id);
-        $("#version-type").val(data.version_type ? data.version_type : "");
-        $("#version").val(data.version);
-        $("#description").val(data.description);
-        $("#e-version-assign-to").val(data.assigned_to ? data.assigned_to : "");
-        $("#status").val(data.status);
+        $("#version-number").val(data.version_number);
+        $("#version-remarks").val(data.remarks);
+        $("#version-status").val(data.status);
+        $("#version-release-date").val(data.release_date);
         $(version.modalEditId).modal("toggle");
     }
 });

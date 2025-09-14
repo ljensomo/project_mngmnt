@@ -58,6 +58,12 @@ populateSelect([
         text: "module",
         value: "id",
     },
+    {
+        url: "utilities/project-version/get-all.php?pid="+projectId,
+        selectId: ["#module-version", "#module-edit-version", "#feature-version", "#feature-edit-version"],
+        text: "version_number",
+        value: "id",
+    }
 ]);
 
 // navigation tabs handler

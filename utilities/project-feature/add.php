@@ -12,6 +12,8 @@ $feature->setFeature($_POST['feature']);
 $feature->setDescription($_POST['description']);
 $feature->setStatus(1);
 $feature->setCreatedBy(1);
+$feature->setVersion($_POST['version_id']);
+
 if($feature->add()) {
     echo json_encode(['success' => true, 'message' => 'Feature ('.$_POST['feature'].') has been created successfully.']);
 } else {
