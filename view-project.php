@@ -37,7 +37,7 @@
                                 <td id="project-description">Loading...</td>
                             </tr>
                             <tr>
-                                <th class="text-end bg-white" style="white-space:nowrap; position:sticky; left:0; z-index:1;">Status</th>
+                                <th class="text-end bg-white" style="white-space:nowrap; position:sticky; left:0; z-index:1;">Phase</th>
                                 <td id="project-status">Loading...</td>
                             </tr>
                             <tr>
