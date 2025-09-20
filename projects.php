@@ -18,15 +18,14 @@
                     <i class="fas fa-plus"></i> New Project
                 </button>
                 <hr>
-                <table id="project-table" class="table table-bordered">
+                <table id="project-table" class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>Project Name</th>
                             <th>Description</th>
                             <th>Status</th>
-                            <th>Date Created</th>
-                            <th>Date Completed</th>
+                            <th>Date Added</th>
                             <th>Created By</th>
                             <th>Actions</th>
                         </tr>

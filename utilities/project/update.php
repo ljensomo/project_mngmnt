@@ -10,7 +10,7 @@ $project = new Project();
 $project->setId($_POST['id']);
 $project->setName($_POST['name']);
 $project->setDescription($_POST['description']);
-$project->setStatus($_POST['status']); // Default status to 1 if not provided
+$project->setPhaseId($_POST['phase']);
 $project->setCreatedBy(1);
 
 if($project->update()) {

@@ -14,20 +14,8 @@ let projectTable = initDataTable({
         {data: "id", visible: false},
         {data: "project_name"},
         {data: "description"},
-        {data: function(data){
-            switch(data.status) {
-                case 1:
-                    return "Open";
-                case 2:
-                    return "In Progress";
-                case 3:
-                    return "Completed";
-                case 4:
-                    return "On Hold";
-            }
-        }, className: "no-wrap-column"},
+        {data: "phase", className: "no-wrap-column"},
         {data: "date_created", className: "text-center no-wrap-column"},
-        {data: "date_completed", className: "text-center no-wrap-column"},
         {data: "created_by_name", className: "text-center"},
         {data: function(data) {
             return createDataTableBtns({
@@ -40,22 +28,6 @@ let projectTable = initDataTable({
             });
         }, className: "text-center no-wrap-column"}
     ],
-    createdRow: function(row, data, dataIndex) {
-        switch(data["status"]) {
-            case 1:
-                $(row).addClass("table-info");
-                break;
-            case 2:
-                $(row).addClass("table-warning");
-                break;
-            case 3:
-                $(row).addClass("table-success");
-                break;
-            case 4:
-                $(row).addClass("table-secondary");
-                break;
-        }
-    }
 });
 
 createFrmSubmitHandler([
@@ -80,7 +52,7 @@ createEdtRecordHandler({
         $("#project-id").val(data.id);
         $("#project-name").val(data.project_name);
         $("#description").val(data.description);
-        $("#status").val(data.status);
+        $("#phase").val(data.phase_id);
         $(project.modalEditId).modal("toggle");
     }
 });
