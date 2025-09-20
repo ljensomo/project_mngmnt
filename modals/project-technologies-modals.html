@@ -1,0 +1,73 @@
+<!-- Modal -->
+<div class="modal fade" id="tech-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Add Technology</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="" id="tech-form">
+                <input type="hidden" name="project-id" id="a-tech-project-id">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <input class="form-control" type="text" name="technology" placeholder="Technology" aria-label="Technology" required>
+                    </div>
+                    <div class="mb-3">
+                        <textarea class="form-control" name="description" placeholder="Description"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <select name="type" id="type" class="form-control">
+                            <option value="">-- Select Type</option>
+                            <option value="Frontend">Frontend</option>
+                            <option value="Backend">Backend</option>
+                            <option value="Database">Database</option>
+                            <option value="DevOps">DevOps</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="tech-edit-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Edit Technology Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="" id="tech-edit-form">
+                <input type="hidden" name="project_id" id="e-tech-project-id">
+                <input type="hidden" name="tech_id" id="tech-id">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <input class="form-control" type="text" name="technology" placeholder="Technology Name" id="tech-name" aria-label="Technology Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <textarea class="form-control" name="description" id="tech-description" placeholder="Description"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <select name="type" id="tech-type" class="form-control" required>
+                            <option value="Frontend">Frontend</option>
+                            <option value="Backend">Backend</option>
+                            <option value="Database">Database</option>
+                            <option value="DevOps">DevOps</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

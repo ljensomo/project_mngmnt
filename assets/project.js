@@ -25,9 +25,9 @@ let projectTable = initDataTable({
                 case 4:
                     return "On Hold";
             }
-        }},
-        {data: "date_created", className: "text-center"},
-        {data: "date_completed", className: "text-center"},
+        }, className: "no-wrap-column"},
+        {data: "date_created", className: "text-center no-wrap-column"},
+        {data: "date_completed", className: "text-center no-wrap-column"},
         {data: "created_by_name", className: "text-center"},
         {data: function(data) {
             return createDataTableBtns({
@@ -38,7 +38,7 @@ let projectTable = initDataTable({
                 view: true, 
                 href: "view-project.php?id=" + data.id
             });
-        }, className: "text-center"}
+        }, className: "text-center no-wrap-column"}
     ],
     createdRow: function(row, data, dataIndex) {
         switch(data["status"]) {
