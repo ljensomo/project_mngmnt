@@ -41,7 +41,8 @@ function initDataTable(parameter){
         },
         processing: true,
         columns: parameter.columns,
-        createdRow: parameter.createdRow
+        createdRow: parameter.createdRow,
+        order: parameter.order ? parameter.order : [[0, "desc"]],
     });
 
     return table;

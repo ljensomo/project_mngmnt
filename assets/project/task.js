@@ -7,40 +7,60 @@ const task = {
     utilityUrl: "utilities/project-task/",
 }
 
+populateSelect([
+    {
+        url: "utilities/task-type/get-all.php",
+        selectId: ["#task-type-1", "#task-type-2"],
+        text: "task_type",
+        value: "id",
+    },
+    {
+        url: "utilities/task-status/get-all.php",
+        selectId: "#status",
+        text: "status",
+        value: "id",
+    },
+]);
+
 let taskTable = initDataTable({
     tableId: task.tableId,
     ajaxUrl: task.utilityUrl + "get-all.php?pid=" + projectId,
     columns: [
         {data: "id"},
-        {data: function(data) {
-            switch(data.task_type) {
-                case 1:
-                    return "Enhancement";
-                case 2:
-                    return "Bug";
-                default:
-                    return "Unknown";
-            }
-        }},
+        {data: "task_type_name"},
         {data: "task"},
-        {data: "description"},
+        {data: "description", visible: false},
         {data: function(data){
             return data.assigned_to ? data.first_name+" "+data.last_name : "(Unassigned)";
         }},
         {data: function(data){
-            switch(data.status) {
+           let badgeClass = '';
+            switch (data.status) {
                 case 1:
-                    return "Open";
+                    badgeClass = 'bg-secondary'; // Backlog
+                    break;
                 case 2:
-                    return "In Progress";
+                    badgeClass = 'bg-primary'; // To Do
+                    break;
                 case 3:
-                    return "Completed";
+                    badgeClass = 'bg-warning text-dark'; // In Progress
+                    break;
                 case 4:
-                    return "On Hold";
+                    badgeClass = 'bg-info text-dark'; // In Review
+                    break;
+                case 5:
+                    badgeClass = 'bg-danger'; // Blocked
+                    break;
+                case 7:
+                    badgeClass = 'bg-success'; // Completed
+                    break;
+                default:
+                    badgeClass = 'bg-light text-dark'; // Fallback
             }
+            return `<span class='badge ${badgeClass}'>${data.status_name}</span>`;
         }},
-        {data: "date_created", className: "text-center"},
-        {data: "date_completed", className: "text-center"},
+        {data: "date_created", className: "text-center no-wrap-column"},
+        {data: "date_completed", className: "text-center no-wrap-column"},
         {data: function(data) {
             return createDataTableBtns({
                 edit: true,
@@ -51,22 +71,6 @@ let taskTable = initDataTable({
             });
         }, className: "text-center"}
     ],
-    createdRow: function(row, data, dataIndex) {
-        switch(data["status"]) {
-            case 1:
-                $(row).addClass("table-info");
-                break;
-            case 2:
-                $(row).addClass("table-warning");
-                break;
-            case 3:
-                $(row).addClass("table-success");
-                break;
-            case 4:
-                $(row).addClass("table-secondary");
-                break;
-        }
-    }
 });
 
 createFrmSubmitHandler([
@@ -95,7 +99,7 @@ createEdtRecordHandler({
     utilityURL: task.utilityUrl + "get.php",
     callback: function(data){
         $("#task-id").val(data.id);
-        $("#task-type").val(data.task_type ? data.task_type : "");
+        $("#task-type-2").val(data.task_type ? data.task_type : "");
         $("#task").val(data.task);
         $("#description").val(data.description);
         $("#e-task-assign-to").val(data.assigned_to ? data.assigned_to : "");

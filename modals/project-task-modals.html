@@ -10,10 +10,9 @@
                 <input type="hidden" name="project-id" id="a-task-project-id">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <select name="type" class="form-control">
-                            <option value="">-- Select Type</option>
-                            <option value="1">Enhancement</option>
-                            <option value="2">Bug</option>
+                        <select name="type" class="form-control" id="task-type-1" required>
+                            <option value="" disabled>-- Choose Type</option>
+                            
                         </select>
                     </div>
                     <div class="mb-3">
@@ -24,7 +23,7 @@
                     </div>
                     <div class="mb-3">
                         <select name="assign-to" id="a-task-assign-to" class="form-control">
-                            <option value="">-- Assign To</option>
+                            <option value="" disabled>-- Choose Assignee</option>
                         </select>
                     </div>
                 </div>
@@ -50,10 +49,9 @@
                 <input type="hidden" name="task_id" id="task-id">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <select name="type" class="form-control" id="task-type" required>
-                            <option value="">-- Select Type</option>
-                            <option value="1">Enhancement</option>
-                            <option value="2">Bug</option>
+                        <select name="type" class="form-control" id="task-type-2" required>
+                            <option value="" disabled>-- Select Type</option>
+                            
                         </select>
                     </div>
                     <div class="mb-3">
@@ -64,15 +62,12 @@
                     </div>
                     <div class="mb-3">
                         <select name="assign_to" id="e-task-assign-to" class="form-control">
-                            <option value="">-- Assign To</option>
+                            <option value="" disabled>-- Choose Assignee</option>
                         </select>
                     </div>
                     <div class="mb-3">
                         <select name="status" id="status" class="form-control" required>
-                            <option value="1">Open</option>
-                            <option value="2">In Progress</option>
-                            <option value="3">Completed</option>
-                            <option value="4">On Hold</option>
+                            <option value="" disabled>-- Choose Status</option>
                         </select>
                     </div>
                 </div>

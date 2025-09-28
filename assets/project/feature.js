@@ -7,6 +7,15 @@ const feature = {
     utilityUrl: "utilities/project-feature/",
 }
 
+populateSelect([
+    {
+        url: "utilities/feature-status/get-all.php",
+        selectId: "#feature-status",
+        text: "status",
+        value: "id",
+    },
+]);
+
 let featureTable = initDataTable({
     tableId: feature.tableId,
     ajaxUrl: feature.utilityUrl + "get-all.php?pid=" + projectId,
@@ -16,20 +25,29 @@ let featureTable = initDataTable({
         {data: "feature"},
         {data: "description"},
         {data: function(data){
-            switch(data.status) {
+            let badgeClass = '';
+            switch (data.status) {
                 case 1:
-                    return "Open";
+                    badgeClass = 'bg-secondary'; // Planned
+                    break;
                 case 2:
-                    return "In Progress";
+                    badgeClass = 'bg-primary'; // In Development
+                    break;
                 case 3:
-                    return "Completed";
+                    badgeClass = 'bg-warning text-dark'; // Testing
+                    break;
                 case 4:
-                    return "On Hold";
+                    badgeClass = 'bg-success'; // Released
+                    break;
+                case 5:
+                    badgeClass = 'bg-dark'; // Deprecated
+                    break;
             }
+            return `<span class="badge ${badgeClass}">${data.status_name}</span>`;
         }},
         {data: "version_number"},
-        {data: "date_created", className: "text-center"},
-        {data: "date_completed", className: "text-center"},
+        {data: "date_created", className: "text-center no-wrap-column"},
+        {data: "date_completed", className: "text-center no-wrap-column"},
         {data: function(data) {
             return createDataTableBtns({
                 edit: true,
@@ -39,22 +57,6 @@ let featureTable = initDataTable({
             });
         }, className: "text-center"}
     ],
-    createdRow: function(row, data, dataIndex) {
-        switch(data["status"]) {
-            case 1:
-                $(row).addClass("table-info");
-                break;
-            case 2:
-                $(row).addClass("table-warning");
-                break;
-            case 3:
-                $(row).addClass("table-success");
-                break;
-            case 4:
-                $(row).addClass("table-secondary");
-                break;
-        }
-    }
 });
 
 createFrmSubmitHandler([

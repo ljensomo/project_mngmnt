@@ -93,10 +93,12 @@ class ProjectFeature extends Database {
         return $this->sqlSelect([
                 'CONCAT(users.first_name, " ", users.last_name) AS created_by',
                 'project_modules.module AS module_name',
-                'project_versions.version_number'
+                'project_versions.version_number',
+                'feature_statuses.status AS status_name'
             ])->join('users', 'users.id = project_features.created_by', 'LEFT JOIN')
             ->join('project_modules', 'project_modules.id = project_features.module_id', 'INNER JOIN')
             ->join('project_versions', 'project_versions.id = project_features.version_id', 'LEFT JOIN')
+            ->join('feature_statuses', 'feature_statuses.id = project_features.status', 'LEFT JOIN')
             ->where([
                 'column_name' => 'project_features.project_id',
                 'value' => $this->project_id
