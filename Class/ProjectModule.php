@@ -87,8 +87,10 @@ class ProjectModule extends Database {
         return $this->sqlSelect([
                 'CONCAT(users.first_name, " ", users.last_name) AS created_by',
                 'project_versions.version_number',
+                'module_statuses.status AS status_name',
             ])->join('users', 'users.id = project_modules.created_by', 'LEFT JOIN')
             ->join('project_versions', 'project_versions.id = project_modules.version_id', 'LEFT JOIN')
+            ->join('module_statuses', 'module_statuses.id = project_modules.status', 'LEFT JOIN')
             ->where([
                 'column_name' => 'project_modules.project_id',
                 'value' => $this->project_id

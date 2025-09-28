@@ -7,6 +7,15 @@ const module = {
     utilityUrl: "utilities/project-module/",
 }
 
+populateSelect([
+    {
+        url: "utilities/module-status/get-all.php",
+        selectId: "#module-status",
+        text: "status",
+        value: "id",
+    },
+]);
+
 let moduleTable = initDataTable({
     tableId: module.tableId,
     ajaxUrl: module.utilityUrl + "get-all.php?pid=" + projectId,
@@ -15,16 +24,22 @@ let moduleTable = initDataTable({
         {data: "module"},
         {data: "description"},
         {data: function(data){
+            let badgeClass = '';
             switch(data.status) {
                 case 1:
-                    return "Open";
+                    badgeClass = 'bg-secondary'; // Planned
+                    break;
                 case 2:
-                    return "In Progress";
+                    badgeClass = 'bg-primary'; // Active
+                    break;
                 case 3:
-                    return "Completed";
+                    badgeClass = 'bg-success'; // Stable
+                    break;
                 case 4:
-                    return "On Hold";
+                    badgeClass = 'bg-dark'; // Deprecated
+                    break;
             }
+            return `<span class="badge ${badgeClass}">${data.status_name}</span>`;
         }},
         {data: "version_number"},
         {data: "date_created", className: "text-center"},
@@ -38,22 +53,6 @@ let moduleTable = initDataTable({
             });
         }, className: "text-center"}
     ],
-    createdRow: function(row, data, dataIndex) {
-        switch(data["status"]) {
-            case 1:
-                $(row).addClass("table-info");
-                break;
-            case 2:
-                $(row).addClass("table-warning");
-                break;
-            case 3:
-                $(row).addClass("table-success");
-                break;
-            case 4:
-                $(row).addClass("table-danger");
-                break;
-        }
-    }
 });
 
 createFrmSubmitHandler([

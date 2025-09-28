@@ -8,6 +8,7 @@ class Project extends Database {
         'project_name',
         'description',
         'status',
+        'phase_id',
         'created_by',
         'date_created',
         'date_completed'
@@ -17,6 +18,7 @@ class Project extends Database {
     private $name;
     private $description;
     private $status;
+    private $phase_id;
     private $created_by;
     private $select_columns = array();
 
@@ -41,6 +43,10 @@ class Project extends Database {
         $this->status = $status;
     }
 
+    public function setPhaseId($phase_id) {
+        $this->phase_id = $phase_id;
+    }
+
     public function setCreatedBy($created_by) {
         $this->created_by = $created_by;
     }
@@ -60,6 +66,7 @@ class Project extends Database {
                 'project_name' => $this->name,
                 'description' => $this->description,
                 'status' => $this->status,
+                'phase_id' => $this->phase_id,
                 'created_by' => $this->created_by,
                 'date_completed' => $this->status == 3 ? date('Y-m-d H:i:s') : null,
                 'id' => $this->id
@@ -73,8 +80,10 @@ class Project extends Database {
 
     public function getProjects() {
         return $this->sqlSelect([
-                'CONCAT(users.first_name, " ", users.last_name) AS created_by_name'
+                'CONCAT(users.first_name, " ", users.last_name) AS created_by_name',
+                'sdlc_phases.phase'
             ])->join('users', 'users.id = projects.created_by', 'INNER JOIN')
+            ->join('sdlc_phases', 'sdlc_phases.id = projects.phase_id', 'INNER JOIN')
             ->getAll();
     }
 

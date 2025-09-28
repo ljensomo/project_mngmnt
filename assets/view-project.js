@@ -17,22 +17,27 @@ $.ajax({
         $("#project-description").text(data.description);
         $("#project-date-created").text(data.date_created);
         let statusText, statusClass;
-        switch(data.status) {
+        switch(data.phase_id){
             case 1:
-                statusText = "Open";
-                statusClass = "table-info";
+                statusText = "Planning";
                 break;
             case 2:
-                statusText = "In Progress";
-                statusClass = "table-warning";
+                statusText = "Design";
                 break;
             case 3:
-                statusText = "Completed";
-                statusClass = "table-success";
+                statusText = "Development";
                 break;
             case 4:
-                statusText = "On Hold";
-                statusClass = "table-secondary";
+                statusText = "Testing";
+                break;
+            case 5:
+                statusText = "Deployment";
+                break;
+            case 6:
+                statusText = "Maintenance";
+                break;
+            case 7:
+                statusText = "Closed";
                 break;
         }
         $("#project-status")
