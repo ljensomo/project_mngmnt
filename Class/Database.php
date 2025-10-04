@@ -135,9 +135,6 @@ class Database {
                 $this->where(['column_name' => 'id', 'operator' => '=', 'value' => $parameter]);
             }
 
-            // if($key === 'id' && $x === 1){
-            //     continue;
-            // }
             $x++;
         }
 
@@ -157,16 +154,7 @@ class Database {
             }
         }
 
-        // if($condition != null){
-        //     $this->update_query .= ' WHERE '.$condition['column_name'].' '.$condition['operator'].' ?';
-        //     $query_parameters[] = $condition['value'];
-        // }else{
-        //     $this->update_query .= ' WHERE id = ?';
-        //     $query_parameters[] = $parameters['id'];
-        // }
-
         $this->setQuery($this->update_query);
-        // $this->setParameters($query_parameters);
         return $this->executeQuery();
     }
 
