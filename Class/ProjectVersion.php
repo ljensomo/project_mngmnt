@@ -90,8 +90,10 @@ class ProjectVersion extends Database {
                 self::TABLE_NAME.'.status',
                 self::TABLE_NAME.'.target_date_release',
                 self::TABLE_NAME.'.date_released',
-                self::TABLE_NAME.'.date_created'
-            ])->where([
+                self::TABLE_NAME.'.date_created',
+                'version_statuses.status AS status_name'
+            ])->join('version_statuses', 'version_statuses.id = '.self::TABLE_NAME.'.status', 'LEFT JOIN')
+            ->where([
                 'column_name' => 'project_id',
                 'operator' => '=',
                 'value' => $this->project_id
