@@ -8,7 +8,7 @@ isValidRequest([$_POST['version_number'], $_POST['project-id']]);
 
 $task = new ProjectVersion($_POST['project-id']);
 $task->setVersionNumber($_POST['version_number']);
-$task->setReleaseDate($_POST['release_date']);
+$task->setTargetDateRelease($_POST['release_date']);
 $task->setRemarks($_POST['remarks']);
 $task->setStatus($_POST['status']);
 if($task->add()) {

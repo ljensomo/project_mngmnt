@@ -32,7 +32,8 @@ let versionTable = initDataTable({
                     return "Unknown";
             }
         }},
-        {data: "release_date"},
+        {data: "target_date_release"},
+        {data: "date_released"},
         {data: "date_created"},
         {data: function(data) {
             return createDataTableBtns({
@@ -75,7 +76,8 @@ createEdtRecordHandler({
         $("#version-number").val(data.version_number);
         $("#version-remarks").val(data.remarks);
         $("#version-status").val(data.status);
-        $("#version-release-date").val(data.release_date);
+        $("#version-target-date-release").val(data.target_date_release);
+        $("#version-release-date").val(data.date_released);
         $(version.modalEditId).modal("toggle");
     }
 });

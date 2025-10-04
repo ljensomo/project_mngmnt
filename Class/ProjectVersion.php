@@ -9,7 +9,8 @@ class ProjectVersion extends Database {
         'version_number',
         'remarks',
         'status',
-        'release_date',
+        'target_date_release',
+        'date_released',
         'date_created'
     ];
 
@@ -18,7 +19,8 @@ class ProjectVersion extends Database {
     private $version_number;
     private $remarks;
     private $status;
-    private $release_date;
+    private $target_date_release;
+    private $date_released;
 
     public function __construct($project_id = null) {
         parent::__construct(self::TABLE_NAME, self::COLUMNS);
@@ -42,8 +44,12 @@ class ProjectVersion extends Database {
         $this->remarks = $remarks;
     }
 
+    public function setTargetDateRelease($target_date_release) {
+        $this->target_date_release = $target_date_release;
+    }
+
     public function setReleaseDate($release_date) {
-        $this->release_date = $release_date;
+        $this->date_released = $release_date;
     }
 
     public function setStatus($status) {
@@ -55,7 +61,8 @@ class ProjectVersion extends Database {
             'project_id' => $this->project_id,
             'version_number' => $this->version_number,
             'remarks' => $this->remarks,
-            'release_date' => $this->release_date,
+            'target_date_release' => $this->target_date_release,
+            'date_released' => $this->date_released,
             'status' => $this->status
         ]);
     }
@@ -64,7 +71,8 @@ class ProjectVersion extends Database {
         return $this->sqlUpdate([
             'version_number' => $this->version_number,
             'remarks' => $this->remarks,
-            'release_date' => $this->release_date,
+            'target_date_release' => $this->target_date_release,
+            'date_released' => $this->date_released,
             'status' => $this->status,
             'id' => $this->id
         ]);
@@ -80,7 +88,8 @@ class ProjectVersion extends Database {
                 self::TABLE_NAME.'.version_number',
                 self::TABLE_NAME.'.remarks',
                 self::TABLE_NAME.'.status',
-                self::TABLE_NAME.'.release_date',
+                self::TABLE_NAME.'.target_date_release',
+                self::TABLE_NAME.'.date_released',
                 self::TABLE_NAME.'.date_created'
             ])->where([
                 'column_name' => 'project_id',
