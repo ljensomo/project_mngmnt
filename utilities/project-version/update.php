@@ -11,6 +11,7 @@ $version->setId($_POST['version_id']);
 $version->setVersionNumber($_POST['version_number']);
 $version->setRemarks($_POST['remarks']);
 $version->setStatus($_POST['status']);
+$version->setTargetDateRelease($_POST['target_date_release']);
 $version->setReleaseDate($_POST['release_date']);
 
 if($_POST['status'] == 3) {
