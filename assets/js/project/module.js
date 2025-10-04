@@ -43,7 +43,7 @@ let moduleTable = initDataTable({
         }},
         {data: "version_number"},
         {data: "date_created", className: "text-center"},
-        {data: "date_completed", className: "text-center"},
+        {data: "date_completed", className: "text-center", visible: false},
         {data: function(data) {
             return createDataTableBtns({
                 edit: true,
