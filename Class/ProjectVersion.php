@@ -76,17 +76,34 @@ class ProjectVersion extends Database {
 
     public function getProjectVersions(){
         return $this->sqlSelect([
-                'project_versions.id',
-                'project_versions.version_number',
-                'project_versions.remarks',
-                'project_versions.status',
-                'project_versions.release_date',
-                'project_versions.date_created'
+                self::TABLE_NAME.'.id',
+                self::TABLE_NAME.'.version_number',
+                self::TABLE_NAME.'.remarks',
+                self::TABLE_NAME.'.status',
+                self::TABLE_NAME.'.release_date',
+                self::TABLE_NAME.'.date_created'
             ])->where([
                 'column_name' => 'project_id',
                 'operator' => '=',
                 'value' => $this->project_id
             ])->getAll();
+    }
+
+    public function deactivateOtherVersions() {
+        return $this->sqlUpdate([
+            'status' => 4,
+        ],[
+            'where' => [
+                'column_name' => 'project_id',
+                'operator' => '=',
+                'value' => $this->project_id
+            ],
+            'and' => [
+                'column_name' => 'status',
+                'operator' => '=',
+                'value' => 3
+            ]
+        ]);
     }
 
     public function getById($id) {

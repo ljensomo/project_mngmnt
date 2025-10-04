@@ -13,6 +13,10 @@ $version->setRemarks($_POST['remarks']);
 $version->setStatus($_POST['status']);
 $version->setReleaseDate($_POST['release_date']);
 
+if($_POST['status'] == 3) {
+    $version->deactivateOtherVersions();
+}
+
 if($version->update()) {
     echo json_encode(['success' => true, 'message' => 'Version ('.$_POST['version_number'].') has been updated successfully.']);
 } else {

@@ -18,6 +18,9 @@ class Database {
     private $update_query;
     private $columns = [];
 
+    private $isSelectQuery = false;
+    private $isUpdateQuery = false;
+
     public function __construct($table_name, $columns = []) {
         $this->table_name = $table_name;
         $this->columns = $columns;
@@ -56,6 +59,8 @@ class Database {
     }
 
     public function executeQuery() {
+        $this->reset();
+
         if (!$this->conn) {
             throw new \Exception("Database connection is not established.");
         }
@@ -100,6 +105,8 @@ class Database {
 
     public function sqlSelect($columns = []){
 
+        $this->isSelectQuery = true;
+
         $query_columns = $this->getTableColumns();
         foreach ($columns as $column) {
            array_push($query_columns, $column); 
@@ -111,31 +118,55 @@ class Database {
         return $this;
     }
 
-    public function sqlUpdate($parameters, $condition = null){
+    public function sqlUpdate($parameters, $conditions = null){
+
+        $this->isUpdateQuery = true;
         // build parameterized columns
         $x = 1;
-        $query_parameters = [];
+        $this->parameters = [];
         foreach($parameters as $key => $parameter){
             if ($key != 'id') {
 
                 $this->update_query .= $key . ' = ?';
-                $query_parameters[] = $parameter;
+                $this->parameters[] = $parameter;
 
                 if ($x < (count($parameters) - 1) ) $this->update_query .= ', ';
+            }else{
+                $this->where(['column_name' => 'id', 'operator' => '=', 'value' => $parameter]);
             }
 
-            if($key === 'id' && $x === 1){
-                continue;
-            }
+            // if($key === 'id' && $x === 1){
+            //     continue;
+            // }
             $x++;
         }
 
-        $this->update_query .= ' WHERE id = ?';
+        if($conditions != null){
+            foreach($conditions as $key => $condition){
+                switch($key){
+                    case 'where':
+                        $this->where($condition);
+                        break;
+                    case 'and':
+                        $this->andWhere($condition);
+                        break;
+                    case 'or':
+                        $this->orWhere($condition);
+                        break;
+                }
+            }
+        }
 
-        $query_parameters[] = $parameters['id'];
+        // if($condition != null){
+        //     $this->update_query .= ' WHERE '.$condition['column_name'].' '.$condition['operator'].' ?';
+        //     $query_parameters[] = $condition['value'];
+        // }else{
+        //     $this->update_query .= ' WHERE id = ?';
+        //     $query_parameters[] = $parameters['id'];
+        // }
 
         $this->setQuery($this->update_query);
-        $this->setParameters($query_parameters);
+        // $this->setParameters($query_parameters);
         return $this->executeQuery();
     }
 
@@ -146,14 +177,14 @@ class Database {
     }
 
     public function sqlFetchAll($condition = null){
-        $this->buildSelectWhereClause($condition);
+        $this->buildWhereClause($condition);
         $this->setQuery($this->select_query);
         $this->executeQuery();
         return $this->stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function sqlFetchSingle($condition = null){
-        $this->buildSelectWhereClause($condition);
+        $this->buildWhereClause($condition);
         $this->setQuery($this->select_query);
         $this->executeQuery();
         return $this->stmt->fetch(\PDO::FETCH_ASSOC);
@@ -167,29 +198,41 @@ class Database {
     }
 
     public function where($condition){
-        $this->buildSelectWhereClause(['where' => $condition]);
+        $this->buildWhereClause(['where' => $condition]);
 
         return $this;
     }
 
-    public function buildSelectWhereClause($conditions){
+    public function andWhere($condition){
+        $this->buildWhereClause(['and' => $condition]);
+
+        return $this;
+    }
+
+    public function orWhere($condition){
+        $this->buildWhereClause(['or' => $condition]);
+
+        return $this;
+    }
+
+    public function buildWhereClause($conditions){
 
         if($conditions != null){
 
             foreach($conditions as $key => $condition){
 
-                $logical_operator = 'WHERE';
-
-                if( strpos($this->select_query, 'WHERE') !== false ){
-                    $logical_operator = 'AND';
-                }
+                $logical_operator = $key;
 
                 if(!array_key_exists('operator', $condition)){
                     $condition['operator'] = '=';
                 }
 
                 $query_condition = ' ' . $logical_operator . ' ' . $condition['column_name'] . ' ' .$condition['operator'] . ' ?';
-                $this->select_query .= $query_condition;
+                if($this->isSelectQuery){
+                    $this->select_query .= $query_condition;
+                }else if($this->isUpdateQuery){
+                    $this->update_query .= $query_condition;
+                }
 
                 // set parameter value
                 $this->parameters[] = $condition['value'];
@@ -224,5 +267,17 @@ class Database {
             array_push($select_columns, $this->table_name.'.'.$column);
         }
         return $select_columns;
+    }
+
+    public function reset() {
+        $this->isSelectQuery = false;
+        $this->isUpdateQuery = false;
+
+        $this->resetQuery();
+    }
+
+    public function resetQuery() {
+        $this->select_query = 'SELECT * FROM '.$this->table_name;
+        $this->update_query = 'UPDATE '.$this->table_name.' SET ';
     }
 }
