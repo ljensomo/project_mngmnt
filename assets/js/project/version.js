@@ -17,20 +17,25 @@ let versionTable = initDataTable({
         {data: "version_number"},
         {data: "remarks"},
         {data: function(data){
+            let badgeClass = '';
             switch(data.status) {
                 case 1:
-                    return "Development";
+                    badgeClass = 'bg-info'; // Development
+                    break;
                 case 2:
-                    return "Published";
+                    badgeClass = 'bg-primary'; // Published
+                    break;
                 case 3:
-                    return "Active";
+                    badgeClass = 'bg-success'; // Active
+                    break;
                 case 4:
-                    return "Archived";
+                    badgeClass = 'bg-secondary'; // Archived
+                    break;
                 case 5:
-                    return "Withdrawn";
-                default:
-                    return "Unknown";
+                    badgeClass = 'bg-dark'; // Withdrawn
+                    break;
             }
+            return `<span class="badge ${badgeClass}">${data.status_name}</span>`;
         }},
         {data: "target_date_release"},
         {data: "date_released"},
