@@ -5,9 +5,9 @@ require_once '../../Class/User.php';
 require_once '../../utilities/utilities.php';
 
 // Validate request parameters
-isValidRequest([$_POST['id']]);
+isValidRequest([$_GET['id']]);
 
 $user = new User();
-$userData = $user->getById($_POST['id']);
+$userData = $user->getById($_GET['id']);
 
 echo json_encode(['success' => true, 'data' => $userData]);
