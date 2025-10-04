@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects</title>
+    <title>Projects | PMS</title>
 
     <?php include 'includes/css-assets.html'; ?>
 </head>
@@ -35,7 +35,7 @@
                                     <th>Description</th>
                                     <th>Status</th>
                                     <th>Date Added</th>
-                                    <th>Created By</th>
+                                    <th class="no-wrap-column">Created By</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
