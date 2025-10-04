@@ -27,7 +27,9 @@ let taskTable = initDataTable({
     ajaxUrl: task.utilityUrl + "get-all.php?pid=" + projectId,
     columns: [
         {data: "id"},
-        {data: "task_type_name"},
+        {data: function(data){
+            return "<i class='fas "+getIcon(data.task_type_name)+" me-1'></i>"+data.task_type_name;
+        }},
         {data: "task"},
         {data: "description", visible: false},
         {data: function(data){
@@ -57,7 +59,7 @@ let taskTable = initDataTable({
                 default:
                     badgeClass = 'bg-light text-dark'; // Fallback
             }
-            return `<span class='badge ${badgeClass}'>${data.status_name}</span>`;
+            return `<span class='badge ${badgeClass}'> ${data.status_name}</span>`;
         }},
         {data: "date_created", className: "text-center no-wrap-column"},
         {data: "date_completed", className: "text-center no-wrap-column"},
@@ -107,3 +109,36 @@ createEdtRecordHandler({
         $(task.modalEditId).modal("toggle");
     }
 });
+
+function getIcon(taskType) {
+    switch (taskType) {
+        case 'Bug':
+            return 'fa-bug';
+        case 'Feature':
+            return 'fa-star';
+        case 'Improvement':
+            return 'fa-layer-group';
+        case 'Research':
+            return 'fa-magnifying-glass';
+        case 'Documentation':
+            return 'fa-file-lines';
+        case 'Designing':
+            return 'fa-pencil-ruler';
+        case 'Testing':
+            return 'fa-vial';
+        case 'Deployment':
+            return 'fa-rocket';
+        case 'Meeting':
+            return 'fa-handshake';
+        case 'Review':
+            return 'fa-check-double';
+        case 'Training':
+            return 'fa-graduation-cap';
+        case 'Maintenance':
+            return 'fa-tools';
+        case 'Support':
+            return 'fa-headset';
+        case 'Approval':
+            return 'fa-thumbs-up';
+    }
+}
