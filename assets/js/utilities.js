@@ -71,6 +71,8 @@ function createDataTableBtns(button){
         button.custom.forEach(function(customButton) {
             buttons += " "; // Add space between buttons
             buttons += createButton({
+                anchor: customButton.anchor || false,
+                href: customButton.href || "#",
                 type: customButton.type || "secondary",
                 icon: customButton.icon || "fa-cog",
                 id: customButton.id || "custom-"+button.name,

@@ -17,6 +17,11 @@
       </a>
     </li>
     <li class="nav-item">
+      <a class="nav-link text-white <?php echo basename($_SERVER['PHP_SELF']) == 'database-backups.php' ? 'active bg-white text-primary fw-bold' : ''; ?>" href="database-backups.php">
+        <i class="fas fa-database me-2"></i> Database Backups
+      </a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link text-white" href="#">
         <i class="fas fa-cogs me-2"></i> Settings
       </a>

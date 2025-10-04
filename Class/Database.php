@@ -46,6 +46,22 @@ class Database {
         }
     }
 
+    public function getHost() {
+        return $this->host;
+    }
+
+    public function getDatabaseName() {
+        return $this->db_name;
+    }
+
+    public function getUsername() {
+        return $this->username;
+    }
+
+    public function getPassword() {
+        return $this->password;
+    }
+
     public function getConnection() {
         return $this->conn;
     }
