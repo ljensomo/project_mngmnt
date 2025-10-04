@@ -47,7 +47,7 @@ let featureTable = initDataTable({
         }},
         {data: "version_number"},
         {data: "date_created", className: "text-center no-wrap-column"},
-        {data: "date_completed", className: "text-center no-wrap-column"},
+        {data: "date_completed", className: "text-center no-wrap-column", visible: false},
         {data: function(data) {
             return createDataTableBtns({
                 edit: true,
