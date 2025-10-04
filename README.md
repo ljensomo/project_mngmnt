@@ -1,4 +1,4 @@
-# Simple Project Management
+# Project Management System
 
 This project is created to my manage project ideas, list down modules and features of projects and list tasks need to be done. Additionally to use it to monitor what tasks have been completed, pending, open and on hold.
 
