@@ -79,7 +79,7 @@ class ProjectFeature extends Database {
             'feature' => $this->feature,
             'description' => $this->description,
             'status' => $this->status,
-            'date_completed' => $this->status == 3 ? date('Y-m-d H:i:s') : null,
+            'date_completed' => $this->status == 4 ? date('Y-m-d H:i:s') : null,
             'version_id' => $this->version_id,
             'id' => $this->id
         ]);
