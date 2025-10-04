@@ -8,9 +8,9 @@
         header("Location: login.php");
     }
 ?>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm fixed-top">
+<nav class="navbar navbar-light navbar-expand-lg shadow-sm fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand fw-bold text-uppercase" href="#">Project Management</a>
+    <a class="navbar-brand" href="#">Project Management System</a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -20,7 +20,7 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
       <span class="navbar-text text-white ms-auto">
         <i class="fas fa-user-circle me-1"></i> Logged in: 
-        <strong>
+        <strong class="active-text">
           <?php echo $_SESSION['user']['first_name'].' '.$_SESSION['user']['last_name']; ?>
         </strong>
       </span>

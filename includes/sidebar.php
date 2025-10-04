@@ -1,5 +1,5 @@
-<nav class="sidebar bg-dark text-white p-3 shadow-sm" style="width: 250px; min-height: 100vh;">
-  <h4 class="text-center text-uppercase fw-bold mb-4">Admin Panel</h4>
+<nav class="sidebar text-white p-3 shadow-sm" style="width: 250px; min-height: 100vh;">
+  <h4 class="text-center text-uppercase inactive-text fw-bold mb-4">Admin Panel</h4>
   <ul class="nav flex-column">
     <li class="nav-item">
       <a class="nav-link text-white" href="#">

@@ -1,3 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root {
+  /* Set a variable for easy management */
+  --font-primary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+
+  --color-bg-primary: #333333;    /* Application Body */
+  --color-bg-content: #666666;    /* Main Content Area */
+  --color-text-primary: #EBEBEB;  /* High-emphasis text */
+  
+  /* NEW: Card Elevation Surface */
+  --color-bg-card-elevated: #353A41;
+}
+
+body {
+  /* Applies the font to all text */
+  font-family: var(--font-primary); 
+  /* Sets the default weight for body text */
+  font-weight: 400; 
+  /* The size should be comfortable, like 16px */
+  font-size: 1rem; 
+  /* Set the text and background colors from the Dark Mode Palette */
+  color: var(--color-bg-primary) !important;
+  background-color: #FFFFFF;
+}
+
 .no-wrap-column {
     white-space: nowrap;
 }
@@ -8,7 +34,7 @@
 }
 
 .navbar-brand {
-  padding-left: 250px;
+  padding-left: 260px;
 }
 
 /* sidebar */
@@ -28,26 +54,40 @@ nav.bg-dark {
   height: 100vh;
   width: 250px;
   z-index: 1000;
-  background-color: #343a40;
+  background-color: #EBEBEB;
 }
 
 .sidebar .nav-link {
+  color: var(--color-bg-primary) !important;
   padding: 10px;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .sidebar .nav-link:hover {
   background-color: #495057;
-  color: #ffc107;
+  color: var(--color-text-primary) !important;
 }
 
 .navbar {
   z-index: 1000;
+  background-color: #FFFFFF;
+}
+
+.navbar .navbar-brand, span.navbar-text {
+  color: var(--color-bg-primary) !important;
 }
 
 .sidebar .nav-link.active {
-  background-color: #ffffff;
+  background-color: #EBEBEB;
   color: #0d6efd !important;
   font-weight: bold;
   border-radius: 5px;
+}
+
+.active-text{
+  color: var(--color-bg-primary) !important;
+}
+
+.inactive-text{
+  color: var(--color-bg-content) !important;
 }

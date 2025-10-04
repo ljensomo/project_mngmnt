@@ -12,7 +12,7 @@ let projectTable = initDataTable({
     ajaxUrl: project.utilityUrl + "get-all.php",
     columns: [
         {data: "id", visible: false},
-        {data: "project_name"},
+        {data: "project_name", className: "no-wrap-column"},
         {data: "description"},
         {data: "phase", className: "no-wrap-column"},
         {data: "date_created", className: "text-center no-wrap-column"},
