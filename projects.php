@@ -54,8 +54,8 @@
     ?>
 
     <!-- custom scripts -->
-    <script src="assets/utilities.js"></script>
-    <script src="assets/project.js"></script>
+    <script src="assets/js/utilities.js"></script>
+    <script src="assets/js/project.js"></script>
 </body>
 
 </html>

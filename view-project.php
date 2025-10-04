@@ -157,13 +157,13 @@
     ?>
 
     <!-- custom scripts -->
-    <script src="assets/utilities.js"></script>
-    <script src="assets/view-project.js"></script>
-    <script src="assets/project/task.js"></script>
-    <script src="assets/project/module.js"></script>
-    <script src="assets/project/feature.js"></script>
-    <script src="assets/project/version.js"></script>
-    <script src="assets/project/technology.js"></script>
+    <script src="assets/js/utilities.js"></script>
+    <script src="assets/js/view-project.js"></script>
+    <script src="assets/js/project/task.js"></script>
+    <script src="assets/js/project/module.js"></script>
+    <script src="assets/js/project/feature.js"></script>
+    <script src="assets/js/project/version.js"></script>
+    <script src="assets/js/project/technology.js"></script>
 </body>
 
 </html>
