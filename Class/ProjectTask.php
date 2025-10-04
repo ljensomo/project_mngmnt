@@ -85,7 +85,7 @@ class ProjectTask extends Database {
             'description' => $this->description,
             'status' => $this->status,
             'assigned_to' => $this->assigned_to,
-            'date_completed' => $this->status == 3 ? date('Y-m-d H:i:s') : null,
+            'date_completed' => $this->status == 7 || $this->status == 8 ? date('Y-m-d H:i:s') : null,
             'id' => $this->id
         ]);
     }
