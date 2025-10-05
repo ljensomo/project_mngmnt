@@ -44,10 +44,6 @@
                     unset($_SESSION['access_error']);
                 }
                 ?>
-                <!-- <div class="text-center mb-4">
-                    <h1 class="">Project Management System</h1>
-                </div> -->
-
                 <div class="card login-card">
                     <div class="card-header text-center">
                         <h4>Login | Project Mangement System</h4>
@@ -74,7 +70,7 @@
     </div>
 
     <?php include 'includes/js-assets.html'; ?>
-    <script src="assets/login.js"></script>
+    <script src="assets/js/login.js"></script>
 </body>
 
 </html>
