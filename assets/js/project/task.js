@@ -24,7 +24,7 @@ populateSelect([
 
 let taskTable = initDataTable({
     tableId: task.tableId,
-    ajaxUrl: task.utilityUrl + "get-all.php?pid=" + projectId,
+    ajaxUrl: task.utilityUrl + "get-open-tasks.php?pid=" + projectId,
     columns: [
         {data: "id"},
         {data: function(data){
@@ -70,6 +70,8 @@ let taskTable = initDataTable({
                 deleteIcon: "fa-xmark",
                 data: data.id, 
                 name: "task",
+                view: true,
+                href: "task-view.php?tid="+data.id
             });
         }, className: "text-center"}
     ],

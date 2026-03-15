@@ -118,6 +118,38 @@ class ProjectTask extends Database {
             ])->getAll();
     }
 
+    public function getOpenProjectTasks(){
+        return $this->sqlSelect([
+                self::TABLE_NAME.'.id',
+                self::TABLE_NAME.'.task_type',
+                self::TABLE_NAME.'.task',
+                self::TABLE_NAME.'.description',
+                self::TABLE_NAME.'.status',
+                self::TABLE_NAME.'.assigned_to',
+                self::TABLE_NAME.'.date_created',
+                self::TABLE_NAME.'.date_completed',
+                'users.first_name',
+                'users.last_name',
+                'task_types.task_type AS task_type_name',
+                'task_statuses.status AS status_name',
+            ])->join('users', 'users.id = project_tasks.assigned_to', 'LEFT JOIN')
+            ->join('task_types', 'task_types.id = project_tasks.task_type', 'LEFT JOIN')
+            ->join('task_statuses', 'task_statuses.id = project_tasks.status', 'LEFT JOIN')
+            ->where([
+                'column_name' => 'project_tasks.status',
+                'operator' => '!=', 
+                'value' => 7
+            ])->andWhere([
+                'column_name' => 'project_tasks.status',
+                'operator' => '!=', 
+                'value' => 8
+            ])->andWhere([
+                'column_name' => 'project_id',
+                'operator' => '=',
+                'value' => $this->project_id
+            ])->getAll();
+    }
+
     public function getProjectTasksByStatus($status){
         return $this->sqlSelect()
             ->where([
