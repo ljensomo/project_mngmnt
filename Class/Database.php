@@ -284,4 +284,9 @@ class Database {
         $this->select_query = 'SELECT * FROM '.$this->table_name;
         $this->update_query = 'UPDATE '.$this->table_name.' SET ';
     }
+
+    public function orderBy($column, $direction = 'ASC') {
+        $this->select_query .= " ORDER BY $column $direction";
+        return $this;
+    }
 }

@@ -6,7 +6,9 @@ require_once '../../utilities/utilities.php';
 
 isValidRequest([$_POST['task_id'], $_POST['task'], $_POST['description']]);
 
-$task = new ProjectTask($_POST['project_id']);
+$project_id = isset($_POST['project_id']) ? intval($_POST['project_id']) : null;
+
+$task = new ProjectTask($project_id);
 $task->setId($_POST['task_id']);
 $task->setType($_POST['type']);
 $task->setTaskName($_POST['task']);

@@ -16,7 +16,6 @@
 
         <!-- Main Content -->
         <div class="flex-grow-1">
-            <input type="hidden" id="project-id" value="<?php echo isset($_GET['id']) ? intval($_GET['id']) : 0; ?>">
             <div class="container-fluid pt-3">
                 <br>
                 <nav aria-label="breadcrumb" class="bg-light rounded px-3 py-2 mb-3 shadow-sm" style="--bs-breadcrumb-divider: '>';">
@@ -37,11 +36,11 @@
                         <div class="card mb-3">
                             <div class="card-header"><i class="fas fa-tasks me-1"></i><strong>Task Details</strong></div>
                             <div class="card-body">
-                                <form action="" id="task-form">
-                                    <input type="hidden" name="task_id" id="task-id">
+                                <form action="#" id="task-form">
+                                    <input type="hidden" name="task_id" id="task-id" value="<?php echo isset($_GET['tid']) ? intval($_GET['tid']) : 0; ?>">
                                     <div class="modal-body">
                                         <div class="mb-3">
-                                            <select name="type" class="form-control" id="task-type-2" required>
+                                            <select name="type" class="form-control" id="task-type" required>
                                                 <option value="" disabled>-- Select Type</option>
                                             </select>
                                         </div>
@@ -52,7 +51,7 @@
                                             <textarea class="form-control" name="description" placeholder="Task Description" id="description" required></textarea>
                                         </div>
                                         <div class="mb-3">
-                                            <select name="assign_to" id="e-task-assign-to" class="form-control">
+                                            <select name="assign_to" id="assign-to" class="form-control">
                                                 <option value="" disabled>-- Choose Assignee</option>
                                             </select>
                                         </div>
@@ -69,10 +68,10 @@
                         <div class="card mb-3">
                             <div class="card-header"><i class="fas fa-note-sticky me-1"></i><strong>Notes</strong></div>
                             <div class="card-body">
-                                <form class="row g-2">
+                                <form class="row g-2" id="note-form">
+                                    <input type="hidden" name="task_id" value="<?php echo isset($_GET['tid']) ? intval($_GET['tid']) : 0; ?>">
                                     <div class="col-md-10">
-                                        <label for="inputPassword2" class="visually-hidden">Password</label>
-                                        <textarea name="" class="form-control" id="notes" placeholder="Add a note..."></textarea>
+                                        <textarea name="note" class="form-control" id="notes" placeholder="Add a note..." required></textarea>
                                     </div>
                                     <div class="col-md-2">
                                         <button type="submit" class="btn btn-primary mb-3"><i class="fas fa-paper-plane me-1"></i>Post</button>
@@ -87,8 +86,8 @@
                                 <i class="fas fa-history me-1"></i><strong>Task History</strong>
                             </div>
                             <div class="card-body">
-                                <div class="container py-4">
-                                    <div class="border-start border-4 border-success ms-3 ps-4 mb-4 position-relative">
+                                <div class="container py-4" id="history-div">
+                                    <!-- <div class="border-start border-4 border-success ms-3 ps-4 mb-4 position-relative">
                                         <div class="position-absolute translate-middle-x" style="left: -12px; top: 0;">
                                             <i class="fas fa-circle-plus text-success bg-white px-1"></i>
                                         </div>
@@ -119,7 +118,7 @@
                                             <a href="#" class="text-decoration-none"><i class="fas fa-file-pdf me-1"></i>migration_report.pdf</a>
                                         </p>
                                         <small class="text-muted"><i class="far fa-clock me-1"></i>1 hour ago</small>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -134,6 +133,7 @@
 
     <!-- custom scripts -->
     <script src="assets/js/utilities.js"></script>
+    <script src="assets/js/task-view.js"></script>
 </body>
 
 </html>
