@@ -50,7 +50,7 @@ class TaskHistory extends Database {
         $this->created_by = $created_by;
     }
 
-    public function getTaskHistory(){
+    public function getTaskHistory($last_id = 0) {
         return $this->sqlSelect([
                 self::TABLE_NAME.'.id',
                 self::TABLE_NAME.'.task_id',
@@ -68,7 +68,12 @@ class TaskHistory extends Database {
                 'operator' => '=',
                 'value' => $this->task_id
             ])
-            ->orderBy('date_created', 'DESC')
+            ->andWhere([
+                'column_name' => self::TABLE_NAME.'.id',
+                'operator' => '>',
+                'value' => $last_id
+            ])
+            ->orderBy('date_created', 'ASC')
             ->getAll();
     }
 
@@ -95,7 +100,7 @@ class TaskHistory extends Database {
                 $this->title = 'added a note.';
                 break;
             case 2:
-                $this->title = 'Status Updated';
+                $this->title = 'updated details.';
                 break;
             case 3:
                 $this->title = 'Task Assigned';

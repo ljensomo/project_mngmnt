@@ -63,3 +63,9 @@ function get_relative_time($datetime) {
 
     return 'just now';
 }
+
+function getStatusName($status_id) {
+    $status = new TaskStatus();
+    $statusData = $status->getById($status_id);
+    return $statusData ? $statusData['status'] : 'Unknown';
+}

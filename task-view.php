@@ -81,44 +81,12 @@
                         </div>
                     </div>
                     <div class="col-sm-7">
-                        <div class="card">
+                        <div class="card mb-3">
                             <div class="card-header">
                                 <i class="fas fa-history me-1"></i><strong>Task History</strong>
                             </div>
                             <div class="card-body">
                                 <div class="container py-4" id="history-div">
-                                    <!-- <div class="border-start border-4 border-success ms-3 ps-4 mb-4 position-relative">
-                                        <div class="position-absolute translate-middle-x" style="left: -12px; top: 0;">
-                                            <i class="fas fa-circle-plus text-success bg-white px-1"></i>
-                                        </div>
-                                        <p class="mb-0 fw-bold">User 1 <span class="fw-normal">added a note</span></p>
-                                        <p class="text-secondary mb-1" style="font-size: 0.95rem;">
-                                            "Checked the server logs; everything seems stable for the migration."
-                                        </p>
-                                        <small class="text-muted"><i class="far fa-clock me-1"></i>2 minutes ago</small>
-                                    </div>
-
-                                    <div class="border-start border-4 border-primary ms-3 ps-4 mb-4 position-relative">
-                                        <div class="position-absolute translate-middle-x" style="left: -12px; top: 0;">
-                                            <i class="fas fa-arrows-rotate text-primary bg-white px-1"></i>
-                                        </div>
-                                        <p class="mb-0 fw-bold">User 2 <span class="fw-normal">changed status to</span> <span class="badge bg-primary">In Progress</span></p>
-                                        <p class="text-secondary mb-1" style="font-size: 0.95rem;">
-                                            Moving this task to the development sprint.
-                                        </p>
-                                        <small class="text-muted"><i class="far fa-clock me-1"></i>15 minutes ago</small>
-                                    </div>
-
-                                    <div class="border-start border-4 border-info ms-3 ps-4 position-relative">
-                                        <div class="position-absolute translate-middle-x" style="left: -12px; top: 0;">
-                                            <i class="fas fa-paperclip text-info bg-white px-1"></i>
-                                        </div>
-                                        <p class="mb-0 fw-bold">System <span class="fw-normal">attached a file</span></p>
-                                        <p class="text-secondary mb-1" style="font-size: 0.95rem;">
-                                            <a href="#" class="text-decoration-none"><i class="fas fa-file-pdf me-1"></i>migration_report.pdf</a>
-                                        </p>
-                                        <small class="text-muted"><i class="far fa-clock me-1"></i>1 hour ago</small>
-                                    </div> -->
                                 </div>
                             </div>
                         </div>

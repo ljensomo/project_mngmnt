@@ -1,38 +1,50 @@
 let taskId = $("#task-id").val();
 let lastNoteId = 0;
+let noteLoadCount = 0;
 
 const utilityUrl = "utilities/project-task/";
 
 function loadNotes() {
-    alert(lastNoteId)
     $.ajax({
         url: "utilities/task-history/get-all.php",
         method: "GET",
         data: {
-            tid: taskId
+            tid: taskId,
+            last_id: lastNoteId
         },
         dataType: "json",
     }).done(function(response) {    
         let history = response.data;
-        let loopCount = 0;
         history.forEach(function(entry) {
-            if (loopCount == 0) {
+            let icon = '';
+            if (noteLoadCount == 0) {
                 lastNoteId = entry.id;
             }
 
-            let record = `<div class="border-start border-4 border-success ms-3 ps-4 mb-4 position-relative">
+            switch(entry.type) {
+                case 1:
+                    icon = "fa-note-sticky text-success";
+                    border = "border-success";
+                    break;
+                case 2:
+                    icon = "fa-pen-to-square text-warning";
+                    border = "border-warning";
+                    break;
+            }
+
+            let record = `<div class="border-start border-4 ${border} ms-3 ps-4 mb-4 position-relative">
                                 <div class="position-absolute translate-middle-x" style="left: -12px; top: 0;">
-                                    <i class="fas fa-note-sticky text-success bg-white px-1"></i>
+                                    <i class="fas ${icon} bg-white px-1"></i>
                                 </div>
-                                <p class="mb-0 fw-bold">${entry.user}: <span class="fw-normal">${entry.title}</span></p>
+                                <p class="mb-0 fw-bold">${entry.user} <span class="fw-normal">${entry.title}</span></p>
                                 <p class="text-secondary mb-1" style="font-size: 0.95rem;">
                                     "${entry.description}"
                                 </p>
                                 <small class="text-muted"><i class="far fa-clock me-1"></i>${entry.date_created}</small>
                             </div>`;
 
-            $("#history-div").append(record);
-            loopCount++;
+            $("#history-div").prepend(record);
+            noteLoadCount++;
         });
     });
 }
@@ -83,10 +95,15 @@ createFrmSubmitHandler([
         utilityURL: utilityUrl + "update.php",
         modalId: task.modalEditId,
         noReset: true,
+        callback: function() {
+            loadNotes();
+        },
     },
     {
         formId: "#note-form",
         utilityURL: "utilities/task-note/add.php",
-        callback: loadNotes,
+        callback: function(){
+            loadNotes();
+        },
     }
 ]);
