@@ -34,81 +34,89 @@
 
                 <div class="row">
                     <div class="col-sm-6">
-                        <div class="card">
-                            <div class="card-header"><strong>Information</strong></div>
-                            <div class="card-body">
-                                <table class="table table-bordered">
-                                    <tr>
-                                        <th class="text-end bg-white" style="white-space:nowrap; position:sticky; left:0; z-index:1;">Project Name</th>
-                                        <td id="project-name">Loading...</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="text-end bg-white" style="white-space:nowrap; position:sticky; left:0; z-index:1;">Description</th>
-                                        <td id="project-description">Loading...</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="text-end bg-white" style="white-space:nowrap; position:sticky; left:0; z-index:1;">Phase</th>
-                                        <td id="project-status">Loading...</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="text-end bg-white" style="white-space:nowrap; position:sticky; left:0; z-index:1;">Date Created</th>
-                                        <td id="project-date-created">Loading...</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="text-end bg-white" style="white-space:nowrap; position:sticky; left:0; z-index:1;">Created By</th>
-                                        <td id="project-created-by">Loading...</td>
-                                    </tr>
-                                </table>
+                        <div class="card border-1 shadow-sm" style="overflow: hidden;">
+                            <div class="card-header bg-white border-bottom py-3">
+                                <h6 class="mb-0 fw-bold text-primary">
+                                    📂 Project Information
+                                </h6>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table mb-0">
+                                        <tbody>
+                                            <tr>
+                                                <th class="bg-light text-muted fw-semibold ps-4" style="width: 30%;">Project Name</th>
+                                                <td id="project-name" class="ps-3 fw-bold">Loading...</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="bg-light text-muted fw-semibold ps-4">Description</th>
+                                                <td id="project-description" class="ps-3">Loading...</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="bg-light text-muted fw-semibold ps-4">Phase</th>
+                                                <td class="ps-3">
+                                                    <span id="project-status" class="badge bg-primary-soft text-primary border border-primary border-opacity-25">Loading...</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="bg-light text-muted fw-semibold ps-4">Date Created</th>
+                                                <td id="project-date-created" class="ps-3 text-muted">Loading...</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="bg-light text-muted fw-semibold ps-4">Created By</th>
+                                                <td class="ps-3">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="bg-secondary rounded-circle me-2" style="width: 24px; height: 24px;"></div>
+                                                        <span id="project-created-by">Loading...</span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <strong>Legends</strong>
+                    <div class="col-sm-2">
+                        <div class="card border-1 shadow-sm h-80" style="border-radius: 16px; background: #ffffff;">
+                            <div class="card-body p-4 text-center">
+                                <div class="mb-2">
+                                    <span style="font-size: 2rem;">📋</span>
+                                </div>
+                                
+                                <h6 class="text-muted fw-semibold text-uppercase mb-1" style="font-size: 0.8rem; letter-spacing: 1px;">
+                                    Open Tasks
+                                </h6>
+                                
+                                <h1 class="display-4 fw-bold mb-0" style="color: #0d6efd;" id="tasks-count">
+                                    0
+                                </h1>
                             </div>
-                            <div class="card-body">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th>Description</th>
-                                            <th style="width: 100px;">Tasks</th>
-                                            <th style="width: 100px;">Modules</th>
-                                            <th style="width: 100px;">Features</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="table-primary">
-                                            <td><strong>Open</strong></td>
-                                            <td>Currently open and not yet started.</td>
-                                            <td id="task-1">0</td>
-                                            <td id="module-1">0</td>
-                                            <td id="feature-1">0</td>
-                                        </tr>
-                                        <tr class="table-secondary">
-                                            <td><strong>In Progress</strong></td>
-                                            <td>Currently being worked on.</td>
-                                            <td id="task-2">0</td>
-                                            <td id="module-2">0</td>
-                                            <td id="feature-2">0</td>
-                                        </tr>
-                                        <tr class="table-success">
-                                            <td><strong>Completed</strong></td>
-                                            <td>Has been completed successfully.</td>
-                                            <td id="task-3">0</td>
-                                            <td id="module-3">0</td>
-                                            <td id="feature-3">0</td>
-                                        </tr>
-                                        <tr class="table-danger">
-                                            <td><strong>On Hold</strong></td>
-                                            <td>Currently on hold and not being worked on.</td>
-                                            <td id="task-4">0</td>
-                                            <td id="module-4">0</td>
-                                            <td id="feature-4">0</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="card border-1 shadow-sm h-80" style="border-radius: 16px; background: #ffffff;">
+                            <div class="card-body p-4 text-center">
+                                <div class="mb-2">
+                                    <span style="font-size: 2rem;">📦</span>
+                                </div>
+                                <h6 class="text-muted fw-semibold text-uppercase mb-1" style="font-size: 0.8rem; letter-spacing: 1px;">
+                                    Total Modules
+                                </h6>
+                                <h1 class="display-4 fw-bold mb-0" style="color: #6610f2;" id="modules-count">0</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="card border-1 shadow-sm h-80" style="border-radius: 16px; background: #ffffff;">
+                            <div class="card-body p-4 text-center">
+                                <div class="mb-2">
+                                    <span style="font-size: 2rem;">🚀</span>
+                                </div>
+                                <h6 class="text-muted fw-semibold text-uppercase mb-1" style="font-size: 0.8rem; letter-spacing: 1px;">
+                                    Total Features
+                                </h6>
+                                <h1 class="display-4 fw-bold mb-0" style="color: #198754;" id="features-count">0</h1>
                             </div>
                         </div>
                     </div>
@@ -118,19 +126,19 @@
                     <div class="card-header">
                         <ul class="nav nav-tabs card-header-tabs">
                             <li class="nav-item">
-                                <a class="nav-link project-nav-link active" aria-current="true" href="#">Tasks</a>
+                                <a class="nav-link project-nav-link active" aria-current="true" href="#">📋 <span>Tasks</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link project-nav-link" href="#">Modules</a>
+                                <a class="nav-link project-nav-link" href="#">📦 <span>Modules</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link project-nav-link" href="#">Features</a>
+                                <a class="nav-link project-nav-link" href="#">🚀 <span>Features</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link project-nav-link" href="#">Versions</a>
+                                <a class="nav-link project-nav-link" href="#">🔄 <span>Versions</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link project-nav-link" href="#">Technologies</a>
+                                <a class="nav-link project-nav-link" href="#">⚙️ <span>Technologies</span></a>
                             </li>
                         </ul>
                     </div>

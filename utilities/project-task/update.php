@@ -17,7 +17,7 @@ $task->setId($_POST['task_id']);
 $task->setType($_POST['type']);
 $task->setTaskName($_POST['task']);
 $task->setDescription($_POST['description']);
-$task->setAssignedTo($_POST['assign_to']);
+$task->setAssignedTo($_POST['assignee']);
 $task->setStatus($_POST['status']);
 
 // old task data for history
@@ -42,9 +42,9 @@ if($task->update()) {
         $history->add();
     }
 
-    if($_POST['assign_to'] != $taskData['assigned_to']) {
+    if($_POST['assignee'] != $taskData['assigned_to']) {
         $history = new TaskHistory($_POST['task_id']);
-        $history->setDescription('Task assigned to changed from user#' .$taskData['assign_to']. ' to user# '.$_POST['assigned_to'].'.');
+        $history->setDescription('Task assigned to changed from user#' .$taskData['assign_to']. ' to user# '.$_POST['assignee'].'.');
         $history->setType(2); // 2 for update
         $history->setCreatedBy($_SESSION['user']['id']);
         $history->add();

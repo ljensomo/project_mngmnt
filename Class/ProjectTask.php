@@ -150,6 +150,25 @@ class ProjectTask extends Database {
             ])->getAll();
     }
 
+    public function getOpenProjectTasksCount(){
+        return $this->sqlSelect([
+            self::TABLE_NAME.'.id'
+        ])
+            ->where([
+                'column_name' => 'status',
+                'operator' => '!=', 
+                'value' => 7
+            ])->andWhere([
+                'column_name' => 'status',
+                'operator' => '!=', 
+                'value' => 8
+            ])->andWhere([
+                'column_name' => 'project_id',
+                'operator' => '=',
+                'value' => $this->project_id
+            ])->getRowCount();
+    }
+
     public function getProjectTasksByStatus($status){
         return $this->sqlSelect()
             ->where([

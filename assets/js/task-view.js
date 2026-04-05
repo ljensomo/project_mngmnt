@@ -16,34 +16,36 @@ function loadNotes() {
     }).done(function(response) {    
         let history = response.data;
         history.forEach(function(entry) {
-            let icon = '';
+            let icon, bg = '';
             if (noteLoadCount == 0) {
                 lastNoteId = entry.id;
             }
 
             switch(entry.type) {
                 case 1:
-                    icon = "fa-note-sticky text-success";
-                    border = "border-success";
+                    icon = "fa-comment-dots";
+                    color = "success";
                     break;
                 case 2:
-                    icon = "fa-pen-to-square text-warning";
-                    border = "border-warning";
+                    icon = "fa-user-edit";
+                    color = "warning";
                     break;
             }
+            
+            let timelineItem = `<div class="timeline-item">
+                        <div class="timeline-icon bg-${color} text-white">
+                            <i class="fas ${icon}"></i>
+                        </div>
+                        <div class="ps-3">
+                            <p class="mb-1 fw-bold text-dark">${entry.user} <span class="fw-normal text-muted">${entry.title}</span></p>
+                            <div class="p-2 bg-light rounded-3 mb-2 border-start border-${color} border-4" style="font-size: 0.9rem;">
+                                <span class="text-secondary">${entry.description}</span>
+                            </div>
+                            <small class="text-muted"><i class="far fa-clock me-1"></i>${entry.date_created}</small>
+                        </div>
+                    </div>`;
 
-            let record = `<div class="border-start border-4 ${border} ms-3 ps-4 mb-4 position-relative">
-                                <div class="position-absolute translate-middle-x" style="left: -12px; top: 0;">
-                                    <i class="fas ${icon} bg-white px-1"></i>
-                                </div>
-                                <p class="mb-0 fw-bold">${entry.user} <span class="fw-normal">${entry.title}</span></p>
-                                <p class="text-secondary mb-1" style="font-size: 0.95rem;">
-                                    "${entry.description}"
-                                </p>
-                                <small class="text-muted"><i class="far fa-clock me-1"></i>${entry.date_created}</small>
-                            </div>`;
-
-            $("#history-div").prepend(record);
+            $(".timeline-container").prepend(timelineItem);
             noteLoadCount++;
         });
     });
@@ -85,6 +87,7 @@ $.ajax({
         $("#description").val(response.data.description);
         $("#task-type").val(response.data.task_type);
         $("#status").val(response.data.status);
+        $("#assign-to").val(response.data.assigned_to);
 });
 
 loadNotes();

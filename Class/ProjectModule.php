@@ -109,6 +109,15 @@ class ProjectModule extends Database {
             ])->getRowCount();
     }
 
+    public function getPorjectModuleCount(){
+        return $this->sqlSelect([
+            self::TABLE_NAME.'.id'
+        ])->where([
+            'column_name' => 'project_id',
+            'value' => $this->project_id
+        ])->getRowCount();
+    }
+
     public function getById($id) {
         return $this->sqlFetchById($id);
     }
