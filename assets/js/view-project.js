@@ -64,7 +64,7 @@ populateSelect([
         value: "id",
     },
     {
-        url: "utilities/project-version/get-all.php?pid="+projectId,
+        url: "utilities/project-version/get-dev-versions.php?pid="+projectId,
         selectId: ["#module-version", "#module-edit-version", "#feature-version", "#feature-edit-version"],
         text: "version_number",
         value: "id",
