@@ -91,3 +91,35 @@ nav.bg-dark {
 .inactive-text{
   color: var(--color-bg-content) !important;
 }
+
+/* This style is for the timeline container */
+/* Custom Timeline Styling */
+.timeline-container {
+    position: relative;
+    padding-left: 1.5rem;
+}
+.timeline-line {
+    position: absolute;
+    left: 0.75rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #e9ecef; /* Subtle grey line */
+}
+.timeline-item {
+    position: relative;
+    padding-bottom: 1.5rem;
+}
+.timeline-icon {
+    position: absolute;
+    left: -1.25rem;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    border: 4px solid #fff; /* "Cuts" the timeline line */
+    font-size: 0.8rem;
+}

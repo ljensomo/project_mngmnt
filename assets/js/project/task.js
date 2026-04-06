@@ -24,11 +24,11 @@ populateSelect([
 
 let taskTable = initDataTable({
     tableId: task.tableId,
-    ajaxUrl: task.utilityUrl + "get-all.php?pid=" + projectId,
+    ajaxUrl: task.utilityUrl + "get-open-tasks.php?pid=" + projectId,
     columns: [
         {data: "id"},
         {data: function(data){
-            return "<i class='fas "+getIcon(data.task_type_name)+" me-1'></i>"+data.task_type_name;
+            return "<span class='badge bg-primary-soft text-primary border border-primary border-opacity-25'><i class='fas "+getIcon(data.task_type_name)+" me-1'></i>"+data.task_type_name+"</span>";
         }},
         {data: "task"},
         {data: "description", visible: false},
@@ -62,7 +62,6 @@ let taskTable = initDataTable({
             return `<span class='badge ${badgeClass}'> ${data.status_name}</span>`;
         }},
         {data: "date_created", className: "text-center no-wrap-column"},
-        {data: "date_completed", className: "text-center no-wrap-column"},
         {data: function(data) {
             return createDataTableBtns({
                 edit: true,
@@ -70,6 +69,8 @@ let taskTable = initDataTable({
                 deleteIcon: "fa-xmark",
                 data: data.id, 
                 name: "task",
+                view: true,
+                href: "task-view.php?tid="+data.id
             });
         }, className: "text-center"}
     ],
