@@ -137,9 +137,21 @@ function frmSubmitHandler(parameter){
                     confirmButtonText: 'OK'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        reloadDataTable(parameter.dataTable);
-                        $(parameter.formId)[0].reset();
-                        $(parameter.modalId).modal("hide");
+                        if (parameter.dataTable) {
+                            reloadDataTable(parameter.dataTable);
+                        }
+
+                        if(parameter.modalId){
+                            $(parameter.modalId).modal("hide");
+                        }
+
+                        if(parameter.noReset !== true){
+                            $(parameter.formId)[0].reset();
+                        }
+
+                        if(parameter.callback){
+                            parameter.callback();
+                        }
                     }
                 });
             } else {

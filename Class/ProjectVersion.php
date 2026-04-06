@@ -100,6 +100,28 @@ class ProjectVersion extends Database {
             ])->getAll();
     }
 
+    public function getDevVersions() {
+        return $this->sqlSelect([
+                self::TABLE_NAME.'.id',
+                self::TABLE_NAME.'.version_number',
+                self::TABLE_NAME.'.remarks',
+                self::TABLE_NAME.'.status',
+                self::TABLE_NAME.'.target_date_release',
+                self::TABLE_NAME.'.date_released',
+                self::TABLE_NAME.'.date_created',
+                'version_statuses.status AS status_name'
+            ])->join('version_statuses', 'version_statuses.id = '.self::TABLE_NAME.'.status', 'LEFT JOIN')
+            ->where([
+                'column_name' => 'project_id',
+                'operator' => '=',
+                'value' => $this->project_id
+            ])->andWhere([
+                'column_name' => self::TABLE_NAME.'.status',
+                'operator' => '=',
+                'value' => 1
+            ])->getAll();
+    }
+
     public function deactivateOtherVersions() {
         return $this->sqlUpdate([
             'status' => 4,

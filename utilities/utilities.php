@@ -35,3 +35,37 @@ function formatBytes($bytes, $precision = 2) {
 
     return round($bytes, $precision) . ' ' . $units[$pow];
 }
+
+function get_relative_time($datetime) {
+    $now = new DateTime;
+    $ago = new DateTime($datetime);
+    $diff = $now->diff($ago);
+
+    $diff->w = floor($diff->d / 7);
+    $diff->d -= $diff->w * 7;
+
+    $intervals = [
+        'y' => 'year',
+        'm' => 'month',
+        'w' => 'week',
+        'd' => 'day',
+        'h' => 'hour',
+        'i' => 'minute',
+        's' => 'second',
+    ];
+
+    foreach ($intervals as $key => $label) {
+        if ($diff->$key) {
+            $value = $diff->$key;
+            return $value . ' ' . $label . ($value > 1 ? 's' : '') . ' ago';
+        }
+    }
+
+    return 'just now';
+}
+
+function getStatusName($status_id) {
+    $status = new TaskStatus();
+    $statusData = $status->getById($status_id);
+    return $statusData ? $statusData['status'] : 'Unknown';
+}
