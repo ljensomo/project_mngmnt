@@ -33,19 +33,53 @@ function createButton(parameter){
 
 // Function to initialize DataTable
 // Parameters should include tableId, ajaxUrl, and columns
-function initDataTable(parameter){
-    let table = new DataTable(parameter.tableId,{
+/**
+ * Initializes a DataTables instance with standard configurations.
+ * @param {Object} p - Configuration object
+ */
+function initDataTable(p) {
+    // 1. Destroy existing instance to prevent "Cannot reinitialise" errors
+    if ($.fn.DataTable.isDataTable(p.tableId)) {
+        $(p.tableId).DataTable().destroy();
+    }
+
+    return new DataTable(p.tableId, {
         ajax: {
-            url: parameter.ajaxUrl,
-            dataSrc: "data",
+            url: p.ajaxUrl,
+            dataSrc: p.dataSrc || "data", // Default to "data" if not provided
+            error: function(xhr, error, thrown) {
+                console.error("DataTables Error: ", error);
+                // Optional: Trigger a toast notification or alert here
+            }
         },
         processing: true,
-        columns: parameter.columns,
-        createdRow: parameter.createdRow,
-        order: parameter.order ? parameter.order : [[0, "desc"]],
-    });
+        serverSide: p.serverSide || false, // Toggle server-side processing
+        responsive: true,                 // Highly recommended for your card UI
+        columns: p.columns,
+        columnDefs: p.columnDefs || [],     // Allow custom column definitions
+        createdRow: p.createdRow,
+        order: p.order || [[0, "desc"]],
+        // 2. Add language support/defaults
+        language: {
+            search: "_INPUT_",
+            searchPlaceholder: "Search records..."
+        },
+        // 3. Performance & UI adjustments
+        drawCallback: function(settings) {
+            // 1. Destroy any existing tooltips to prevent memory leaks/doubling
+            const oldTooltips = document.querySelectorAll('.tooltip');
+            oldTooltips.forEach(t => t.remove());
 
-    return table;
+            // 2. Re-initialize all tooltips in the table
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl, {
+                    trigger: 'hover',
+                    container: 'body'
+                });
+            });
+        }
+    });
 }
 
 function reloadDataTable(table){
@@ -53,55 +87,45 @@ function reloadDataTable(table){
 }
 
 // Function to create buttons for DataTable actions
-function createDataTableBtns(button){
-    let buttons = "";
+function createDataTableBtns(buttonConfig) {
+    const buttons = [];
 
-    if(button.view){
-        buttons += createButton({
-            anchor: true,
-            href: button.href,
-            type: "info",
-            icon: "fa-eye",
-            id: "view-"+button.name,
-            data: button.data
+    // Map of standard buttons configuration
+    const standardButtons = {
+        view: { type: "info", icon: "fa-eye", id: "view-" },
+        edit: { type: buttonConfig.editType ?? "warning", icon: buttonConfig.editIcon ?? "fa-pen-to-square", id: "edit-" },
+        delete: { type: "danger", icon: buttonConfig.deleteIcon ?? "fa-trash", id: "delete-" }
+    };
+
+    // 1. Process Standard Buttons
+    ['view', 'edit', 'delete'].forEach(action => {
+        if (buttonConfig[action]) {
+            buttons.push(createButton({
+                anchor: action === 'view' ? true : false, // Assuming only view is an anchor
+                href: buttonConfig.href || "#",
+                type: standardButtons[action].type,
+                icon: standardButtons[action].icon,
+                id: standardButtons[action].id + buttonConfig.name,
+                data: buttonConfig.data
+            }));
+        }
+    });
+
+    // 2. Process Custom Buttons
+    if (buttonConfig.custom && Array.isArray(buttonConfig.custom)) {
+        buttonConfig.custom.forEach(cBtn => {
+            buttons.push(createButton({
+                anchor: cBtn.anchor ?? false,
+                href: cBtn.href ?? "#",
+                type: cBtn.type ?? "secondary",
+                icon: cBtn.icon ?? "fa-cog",
+                id: cBtn.id ?? "custom-" + buttonConfig.name,
+                data: buttonConfig.data
+            }));
         });
     }
 
-    if(button.custom){
-        button.custom.forEach(function(customButton) {
-            buttons += " "; // Add space between buttons
-            buttons += createButton({
-                anchor: customButton.anchor || false,
-                href: customButton.href || "#",
-                type: customButton.type || "secondary",
-                icon: customButton.icon || "fa-cog",
-                id: customButton.id || "custom-"+button.name,
-                data: button.data
-            });
-        });
-    }
-
-    if(button.edit){
-        buttons += " "; // Add space between buttons
-        buttons += createButton({
-            type: button.editType === undefined ? "warning" : button.editType,
-            icon: button.editIcon === undefined ? "fa-pen-to-square" : button.editIcon,
-            id: "edit-"+button.name,
-            data: button.data
-        });
-    }
-
-    if(button.delete){
-        buttons += " "; // Add space between buttons
-        buttons += createButton({
-            type: "danger",
-            icon: button.deleteIcon === undefined ? "fa-trash" : button.deleteIcon,
-            id: "delete-"+button.name,
-            data: button.data
-        });
-    }
-
-    return buttons;
+    return buttons.join(' ');
 }
 
 // Function to create a form submission handler
@@ -131,69 +155,71 @@ function frmSubmitHandler(parameter){
         }).done(function(response) {
             if (response.success) {
                 Swal.fire({
-                    title: 'COMPLETE!',
+                    title: 'Success!',
                     text: response.message,
                     icon: 'success',
-                    confirmButtonText: 'OK'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        if (parameter.dataTable) {
-                            reloadDataTable(parameter.dataTable);
-                        }
-
-                        if(parameter.modalId){
-                            $(parameter.modalId).modal("hide");
-                        }
-
-                        if(parameter.noReset !== true){
-                            $(parameter.formId)[0].reset();
-                        }
-
-                        if(parameter.callback){
-                            parameter.callback();
-                        }
-                    }
+                    confirmButtonColor: '#3085d6'
+                }).then(() => {
+                    if (parameter.dataTable) reloadDataTable(parameter.dataTable);
+                    if (parameter.modalId) $(parameter.modalId).modal("hide");
+                    if (parameter.noReset !== true) $(parameter.formId)[0].reset();
+                    if (parameter.callback) parameter.callback(response); // Pass response to callback
                 });
             } else {
-                Swal.fire("ERROR!", "Error encountered processing data.", "error");
+                // Display server-side error messages
+                Swal.fire("Attention!", response.message || "Failed to process request.", "warning");
             }
-        }).fail(function(jqXHR, textStatus, errorThrown) {
-            console.error("Form Submit Error:", textStatus, errorThrown);
-            Swal.fire("ERROR!", "Failed to submit form.", "error");
+        }).fail(function(jqXHR) {
+            // Detailed network/server error handling
+            let errorMessage = "An unexpected error occurred.";
+            if (jqXHR.status === 422) {
+                errorMessage = "Validation failed. Please check your inputs.";
+            } else if (jqXHR.status === 500) {
+                errorMessage = "Server error. Please try again later.";
+            }
+            
+            Swal.fire("System Error!", errorMessage, "error");
         });
     });
 }
 
 // Function to create a delete record handler
-function createDltRecordHandler(parameter){
-    $(document).on("click", parameter.btnClass, function() {
-        let userId = $(this).attr("row-id");
+function createDltRecordHandler(parameter) {
+    // Use 'off' then 'on' to prevent multiple event bindings if this function is called repeatedly
+    $(document).off("click", parameter.btnClass).on("click", parameter.btnClass, function() {
+        const recordId = $(this).attr("row-id");
+        
         Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            title: 'Delete Record?',
+            text: "This action is permanent and cannot be undone.",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
+            confirmButtonColor: '#d33', // Red for delete
+            cancelButtonColor: '#6c757d', // Neutral for cancel
+            confirmButtonText: 'Yes, permanently delete',
+            showLoaderOnConfirm: true, // 2. Show loading spinner inside the button
+            preConfirm: () => {
+                // 3. Encapsulate the AJAX in preConfirm for better UX
+                return $.ajax({
                     url: parameter.utilityURL,
                     method: "POST",
-                    data: {id: userId},
-                    dataType: "json",
-                }).done(function(response){
-                    if (response.success) {
-                        Swal.fire('DELETED!', response.message, 'success');
-                        reloadDataTable(parameter.dataTable);
-                    } else {
-                        Swal.fire('ERROR!', response.message, 'error');
-                    }
-                }).fail(function(jqXHR, textStatus, errorThrown) {
-                    console.error("Delete Request Error:", textStatus, errorThrown);
-                    Swal.fire('ERROR!', 'Failed to delete selected record.', 'error');
+                    data: { id: recordId },
+                    dataType: "json"
+                }).catch(error => {
+                    Swal.showValidationMessage(`Request failed: ${error.statusText}`);
                 });
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const response = result.value;
+                if (response.success) {
+                    Swal.fire('Deleted!', response.message, 'success');
+                    if (parameter.dataTable) reloadDataTable(parameter.dataTable);
+                    if (parameter.callback) parameter.callback(response);
+                } else {
+                    Swal.fire('Failed', response.message || 'Unable to delete.', 'error');
+                }
             }
         });
     });

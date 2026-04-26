@@ -13,6 +13,7 @@ $task->setDescription($_POST['description']);
 $task->setStatus(1);
 $task->setAssignedTo($_POST['assign-to']);
 $task->setCreatedBy(1);
+
 if($task->add()) {
     echo json_encode(['success' => true, 'message' => 'Task ('.$_POST['task'].') has been created successfully.']);
 } else {

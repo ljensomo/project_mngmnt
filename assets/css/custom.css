@@ -1,44 +1,32 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Set a variable for easy management */
-  --font-primary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-
-  --color-bg-primary: #333333;    /* Application Body */
-  --color-bg-content: #666666;    /* Main Content Area */
-  --color-text-primary: #EBEBEB;  /* High-emphasis text */
-  
-  /* NEW: Card Elevation Surface */
-  --color-bg-card-elevated: #353A41;
+    --font-primary: 'Inter', system-ui, -apple-system, sans-serif;
+    
+    /* Soft UI Color Palette */
+    --color-bg-body: #F8FAFC;
+    --color-text-main: #334155;
+    --color-sidebar: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+    --color-primary: #0d6efd;
+    --border-radius-sm: 8px;
+    --border-radius-md: 16px;
 }
 
+/* Base Styles */
 body {
-  /* Applies the font to all text */
-  font-family: var(--font-primary); 
-  /* Sets the default weight for body text */
-  font-weight: 400; 
-  /* The size should be comfortable, like 16px */
-  font-size: 1rem; 
-  /* Set the text and background colors from the Dark Mode Palette */
-  color: var(--color-bg-primary) !important;
-  background-color: #FFFFFF;
+    font-family: var(--font-primary);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--color-text-main);
+    background-color: var(--color-bg-body);
+    -webkit-font-smoothing: antialiased;
 }
 
-.no-wrap-column {
-    white-space: nowrap;
-}
+html, body { height: 100%; }
 
-.flex-grow-1 {
-    margin-left: 250px;
-    padding-top: 40px;
-}
-
-.navbar-brand {
-  padding-left: 260px;
-}
-
-/* sidebar */
-nav.bg-dark {
+/* Layout - Modernizing the sidebar fix */
+.sidebar-wrapper {
+    width: 260px;
     position: fixed;
     top: 0;
     left: 0;
@@ -46,80 +34,100 @@ nav.bg-dark {
     z-index: 1000;
 }
 
+.main-content {
+    margin-left: 260px;
+    padding-top: 80px; /* 60px height of navbar + 20px breathing room */
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+/* Sidebar Components (Uniform to your Request) */
 .sidebar {
-  padding-top: 115px; 
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 250px;
-  z-index: 1000;
-  background-color: #EBEBEB;
+    background: var(--color-sidebar);
+    border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+    height: 100%;
 }
 
-.sidebar .nav-link {
-  color: var(--color-bg-primary) !important;
-  padding: 10px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+/* Fix the sidebar */
+.sidebar-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 250px; /* Adjust to match your sidebar width */
+    z-index: 1000;
+    overflow-y: auto; /* Allows the sidebar to scroll if it's too long */
 }
 
-.sidebar .nav-link:hover {
-  background-color: #495057;
-  color: var(--color-text-primary) !important;
+/* Offset the main content so it doesn't get covered by the sidebar */
+.main-content-wrapper {
+    margin-left: 250px; /* Must match the width of the sidebar */
+    width: calc(100% - 250px);
+}
+
+.nav-link {
+    padding: 0.8rem 1.2rem !important;
+    margin: 0.2rem 1rem;
+    border-radius: var(--border-radius-sm);
+    color: rgba(255, 255, 255, 0.8);
+    transition: all 0.2s ease;
+}
+
+.nav-link:hover { background-color: rgba(255, 255, 255, 0.1); color: #fff; }
+
+.nav-link.active {
+    background-color: #ffffff !important;
+    color: var(--color-primary) !important;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+}
+
+/* Data Table Polish */
+#project-table {
+    border-collapse: separate !important;
+    border-spacing: 0 0.5rem; /* Adds space between rows */
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f5f9;
+    transition: background 0.2s;
+}
+
+/* Utility Helpers */
+.no-wrap-column { white-space: nowrap; }
+
+/* Status Badge refinement */
+.badge {
+    padding: 0.5em 0.8em !important;
+    font-weight: 600 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    font-size: 0.75rem !important;
 }
 
 .navbar {
-  z-index: 1000;
-  background-color: #FFFFFF;
+    background-color: #ffffff;
+    height: 60px; /* Consistent height */
+    padding: 0 2rem;
+    left: 260px; /* Match your sidebar width */
+    width: calc(100% - 260px); /* Fill remaining space */
+    border-bottom: 1px solid #e2e8f0; /* Subtle separator */
 }
 
-.navbar .navbar-brand, span.navbar-text {
-  color: var(--color-bg-primary) !important;
+.navbar-brand {
+    font-weight: 700;
+    color: #1e293b !important;
+    font-size: 1.1rem;
 }
 
-.sidebar .nav-link.active {
-  background-color: #EBEBEB;
-  color: #0d6efd !important;
-  font-weight: bold;
-  border-radius: 5px;
+.user-profile-pill {
+    background-color: #f1f5f9;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    color: #475569;
 }
 
-.active-text{
-  color: var(--color-bg-primary) !important;
-}
-
-.inactive-text{
-  color: var(--color-bg-content) !important;
-}
-
-/* This style is for the timeline container */
-/* Custom Timeline Styling */
-.timeline-container {
-    position: relative;
-    padding-left: 1.5rem;
-}
-.timeline-line {
-    position: absolute;
-    left: 0.75rem;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: #e9ecef; /* Subtle grey line */
-}
-.timeline-item {
-    position: relative;
-    padding-bottom: 1.5rem;
-}
-.timeline-icon {
-    position: absolute;
-    left: -1.25rem;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-    border: 4px solid #fff; /* "Cuts" the timeline line */
-    font-size: 0.8rem;
+.badge {
+    border-radius: 50rem !important; /* Makes it a pill shape */
+    font-weight: 600;
 }

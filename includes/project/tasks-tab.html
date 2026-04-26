@@ -1,21 +1,51 @@
 <div id="tasks-tab">
-    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#task-modal">
-        <i class="fas fa-plus"></i> New Task
-    </button>
-    <a href="#" class="btn btn-sm btn-secondary disabled" id="refresh-tasks">View All Tasks</a>
-    <hr>
-    <table id="task-table" class="table table-bordered table-hover table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Type</th>
-                <th>Task</th>
-                <th>Description</th>
-                <th>Assigned To</th>
-                <th>Status</th>
-                <th>Date Created</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-    </table>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h6 class="mb-0 fw-bold text-secondary">Task Overview</h6>
+        <div>
+            <a href="#" class="btn btn-sm btn-light border-0 text-muted me-2" id="refresh-tasks">
+                <i class="fas fa-sync-alt me-1"></i> Refresh
+            </a>
+            <button type="button" class="btn btn-sm btn-primary rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#task-modal">
+                <i class="fas fa-plus me-1"></i> New Task
+            </button>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table id="task-table" class="table table-hover align-middle">
+            <thead class="text-uppercase text-muted" style="font-size: 0.7rem; letter-spacing: 1px;">
+                <tr class="border-bottom">
+                    <th class="ps-3">ID</th>
+                    <th>Type</th>
+                    <th>Task</th>
+                    <th>Assigned To</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th class="text-end pe-3">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                </tbody>
+        </table>
+    </div>
 </div>
+
+<style>
+    /* Table Styling */
+    #task-table {
+        border-collapse: separate;
+        border-spacing: 0 8px;
+    }
+    #task-table tbody tr {
+        background-color: #fff;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        border-radius: 8px;
+    }
+    #task-table td {
+        padding: 12px;
+        border-top: none;
+        border-bottom: none;
+    }
+    #task-table tr td:first-child { border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
+    #task-table tr td:last-child { border-top-right-radius: 8px; border-bottom-right-radius: 8px; }
+</style>

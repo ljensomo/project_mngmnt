@@ -1,6 +1,7 @@
 <?php 
 
 class Database {
+
     private $host = 'localhost';
     private $db_name = 'db_project_mngmnt';
     private $username = 'root';
@@ -9,18 +10,17 @@ class Database {
 
     private $fetchMode;
     private $table_name;
-
     private $query;
     private $parameters = [];
     private $stmt;
-
     private $select_query;
     private $update_query;
     private $columns = [];
-
     private $isSelectQuery = false;
     private $isUpdateQuery = false;
+    public $last_inserted_id;
 
+    // Initializations
     public function __construct($table_name, $columns = []) {
         $this->table_name = $table_name;
         $this->columns = $columns;
@@ -31,12 +31,6 @@ class Database {
         $this->fetchMode = \PDO::FETCH_ASSOC;
     }
 
-    public function setDefaultQuery() {
-        $this->select_query = 'SELECT * FROM '.$this->table_name;
-        $this->update_query = 'UPDATE '.$this->table_name.' SET ';
-    }
-
-    // Get the database connection
     public function connect() {
         try {
             $this->conn = new PDO("mysql:host={$this->host};dbname={$this->db_name}", $this->username, $this->password);
@@ -44,6 +38,11 @@ class Database {
         } catch(PDOException $exception) {
             echo "Connection error: " . $exception->getMessage();
         }
+    }
+
+    public function setDefaultQuery() {
+        $this->select_query = 'SELECT * FROM '.$this->table_name;
+        $this->update_query = 'UPDATE '.$this->table_name.' SET ';
     }
 
     public function getHost() {
@@ -75,13 +74,17 @@ class Database {
     }
 
     public function executeQuery() {
-        $this->reset();
-
-        if (!$this->conn) {
-            throw new \Exception("Database connection is not established.");
-        }
+        if (!$this->conn) $this->connect();
+        
         $this->stmt = $this->conn->prepare($this->query);
-        return $this->stmt->execute($this->parameters);
+        $result = $this->stmt->execute($this->parameters);
+        
+        // Capture the ID immediately if it's an INSERT
+        if (strpos(trim(strtoupper($this->query)), 'INSERT') === 0) {
+            $this->last_inserted_id = $this->conn->lastInsertId();
+        }
+
+        return $result;
     }
 
     public function fetchAll() {
@@ -288,5 +291,9 @@ class Database {
     public function orderBy($column, $direction = 'ASC') {
         $this->select_query .= " ORDER BY $column $direction";
         return $this;
+    }
+
+    public function getLastInsertedId() {
+        return $this->last_inserted_id;
     }
 }

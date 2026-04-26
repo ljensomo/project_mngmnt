@@ -13,7 +13,8 @@ class ProjectTask extends Database {
         'assigned_to',
         'created_by',
         'date_created',
-        'date_completed'
+        'date_completed',
+        'phase_id'
     ];
 
     private $id;
@@ -23,6 +24,7 @@ class ProjectTask extends Database {
     private $description;
     private $status;
     private $assigned_to;
+    private $phase_id;
     private $created_by;
 
     public function __construct($project_id = null) {
@@ -63,6 +65,10 @@ class ProjectTask extends Database {
         }
     }
 
+    public function setPhaseId($phase_id) {
+        $this->phase_id = $phase_id;
+    }
+
     public function setCreatedBy($created_by) {
         $this->created_by = $created_by;
     }
@@ -70,6 +76,7 @@ class ProjectTask extends Database {
     public function add() {
         return $this->sqlInsert([
             'project_id' => $this->project_id,
+            'phase_id' => $this->phase_id,
             'task_type' => $this->type,
             'task' => $this->task_name,
             'description' => $this->description,

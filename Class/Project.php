@@ -56,7 +56,8 @@ class Project extends Database {
             'project_name' => $this->name,
             'description' => $this->description,
             'status' => $this->status,
-            'created_by' => $this->created_by
+            'created_by' => $this->created_by,
+            'phase_id' => $this->phase_id
         ]);
     }
 
@@ -81,7 +82,7 @@ class Project extends Database {
     public function getProjects() {
         return $this->sqlSelect([
                 'CONCAT(users.first_name, " ", users.last_name) AS created_by_name',
-                'sdlc_phases.phase'
+                'sdlc_phases.phase', 'sdlc_phases.id AS phase_id'
             ])->join('users', 'users.id = projects.created_by', 'INNER JOIN')
             ->join('sdlc_phases', 'sdlc_phases.id = projects.phase_id', 'INNER JOIN')
             ->getAll();
@@ -96,5 +97,11 @@ class Project extends Database {
                 'operator' => '=',
                 'value' => $id
             ])->get();
+    }
+
+    public function getLastProjectId() {
+        $this->setQuery('SELECT LAST_INSERT_ID() AS id');
+        $result = $this->fetch();
+        return $result ? $result['id'] : null;
     }
 }
