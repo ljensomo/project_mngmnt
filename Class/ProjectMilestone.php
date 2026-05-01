@@ -18,17 +18,14 @@ class ProjectMilestone extends Database {
     private $is_completed;
     private $select_columns = array();
 
-    public function __construct() {
+    public function __construct($project_id) {
+        $this->project_id = $project_id;
         parent::__construct(self::TABLE_NAME, self::COLUMNS);
 
     }
 
     public function setId($id) {
         $this->id = $id;
-    }
-
-    public function setProjectId($project_id) {
-        $this->project_id = $project_id;
     }
 
     public function setDueDate($due_date) {
@@ -52,15 +49,23 @@ class ProjectMilestone extends Database {
         ]);
     }
 
-    public function update() {
+    public function updateDueDate() {
         return $this->sqlUpdate(
             [
-                'phase_id' => $this->phase_id,
-                'project_id' => $this->project_id,
                 'due_date' => $this->due_date,
-                'is_completed' => $this->is_completed,
-                'id' => $this->id
             ],
+            [
+                'where' => [
+                    'column_name' => 'project_id',
+                    'operator' => '=',
+                    'value' => $this->project_id
+                ],
+                'and' => [
+                    'column_name' => 'phase_id',
+                    'operator' => '=',
+                    'value' => $this->phase_id
+                ]
+            ]
         );
     }
 
@@ -82,6 +87,22 @@ class ProjectMilestone extends Database {
             $milestone->setIsCompleted(0); // Default to not completed
             $milestone->add();
         }
+    }
+
+    public function getProjectMilestones(){
+        return $this->sqlSelect([
+                'sdlc_phases.phase',
+                'due_date',
+                'is_completed',
+                'icon',
+            ])
+            ->join('sdlc_phases', 'sdlc_phases.id=project_milestones.phase_id')
+            ->where([
+                'column_name' => 'project_id',
+                'operator' => '=',
+                'value' => $this->project_id
+            ])
+            ->getAll();
     }
 
 }

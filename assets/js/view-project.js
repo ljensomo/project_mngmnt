@@ -3,6 +3,7 @@ let projectId = $("#project-id").val()
 $("#a-task-project-id, #e-task-project-id").val(projectId);
 $("#a-module-project-id, #e-module-project-id").val(projectId);
 $("#a-feature-project-id, #e-feature-project-id").val(projectId);
+$("#milestone-project-id").val(projectId);
 
 // retrieve project details for task view
 $.ajax({
@@ -48,6 +49,54 @@ $.ajax({
     }else{
         Swal.fire('ERROR!', 'Error fetching project details.', 'error');
     }
+});
+
+// retrieve project milestones
+$.ajax({
+    url: "utilities/project-milestones/get-all.php",
+    type: "GET",
+    data: {pid: projectId},
+    dataType: "json"
+}).done(function(response){
+    let milestones = response.data
+    let milestonesTable = $("#project-milestones-body");
+    milestones.forEach(element => {
+        const rawDate = element.due_date ? String(element.due_date).trim() : '';
+
+        const isInvalid = !rawDate || 
+                   rawDate === 'null' || 
+                   rawDate === 'undefined' || 
+                   rawDate.startsWith('0000-00-00');
+
+         const dueDateDisplay = isInvalid 
+            ? `<span class="badge bg-secondary-subtle text-secondary px-2 py-1 border border-light">
+                <i class="fas fa-ban me-1 small"></i> Not Set
+            </span>`
+            : `<span class="text-primary fw-bold">
+                <i class="far fa-calendar-alt me-1"></i> ${rawDate}
+            </span>`;
+        
+        const isDone = element.is_completed == 1; // Assuming 1/0 or true/false
+        const statusIcon = isDone ? 'fa-check-circle text-success' : `${element.icon} text-muted`;
+        const textStyle = isDone ? 'text-decoration-line-through text-muted' : '';
+
+        milestonesTable.append(`
+            <tr class="hover-highlight ${isDone ? 'bg-light' : ''}">
+                <td class="small fw-medium py-2 ${textStyle}">
+                    <i class="fas ${statusIcon} me-2" style="width: 15px;"></i>
+                    ${element.phase}
+                </td>
+                <td class="text-end small">
+                    ${isDone 
+                        ? '<span class="badge bg-success-soft text-success">Completed</span>' 
+                        : `<span class="fw-bold text-primary">${dueDateDisplay}</span>`
+                    }
+                </td>
+            </tr>
+        `);
+    });
+}).fail(function(){
+
 });
 
 populateSelect([
@@ -102,3 +151,12 @@ $.ajax({
         console.error("Error fetching dashboard data:", error);
     }
 });
+
+// form handlers
+createFrmSubmitHandler([
+    {
+        formId: "#form-update-milestones",
+        utilityURL: "utilities/project-milestones/update.php",
+        modalId: "milestones-modal"
+    },
+]);

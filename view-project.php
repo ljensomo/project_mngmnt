@@ -25,6 +25,16 @@
     },
     .hover-highlight:hover { background-color: rgba(13, 110, 253, 0.05); cursor: default; }
     .transition-all:hover { transform: scale(1.02); }
+ 
+    .hover-highlight {
+        transition: background-color 0.15s ease-in-out;
+    }
+    .hover-highlight:hover {
+        background-color: rgba(var(--bs-primary-rgb), 0.02);
+    }
+    .bg-secondary-subtle {
+        background-color: rgba(108, 117, 125, 0.1) !important;
+    }
 </style>
 <body>
     <?php include 'includes/topbar.php'; ?>
@@ -149,26 +159,7 @@
                             <div class="table-responsive flex-grow-1">
                                 <table class="table table-sm table-hover align-middle mb-0">
                                     <tbody id="project-milestones-body">
-                                        <?php 
-                                        $milestones = [
-                                            ['name' => 'Planning', 'date' => 'Apr 30, 2026', 'icon' => 'fa-clipboard'],
-                                            ['name' => 'Design', 'date' => 'May 05, 2026', 'icon' => 'fa-pencil-ruler'],
-                                            ['name' => 'Development', 'date' => 'May 15, 2026', 'icon' => 'fa-code'],
-                                            ['name' => 'Testing', 'date' => 'May 20, 2026', 'icon' => 'fa-bug'],
-                                            ['name' => 'Deployment', 'date' => 'May 25, 2026', 'icon' => 'fa-rocket'],
-                                            ['name' => 'Maintenance', 'date' => 'Ongoing', 'icon' => 'fa-tools'],
-                                            ['name' => 'Closed', 'date' => '—', 'icon' => 'fa-check-circle']
-                                        ];
-                                        foreach($milestones as $m): 
-                                        ?>
-                                        <tr class="hover-highlight">
-                                            <td class="small fw-medium py-2">
-                                                <i class="fas <?= $m['icon'] ?> text-muted me-2" style="width: 15px;"></i>
-                                                <?= $m['name'] ?>
-                                            </td>
-                                            <td class="text-end small fw-bold text-primary"><?= $m['date'] ?></td>
-                                        </tr>
-                                        <?php endforeach; ?>
+                                        
                                     </tbody>
                                 </table>
                             </div>

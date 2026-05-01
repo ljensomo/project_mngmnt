@@ -56,6 +56,7 @@
             </div>
             <div class="modal-body">
                 <form id="form-update-milestones">
+                    <input type="hidden" name="project_id" id="milestone-project-id">
                     <div class="d-flex flex-column gap-3">
                         <?php
                         $phases = [
