@@ -119,7 +119,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row g-2 mt-3">
+                                <!-- <div class="row g-2 mt-3">
                                     <div class="col-6">
                                         <div class="p-2 bg-light rounded text-center">
                                             <div class="small text-muted text-uppercase" style="font-size: 0.6rem;">Deadline</div>
@@ -142,7 +142,7 @@
                                     <div class="progress" style="height: 6px;">
                                         <div class="progress-bar bg-primary" style="width: 65%"></div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -192,7 +192,7 @@
                             foreach($tabs as $tab):
                         ?>
                         <li class="nav-item">
-                            <a class="nav-link rounded-pill px-4 <?= ($tab['id'] === '#tasks') ? 'active' : '' ?>" 
+                            <a class="nav-link rounded-pill px-4 <?= ($tab['id'] === '#tasks') ? 'active' : '' ?> project-nav-link" 
                             data-bs-toggle="pill" href="<?= $tab['id'] ?>">
                             <i class="fas <?= $tab['icon'] ?> me-2"></i><?= $tab['label'] ?>
                             </a>

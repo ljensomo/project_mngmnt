@@ -27,8 +27,7 @@ if ($project->add()) {
     $requirement->setPhaseId(1);
     $requirement->generateTasksForPhase($projectId);
 
-    $milestone = new ProjectMilestone();
-    $milestone->setProjectId($projectId);
+    $milestone = new ProjectMilestone($projectId);
     $milestone->generateMilestones();
 
     echo json_encode([

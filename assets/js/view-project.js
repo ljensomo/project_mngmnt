@@ -126,13 +126,14 @@ $(document).on("click", ".project-nav-link", function(e){
 
     $(".project-nav-link").each(function(i, obj){
         $(this).removeClass("active").removeAttr("aria-current");
-        let tab_name = $(this).find("span").text().toLowerCase().trim() + "-tab";
+        // let tab_name = $(this).find("a").text().toLowerCase().trim() + "-tab";
+        let tab_name = $(this).text().toLowerCase().trim() + "-tab";
         $("#"+tab_name).hide();
     });
 
     $(this).addClass('active').attr("aria-current", "page");
 
-    let tab_name = $(this).find("span").text().toLowerCase().trim() + "-tab";
+    let tab_name = $(this).text().toLowerCase().trim() + "-tab";
     $("#"+tab_name).show();
     
 });

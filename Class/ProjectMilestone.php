@@ -18,7 +18,7 @@ class ProjectMilestone extends Database {
     private $is_completed;
     private $select_columns = array();
 
-    public function __construct($project_id) {
+    public function __construct($project_id = null) {
         $this->project_id = $project_id;
         parent::__construct(self::TABLE_NAME, self::COLUMNS);
 
@@ -38,6 +38,10 @@ class ProjectMilestone extends Database {
 
     public function setPhaseId($phase_id) {
         $this->phase_id = $phase_id;
+    }
+
+    public function setProjectId($project_id) {
+        $this->project_id = $project_id;
     }
 
     public function add() {
