@@ -33,8 +33,7 @@
                             <thead class="text-muted small text-uppercase">
                                 <tr>
                                     <th class="border-0">ID</th>
-                                    <th class="border-0">Project Name</th>
-                                    <th class="border-0">Description</th>
+                                    <th class="border-0">Project</th>
                                     <th class="border-0">Status</th>
                                     <th class="border-0">Date Added</th>
                                     <th class="border-0 text-nowrap">Created By</th>

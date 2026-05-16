@@ -7,6 +7,7 @@ require_once '../../utilities/utilities.php';
 isValidRequest([$_POST['version_number'], $_POST['project-id']]);
 
 $task = new ProjectVersion($_POST['project-id']);
+$task->setVersionType($_POST['version_type']);
 $task->setVersionNumber($_POST['version_number']);
 $task->setTargetDateRelease($_POST['release_date']);
 $task->setRemarks($_POST['remarks']);

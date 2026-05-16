@@ -151,6 +151,10 @@ class ProjectTask extends Database {
                 'operator' => '!=', 
                 'value' => 8
             ])->andWhere([
+                'column_name' => 'project_tasks.status',
+                'operator' => '!=', 
+                'value' => 9
+            ])->andWhere([
                 'column_name' => 'project_id',
                 'operator' => '=',
                 'value' => $this->project_id

@@ -109,4 +109,14 @@ class ProjectMilestone extends Database {
             ->getAll();
     }
 
+    public function deleteById($id) {
+        return $this->sqlDelete($id);
+    }
+
+    public function deleteByProjectId($project_id) {
+        $this->setQuery('DELETE FROM '.self::TABLE_NAME.' WHERE project_id = ?');
+        $this->setParameters([$project_id]);
+        return $this->executeQuery();
+    }
+
 }

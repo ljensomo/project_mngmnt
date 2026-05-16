@@ -1,20 +1,28 @@
 <div id="versions-tab" style="display: none;">
-    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#version-modal">
-        <i class="fas fa-plus"></i> New Version
-    </button>
-    <hr>
-    <table id="version-table" class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Version</th>
-                <th>Remarks</th>
-                <th>Status</th>
-                <th>Target Date Release</th>
-                <th>Date Released</th>
-                <th>Date Created</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-    </table>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h5 class="card-title mb-0 text-dark fw-bold">Project Versions</h5>
+            <p class="text-muted small mb-0">Track history, releases, and development milestones.</p>
+        </div>
+        <button type="button" class="btn btn-sm btn-primary rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#version-modal">
+            <i class="fas fa-plus me-1"></i> New Version
+        </button>
+    </div>
+
+    <div class="table-responsive border rounded-3 bg-white shadow-xs">
+        <table id="version-table" class="table table-hover align-middle mb-0" style="width: 100%;">
+            <thead class="table-light text-uppercase tracking-wider">
+                <tr>
+                    <th class="text-secondary fw-bold py-3 ps-3" style="font-size: 0.75rem; width: 60px;">ID</th>
+                    <th class="text-secondary fw-bold py-3" style="font-size: 0.75rem;">Version</th>
+                    <th class="text-secondary fw-bold py-3" style="font-size: 0.75rem; width: 30%;">Remarks</th>
+                    <th class="text-secondary fw-bold py-3" style="font-size: 0.75rem;">Status</th>
+                    <th class="text-secondary fw-bold py-3" style="font-size: 0.75rem;">Target Date</th>
+                    <th class="text-secondary fw-bold py-3" style="font-size: 0.75rem;">Released</th>
+                    <th class="text-secondary fw-bold py-3" style="font-size: 0.75rem;">Created</th>
+                    <th class="text-secondary fw-bold py-3 text-end pe-3" style="font-size: 0.75rem; width: 120px;">Actions</th>
+                </tr>
+            </thead>
+            </table>
+    </div>
 </div>

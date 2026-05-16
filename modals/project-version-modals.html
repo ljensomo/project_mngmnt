@@ -15,45 +15,57 @@
             <form action="" id="version-form">
                 <input type="hidden" name="project-id" id="a-version-project-id">
                 
-                <div class="modal-body p-4">
-                    <div class="row g-3">
-                        <div class="col-12">
-                            <label class="form-label small fw-bold text-muted text-uppercase">Version Number</label>
-                            <input class="form-control bg-light border-0 py-2 shadow-none" type="text" name="version_number" placeholder="e.g. v1.0.0" aria-label="Version" required style="border-radius: 8px;">
-                        </div>
+<div class="modal-body p-4">
+    <div class="row g-3">
+        <div class="col-12">
+            <label class="form-label small fw-bold text-muted text-uppercase mb-1">Release Type</label>
+            <div class="position-relative">
+                <select name="version_bump_type" id="version_bump_type" class="form-select bg-light border-0 py-2 shadow-none" required>
+                    <option value="" selected disabled>-- Choose SemVer Increment --</option>
+                    <option value="major">Major Release (e.g., v2.0.0) — Breaking changes / Overhauls</option>
+                    <option value="minor">Minor Release (e.g., v1.1.0) — New features / Enhancements</option>
+                    <option value="patch">Patch / Fix (e.g., v1.0.1) — Bug fixes / Micro-patches</option>
+                </select>
+            </div>
+            <div class="mt-2 ps-1">
+                <small class="text-secondary">Target Version: 
+                    <span id="version-preview" class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-2 py-0.5 ms-1 font-monospace fw-bold">v1.0.0</span>
+                </small>
+            </div>
+        </div>
 
-                        <div class="col-md-6">
-                            <label class="form-label small fw-bold text-muted text-uppercase">Initial Status</label>
-                            <select name="status" id="status" class="form-select bg-light border-0 py-2 shadow-none" style="border-radius: 8px;">
-                                <option value="" selected disabled>-- Select Status</option>
-                                <option value="1">Development</option>
-                                <option value="2">Published</option>
-                                <option value="3">Active</option>
-                                <option value="4">Archived</option>
-                                <option value="5">Withdrawn</option>
-                            </select>
-                        </div>
+        <div class="col-md-6">
+            <label class="form-label small fw-bold text-muted text-uppercase mb-1">Initial Status</label>
+            <select name="status" id="status" class="form-select bg-light border-0 py-2 shadow-none" style="border-radius: 8px;">
+                <option value="" selected disabled>-- Select Status</option>
+                <option value="1">Development</option>
+                <option value="2">Published</option>
+                <option value="3">Active</option>
+                <option value="4">Archived</option>
+                <option value="5">Withdrawn</option>
+            </select>
+        </div>
 
-                        <div class="col-md-6">
-                            <label class="form-label small fw-bold text-muted text-uppercase">Target Release</label>
-                            <div class="input-group">
-                                <span class="input-group-text bg-light border-0 text-muted" style="border-radius: 8px 0 0 8px;">
-                                    <i class="far fa-calendar-alt"></i>
-                                </span>
-                                <input type="date" class="form-control bg-light border-0 py-2 shadow-none" name="release_date" id="release_date" style="border-radius: 0 8px 8px 0;">
-                            </div>
-                        </div>
+        <div class="col-md-6">
+            <label class="form-label small fw-bold text-muted text-uppercase mb-1">Target Release</label>
+            <div class="input-group">
+                <span class="input-group-text bg-light border-0 text-muted" style="border-radius: 8px 0 0 8px;">
+                    <i class="fa-regular fa-calendar"></i>
+                </span>
+                <input type="date" class="form-control bg-light border-0 py-2 shadow-none" name="release_date" id="release_date" style="border-radius: 0 8px 8px 0;">
+            </div>
+        </div>
 
-                        <div class="col-12">
-                            <label class="form-label small fw-bold text-muted text-uppercase">Remarks / Change Log</label>
-                            <textarea class="form-control bg-light border-0 py-2 shadow-none" name="remarks" placeholder="Briefly describe the goals for this version..." rows="3" style="border-radius: 8px;"></textarea>
-                        </div>
-                    </div>
-                </div>
+        <div class="col-12">
+            <label class="form-label small fw-bold text-muted text-uppercase mb-1">Remarks / Change Log</label>
+            <textarea class="form-control bg-light border-0 py-2 shadow-none" name="remarks" placeholder="Briefly describe the goals or list fixed issues for this version..." rows="3" style="border-radius: 8px;"></textarea>
+        </div>
+    </div>
+</div>
 
                 <div class="modal-footer border-top-0 pt-0 pb-4 pe-4">
-                    <button type="button" class="btn btn-link text-decoration-none text-muted fw-semibold" data-bs-dismiss="modal">Discard</button>
-                    <button type="submit" class="btn btn-success px-4 fw-bold shadow-sm" style="border-radius: 8px;">
+                    <button type="button" class="btn fw-semibold rounded-pill px-3 btn-outline-secondary" data-bs-dismiss="modal">Discard</button>
+                    <button type="submit" class="btn btn-success px-4 fw-bold shadow-sm rounded-pill px-3">
                         <i class="fas fa-rocket me-2"></i>Create Version
                     </button>
                 </div>

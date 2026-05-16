@@ -75,7 +75,7 @@
                                 <label class="small fw-bold text-muted"><?= $name ?></label>
                             </div>
                             <div class="col-7">
-                                <input type="date" class="form-control form-control-sm" name="milestone[<?= $id ?>]">
+                                <input type="date" class="form-control form-control-sm" id="milestone<?= $id ?>" name="milestone[<?= $id ?>]">
                             </div>
                         </div>
                         <?php endforeach; ?>

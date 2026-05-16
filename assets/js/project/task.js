@@ -7,6 +7,39 @@ const task = {
     utilityUrl: "utilities/project-task/",
 }
 
+function getTaskTypeBadge(taskType) {
+    // Normalize the string just in case of spaces or casing issues
+    const type = taskType ? taskType.trim() : "Feature";
+
+    // Configuration map for icons and color themes
+    const typeConfig = {
+        "Feature":       { icon: "fa-rocket",        bg: "#e3f2fd", text: "#0d47a1", border: "#bbdefb" }, // Blue
+        "Bug":           { icon: "fa-bug",           bg: "#ffebee", text: "#c62828", border: "#ffcdd2" }, // Red
+        "Improvement":   { icon: "fa-chart-line",    bg: "#e8f5e9", text: "#2e7d32", border: "#c8e6c9" }, // Green
+        "Research":      { icon: "fa-search",        bg: "#f3e5f5", text: "#6a1b9a", border: "#e1bee7" }, // Purple
+        "Documentation": { icon: "fa-book",          bg: "#efebe9", text: "#4e342e", border: "#d7ccc8" }, // Brown
+        "Designing":     { icon: "fa-palette",       bg: "#fce4ec", text: "#c2185b", border: "#f8bbd0" }, // Pink
+        "Testing":       { icon: "fa-flask",         bg: "#e0f7fa", text: "#00838f", border: "#b2ebf2" }, // Cyan
+        "Deployment":    { icon: "fa-cloud-upload-alt", bg: "#e8eaf6", text: "#283593", border: "#c5cae9" }, // Indigo
+        "Meeting":       { icon: "fa-users",         bg: "#fff3e0", text: "#ef6c00", border: "#ffe0b2" }, // Orange
+        "Review":        { icon: "fa-clipboard-check", bg: "#f1f8e9", text: "#558b2f", border: "#dcedc8" }, // Light Green
+        "Training":      { icon: "fa-graduation-cap", bg: "#faf1e6", text: "#8d6e63", border: "#f5e6d3" }, // Sepia
+        "Maintenance":   { icon: "fa-tools",         bg: "#eceff1", text: "#37474f", border: "#cfd8dc" }, // Blue Gray
+        "Support":       { icon: "fa-headset",       bg: "#fffde7", text: "#f57f17", border: "#fff9c4" }, // Yellow
+        "Approval":      { icon: "fa-check-circle",  bg: "#e0f2f1", text: "#00695c", border: "#b2dfdb" }  // Teal
+    };
+
+    // Fallback if the type doesn't match anything in your DB list
+    const config = typeConfig[type] || { icon: "fa-tasks", bg: "#f8f9fa", text: "#212529", border: "#dee2e6" };
+
+    return `
+        <span class="badge d-inline-flex align-items-center px-2 py-1 fw-semibold rounded-pill" 
+              style="background-color: ${config.bg}; color: ${config.text}; border: 1px solid ${config.border}; font-size: 0.78rem; letter-spacing: 0.3px;">
+            <i class="fas ${config.icon} me-1" style="font-size: 0.85em; opacity: 0.85;"></i>
+            ${type}
+        </span>`;
+}
+
 populateSelect([
     {
         url: "utilities/task-type/get-all.php",
@@ -28,12 +61,28 @@ let taskTable = initDataTable({
     columns: [
         {data: "id"},
         {data: function(data){
-            return "<span class='badge bg-primary-soft text-primary border border-primary border-opacity-25'><i class='fas "+getIcon(data.task_type_name)+" me-1'></i>"+data.task_type_name+"</span>";
+            return getTaskTypeBadge(data.task_type_name);
         }},
-        {data: "task"},
-        {data: "description", visible: false},
         {data: function(data){
-            return data.assigned_to ? data.first_name+" "+data.last_name : "(Unassigned)";
+            let description = data.description ? data.description : "No description provided.";
+        
+            if (description.length > 75) {
+                description = description.substring(0, 75) + "...";
+            }
+
+            return `
+                <div>
+                    <span class="fw-semibold text-dark d-block mb-0" style="font-size: 0.95rem;">
+                        ${data.task}
+                    </span>
+                    <small class="text-muted d-block opacity-75" style="font-size: 0.8rem; line-height: 1.3;">
+                        ${description}
+                    </small>
+                </div>
+            `;
+        }},
+        {data: function(data){
+            return data.assigned_to ? getAvatar(data.first_name+" "+data.last_name): getAvatar("Unassigned");
         }},
         {data: function(data){
            let badgeClass = '';

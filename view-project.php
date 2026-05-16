@@ -35,6 +35,19 @@
     .bg-secondary-subtle {
         background-color: rgba(108, 117, 125, 0.1) !important;
     }
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    .animate-fade-in {
+        animation: fadeInUp 0.25s ease-out forwards;
+    }
 </style>
 <body>
     <?php include 'includes/topbar.php'; ?>
@@ -165,10 +178,8 @@
                             </div>
 
                             <div class="mt-3 pt-2 border-top">
-                                <button type="button" 
+                                <button type="button" id="btn-milestone-update"
                                         class="btn btn-sm btn-primary w-100 rounded-pill shadow-sm transition-all"
-                                        data-bs-toggle="modal" 
-                                        data-bs-target="#milestones-modal"
                                         style="transition: transform 0.2s;">
                                     <i class="fas fa-calendar-plus me-2"></i>Manage Timeline
                                 </button>

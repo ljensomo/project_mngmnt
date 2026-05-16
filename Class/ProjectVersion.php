@@ -6,6 +6,7 @@ class ProjectVersion extends Database {
     const COLUMNS = [
         'id',
         'project_id',
+        'version_type',
         'version_number',
         'remarks',
         'status',
@@ -16,6 +17,7 @@ class ProjectVersion extends Database {
 
     private $id;
     private $project_id;
+    private $version_type;
     private $version_number;
     private $remarks;
     private $status;
@@ -34,6 +36,10 @@ class ProjectVersion extends Database {
 
     public function setProjectId($project_id) {
         $this->project_id = $project_id;
+    }
+
+    public function setVersionType($version_type) {
+        $this->version_type = $version_type;
     }
 
     public function setVersionNumber($version_number) {
@@ -59,6 +65,7 @@ class ProjectVersion extends Database {
     public function add() {
         return $this->sqlInsert([
             'project_id' => $this->project_id,
+            'version_type' => $this->version_type,
             'version_number' => $this->version_number,
             'remarks' => $this->remarks,
             'target_date_release' => $this->target_date_release,
@@ -69,6 +76,7 @@ class ProjectVersion extends Database {
 
     public function update() {
         return $this->sqlUpdate([
+            'version_type' => $this->version_type,
             'version_number' => $this->version_number,
             'remarks' => $this->remarks,
             'target_date_release' => $this->target_date_release,

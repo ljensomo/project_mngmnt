@@ -44,7 +44,7 @@ if($task->update()) {
 
     if($_POST['assignee'] != $taskData['assigned_to']) {
         $history = new TaskHistory($_POST['task_id']);
-        $history->setDescription('Task assigned to changed from user#' .$taskData['assign_to']. ' to user# '.$_POST['assignee'].'.');
+        $history->setDescription('Task assigned to changed from user#' .$taskData['assigned_to']. ' to user# '.$_POST['assignee'].'.');
         $history->setType(2); // 2 for update
         $history->setCreatedBy($_SESSION['user']['id']);
         $history->add();

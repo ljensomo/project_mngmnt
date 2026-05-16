@@ -16,34 +16,66 @@ function loadNotes() {
     }).done(function(response) {    
         let history = response.data;
         history.forEach(function(entry) {
-            let icon, bg = '';
             if (noteLoadCount == 0) {
                 lastNoteId = entry.id;
             }
-
-            switch(entry.type) {
-                case 1:
-                    icon = "fa-comment-dots";
-                    color = "success";
-                    break;
-                case 2:
-                    icon = "fa-user-edit";
-                    color = "warning";
-                    break;
-            }
             
-            let timelineItem = `<div class="timeline-item">
-                        <div class="timeline-icon bg-${color} text-white">
-                            <i class="fas ${icon}"></i>
+            // Determine icons and theme colors based on title
+            let iconClass = "fa-edit"; 
+            let themeColor = "primary"; 
+
+            const titleLower = entry.title.toLowerCase();
+
+            if (titleLower.includes("note") || titleLower.includes("comment")) {
+                iconClass = "fa-comment-alt";
+                themeColor = "success"; 
+            } else if (titleLower.includes("assigned")) {
+                iconClass = "fa-user-tag";
+                themeColor = "info"; 
+            } else if (titleLower.includes("status")) {
+                iconClass = "fa-tasks";
+                themeColor = "warning"; 
+            }
+
+            const isComment = titleLower.includes("note") || titleLower.includes("comment");
+
+            // Unified Box Layout Container
+            let timelineItem = `
+                <div class="timeline-item position-relative" style="padding-bottom: 12px;">
+                    <div class="timeline-line position-absolute h-100 border-start border-2 border-light-subtle" style="left: 11px; top: 24px; z-index: 0;"></div>
+                    
+                    <div class="d-flex align-items-start position-relative" style="z-index: 1;">
+                        
+                        <div class="timeline-icon flex-shrink-0 d-flex align-items-center justify-content-center bg-${themeColor}-subtle text-${themeColor} rounded-circle border border-${themeColor}-subtle" 
+                            style="width: 24px; height: 24px; font-size: 0.7rem; margin-top: 1px;">
+                            <i class="fas ${iconClass}"></i>
                         </div>
-                        <div class="ps-3">
-                            <p class="mb-1 fw-bold text-dark">${entry.user} <span class="fw-normal text-muted">${entry.title}</span></p>
-                            <div class="p-2 bg-light rounded-3 mb-2 border-start border-${color} border-4" style="font-size: 0.9rem;">
-                                <span class="text-secondary">${entry.description}</span>
+
+                        <div class="timeline-content flex-grow-1" style="padding-left: 10px; min-width: 0;">
+                            
+                            <div class="p-2 bg-light border border-light-subtle rounded-3 shadow-sm border-start ${isComment ? 'border-' + themeColor : 'border-secondary-subtle'} border-3" 
+                                style="padding-left: 10px !important;">
+                                
+                                <div class="d-flex align-items-center flex-wrap justify-content-between mb-1">
+                                    <span class="text-dark" style="font-size: 0.85rem; line-height: 1.2;">
+                                        <strong class="fw-bold text-dark">${entry.user}</strong> 
+                                        <span class="text-secondary ms-1">${entry.title}</span>
+                                    </span>
+                                    <small class="text-muted flex-shrink-0 ms-2" style="font-size: 0.7rem; opacity: 0.75; white-space: nowrap;">
+                                        <i class="far fa-clock me-1"></i>${entry.date_created}
+                                    </small>
+                                </div>
+                                
+                                <div class="${isComment ? 'text-dark' : 'text-muted'}" 
+                                    style="font-size: 0.84rem; line-height: 1.35; word-wrap: break-word;">
+                                    ${entry.description}
+                                </div>
+
                             </div>
-                            <small class="text-muted"><i class="far fa-clock me-1"></i>${entry.date_created}</small>
+
                         </div>
-                    </div>`;
+                    </div>
+                </div>`;
 
             $(".timeline-container").prepend(timelineItem);
             noteLoadCount++;

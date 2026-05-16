@@ -86,49 +86,70 @@ function reloadDataTable(table){
     table.ajax.reload(null, false); // Reload the DataTable without resetting pagination
 }
 
-// Function to create buttons for DataTable actions
+// Function to create a form submission handler
 function createDataTableBtns(buttonConfig) {
     const buttons = [];
 
-    // Map of standard buttons configuration
+    // Unified layout styling: Sleek, borderless light-gray buttons by default
+    // They shift to their targeted brand color instantly on hover
     const standardButtons = {
-        view: { type: "info", icon: "fa-eye", id: "view-" },
-        edit: { type: buttonConfig.editType ?? "warning", icon: buttonConfig.editIcon ?? "fa-pen-to-square", id: "edit-" },
-        delete: { type: "danger", icon: buttonConfig.deleteIcon ?? "fa-trash", id: "delete-" }
+        view: { 
+            hoverClass: "hover-primary", 
+            icon: "fa-regular fa-eye", // Swapped to modern regular/line style
+            id: "view-",
+            title: "View Details"
+        },
+        edit: { 
+            hoverClass: "hover-warning", 
+            icon: "fa-regular fa-pen-to-square", 
+            id: "edit-",
+            title: "Edit Record"
+        },
+        delete: { 
+            hoverClass: "hover-danger", 
+            icon: "fa-regular fa-trash-can", 
+            id: "delete-",
+            title: "Delete Record"
+        }
     };
 
-    // 1. Process Standard Buttons
     ['view', 'edit', 'delete'].forEach(action => {
         if (buttonConfig[action]) {
             buttons.push(createButton({
-                anchor: action === 'view' ? true : false, // Assuming only view is an anchor
+                anchor: action === 'view' ? true : false,
                 href: buttonConfig.href || "#",
-                type: standardButtons[action].type,
+                
+                // Purely utility-driven classes
+                type: `btn btn-action-card rounded-3 d-inline-flex align-items-center justify-content-center transition-all ${standardButtons[action].hoverClass}`,
                 icon: standardButtons[action].icon,
                 id: standardButtons[action].id + buttonConfig.name,
-                data: buttonConfig.data
+                data: buttonConfig.data,
+                
+                // 32px forms an elegant modern micro-square
+                style: "width: 32px; height: 32px; font-size: 0.85rem;",
+                title: standardButtons[action].title
             }));
         }
     });
 
-    // 2. Process Custom Buttons
     if (buttonConfig.custom && Array.isArray(buttonConfig.custom)) {
         buttonConfig.custom.forEach(cBtn => {
             buttons.push(createButton({
                 anchor: cBtn.anchor ?? false,
                 href: cBtn.href ?? "#",
-                type: cBtn.type ?? "secondary",
-                icon: cBtn.icon ?? "fa-cog",
+                type: `btn btn-action-card rounded-3 d-inline-flex align-items-center justify-content-center transition-all hover-secondary`,
+                icon: cBtn.icon ?? "fa-regular fa-gear",
                 id: cBtn.id ?? "custom-" + buttonConfig.name,
-                data: buttonConfig.data
+                data: buttonConfig.data,
+                style: "width: 32px; height: 32px; font-size: 0.85rem;",
+                title: cBtn.title ?? "Action"
             }));
         });
     }
 
-    return buttons.join(' ');
+    return `<div class="d-inline-flex align-items-center">${buttons.join('')}</div>`;
 }
 
-// Function to create a form submission handler
 // Parameters should include formId, utilityURL, dataTable, and modalId
 function createFrmSubmitHandler(parameter){
 
@@ -282,4 +303,44 @@ function populateSelect(options){
             Swal.fire('ERROR!', 'Failed to populate select options.', 'error');
         });
     });
+}
+
+function getAvatar(name, size = 35) {
+    const displayName = name && name.trim() !== "" ? name : "Unassigned";
+    
+    // 1. Extract Initials
+    const initials = displayName
+        .split(' ')
+        .filter(part => part.length > 0)
+        .map(part => part[0])
+        .join('')
+        .toUpperCase()
+        .substring(0, 2);
+
+    // 2. Generate a Pastel Color based on the name string
+    let hash = 0;
+    for (let i = 0; i < displayName.length; i++) {
+        hash = displayName.charCodeAt(i) + ((hash << 5) - hash);
+    }
+
+    // HSL: Hue (0-360), Saturation (low for pastel: 40-50%), Lightness (high for pastel: 85-90%)
+    const hue = Math.abs(hash) % 360;
+    const bgPastel = `hsl(${hue}, 45%, 88%)`;
+    const textDark = `hsl(${hue}, 60%, 30%)`; // Darker version of the same hue for contrast
+
+    // Handle "Unassigned" specifically for a neutral look
+    const finalBg = displayName === "Unassigned" ? "#f1f3f5" : bgPastel;
+    const finalText = displayName === "Unassigned" ? "#6c757d" : textDark;
+
+    return `
+        <div class="d-inline-flex align-items-center">
+            <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold shadow-sm" 
+                 style="width: ${size}px; height: ${size}px; min-width: ${size}px; 
+                        background-color: ${finalBg}; color: ${finalText}; 
+                        font-size: ${size * 0.4}px; border: 1px solid rgba(0,0,0,0.05);"
+                 title="${displayName}">
+                ${initials}
+            </div>
+            <span class="ms-2 fw-semibold text-dark" style="font-size: 0.9rem;">${displayName}</span>
+        </div>`;
 }
