@@ -6,17 +6,21 @@ require_once '../../utilities/utilities.php';
 
 isValidRequest([$_POST['project_id'], $_POST['version_number'], $_POST['status']]);
 
-$version = new ProjectVersion($_POST['project_id']);
-$version->setId($_POST['version_id']);
-$version->setVersionNumber($_POST['version_number']);
-$version->setRemarks($_POST['remarks']);
-$version->setStatus($_POST['status']);
-$version->setTargetDateRelease($_POST['target_date_release']);
-$version->setReleaseDate($_POST['release_date']);
+$projectId = $_POST['project_id'];
+$target_date_release = $_POST['target_date_release'] ?? null;
+$release_date = $_POST['release_date'] ?? null;
 
 if($_POST['status'] == 3) {
-    $version->deactivateOtherVersions();
+    $checkVersion = new ProjectVersion($projectId);
+    $checkVersion->deactivateOtherVersions();
 }
+
+$version = new ProjectVersion($projectId);
+$version->setId($_POST['version_id']);
+$version->setRemarks($_POST['remarks']);
+$version->setStatus($_POST['status']);
+$version->setTargetDateRelease($target_date_release);
+$version->setReleaseDate($release_date);
 
 if($version->update()) {
     echo json_encode(['success' => true, 'message' => 'Version ('.$_POST['version_number'].') has been updated successfully.']);

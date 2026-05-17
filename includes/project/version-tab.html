@@ -2,7 +2,14 @@
     <div class="d-flex justify-content-between align-items-center mb-3">
         <div>
             <h5 class="card-title mb-0 text-dark fw-bold">Project Versions</h5>
-            <p class="text-muted small mb-0">Track history, releases, and development milestones.</p>
+            <div class="d-flex align-items-center gap-2">
+                <p class="text-muted small mb-0">Track history, releases, and development milestones.</p>
+                <button type="button" class="btn p-0 text-muted border-0 bg-transparent lh-1" 
+                        data-bs-toggle="modal" data-bs-target="#status-legend-modal" 
+                        title="View Status Legend">
+                    <i class="fa-solid fa-circle-question text-primary opacity-75 small-hover"></i>
+                </button>
+            </div>
         </div>
         <button type="button" class="btn btn-sm btn-primary rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#version-modal">
             <i class="fas fa-plus me-1"></i> New Version

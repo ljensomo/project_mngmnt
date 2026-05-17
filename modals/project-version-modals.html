@@ -1,4 +1,4 @@
-<!-- Modal -->
+<!-- Add Modal -->
 <div class="modal fade" id="version-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content border-0 shadow-lg" style="border-radius: 16px;">
@@ -15,53 +15,58 @@
             <form action="" id="version-form">
                 <input type="hidden" name="project-id" id="a-version-project-id">
                 
-<div class="modal-body p-4">
-    <div class="row g-3">
-        <div class="col-12">
-            <label class="form-label small fw-bold text-muted text-uppercase mb-1">Release Type</label>
-            <div class="position-relative">
-                <select name="version_bump_type" id="version_bump_type" class="form-select bg-light border-0 py-2 shadow-none" required>
-                    <option value="" selected disabled>-- Choose SemVer Increment --</option>
-                    <option value="major">Major Release (e.g., v2.0.0) — Breaking changes / Overhauls</option>
-                    <option value="minor">Minor Release (e.g., v1.1.0) — New features / Enhancements</option>
-                    <option value="patch">Patch / Fix (e.g., v1.0.1) — Bug fixes / Micro-patches</option>
-                </select>
-            </div>
-            <div class="mt-2 ps-1">
-                <small class="text-secondary">Target Version: 
-                    <span id="version-preview" class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-2 py-0.5 ms-1 font-monospace fw-bold">v1.0.0</span>
-                </small>
-            </div>
-        </div>
+                <div class="modal-body p-4">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label small fw-bold text-muted text-uppercase mb-1">Release Type</label>
+                            <div class="position-relative">
+                                <select name="version_bump_type" id="version_bump_type" class="form-select bg-light border-0 py-2 shadow-none" required>
+                                    <option value="" selected disabled>-- Choose SemVer Increment --</option>
+                                    <option value="1">Major Release (e.g., v2.0.0) — Breaking changes / Overhauls</option>
+                                    <option value="2">Minor Release (e.g., v1.1.0) — New features / Enhancements</option>
+                                    <option value="3">Patch / Fix (e.g., v1.0.1) — Bug fixes / Micro-patches</option>
+                                </select>
+                            </div>
+                            <div class="mt-2 ps-1 row g-2 align-items-center">
+                                <div class="col-sm-6">
+                                    <small class="text-secondary fw-semibold">Target Version:</small>
+                                    <span id="version-preview" class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-2.5 py-1 ms-1 font-monospace fw-bold">v1.0.0</span>
+                                </div>
+                                
+                                <div class="col-sm-6 text-sm-end text-muted" style="font-size: 0.75rem;">
+                                    <i class="fa-solid fa-circle-info text-primary me-1"></i>Initial releases default to <span class="text-dark fw-medium">v1.0.0</span>
+                                </div>
+                            </div>
+                        </div>
 
-        <div class="col-md-6">
-            <label class="form-label small fw-bold text-muted text-uppercase mb-1">Initial Status</label>
-            <select name="status" id="status" class="form-select bg-light border-0 py-2 shadow-none" style="border-radius: 8px;">
-                <option value="" selected disabled>-- Select Status</option>
-                <option value="1">Development</option>
-                <option value="2">Published</option>
-                <option value="3">Active</option>
-                <option value="4">Archived</option>
-                <option value="5">Withdrawn</option>
-            </select>
-        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-muted text-uppercase mb-1">Initial Status</label>
+                            <select name="status" id="status" class="form-select bg-light border-0 py-2 shadow-none" style="border-radius: 8px;">
+                                <option value="" selected disabled>-- Select Status</option>
+                                <option value="1">Development</option>
+                                <option value="2">Published</option>
+                                <option value="3">Active</option>
+                                <option value="4">Archived</option>
+                                <option value="5">Withdrawn</option>
+                            </select>
+                        </div>
 
-        <div class="col-md-6">
-            <label class="form-label small fw-bold text-muted text-uppercase mb-1">Target Release</label>
-            <div class="input-group">
-                <span class="input-group-text bg-light border-0 text-muted" style="border-radius: 8px 0 0 8px;">
-                    <i class="fa-regular fa-calendar"></i>
-                </span>
-                <input type="date" class="form-control bg-light border-0 py-2 shadow-none" name="release_date" id="release_date" style="border-radius: 0 8px 8px 0;">
-            </div>
-        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-muted text-uppercase mb-1">Target Release</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-0 text-muted" style="border-radius: 8px 0 0 8px;">
+                                    <i class="fa-regular fa-calendar"></i>
+                                </span>
+                                <input type="date" class="form-control bg-light border-0 py-2 shadow-none" name="release_date" id="release_date" style="border-radius: 0 8px 8px 0;">
+                            </div>
+                        </div>
 
-        <div class="col-12">
-            <label class="form-label small fw-bold text-muted text-uppercase mb-1">Remarks / Change Log</label>
-            <textarea class="form-control bg-light border-0 py-2 shadow-none" name="remarks" placeholder="Briefly describe the goals or list fixed issues for this version..." rows="3" style="border-radius: 8px;"></textarea>
-        </div>
-    </div>
-</div>
+                        <div class="col-12">
+                            <label class="form-label small fw-bold text-muted text-uppercase mb-1">Remarks / Change Log</label>
+                            <textarea class="form-control bg-light border-0 py-2 shadow-none" name="remarks" placeholder="Briefly describe the goals or list fixed issues for this version..." rows="3" style="border-radius: 8px;"></textarea>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="modal-footer border-top-0 pt-0 pb-4 pe-4">
                     <button type="button" class="btn fw-semibold rounded-pill px-3 btn-outline-secondary" data-bs-dismiss="modal">Discard</button>
@@ -74,7 +79,7 @@
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Edit Modal -->
 <div class="modal fade" id="version-edit-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content border-0 shadow-lg" style="border-radius: 16px;">
@@ -94,15 +99,20 @@
                 
                 <div class="modal-body p-4">
                     <div class="row g-3">
-                        <div class="col-md-8">
-                            <label class="form-label small fw-bold text-muted text-uppercase">Version Number</label>
-                            <input class="form-control bg-light border-0 py-2 shadow-none" type="text" name="version_number" placeholder="e.g. v2.1.0" id="version-number" required style="border-radius: 8px;">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-muted text-uppercase mb-1">Modifying Version</label>
+                            <div class="d-flex align-items-center h-75 pt-1">
+                                <span id="version-number-display" class="badge bg-secondary-subtle text-secondary border border-secondary-subtle rounded-3 px-3 py-2 font-monospace fw-bold fs-6 shadow-none w-100 text-start">
+                                    <i class="fas fa-lock me-2 opacity-50"></i>v1.0.0
+                                </span>
+                                <input type="hidden" name="version_number" id="version-number">
+                            </div>
                         </div>
 
-                        <div class="col-md-4">
-                            <label class="form-label small fw-bold text-muted text-uppercase">Status</label>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-muted text-uppercase mb-1">Status</label>
                             <select name="status" id="version-status" class="form-select bg-light border-0 py-2 shadow-none" required style="border-radius: 8px;">
-                                <option value="" disabled selected>-- Status</option>
+                                <option value="" disabled selected>-- Select Status</option>
                                 <option value="1">Development</option>
                                 <option value="2">Published</option>
                                 <option value="3">Active</option>
@@ -112,12 +122,12 @@
                         </div>
 
                         <div class="col-12">
-                            <label class="form-label small fw-bold text-muted text-uppercase">Remarks</label>
-                            <textarea class="form-control bg-light border-0 py-2 shadow-none" name="remarks" placeholder="What's new in this version?" id="version-remarks" rows="3" style="border-radius: 8px;"></textarea>
+                            <label class="form-label small fw-bold text-muted text-uppercase mb-1">Remarks / Change Log</label>
+                            <textarea class="form-control bg-light border-0 py-2 shadow-none" name="remarks" placeholder="Document the modifications or adjustments made..." id="version-remarks" rows="3" style="border-radius: 8px;"></textarea>
                         </div>
 
                         <div class="col-md-6">
-                            <label class="form-label small fw-bold text-muted text-uppercase">Target Release</label>
+                            <label class="form-label small fw-bold text-muted text-uppercase mb-1">Target Release</label>
                             <div class="input-group">
                                 <span class="input-group-text bg-light border-0 text-muted" style="border-radius: 8px 0 0 8px;">
                                     <i class="far fa-calendar-alt"></i>
@@ -127,7 +137,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label class="form-label small fw-bold text-muted text-uppercase">Date Released</label>
+                            <label class="form-label small fw-bold text-muted text-uppercase mb-1">Date Released</label>
                             <div class="input-group">
                                 <span class="input-group-text bg-light border-0 text-muted" style="border-radius: 8px 0 0 8px;">
                                     <i class="fas fa-calendar-check"></i>
@@ -139,12 +149,122 @@
                 </div>
 
                 <div class="modal-footer border-top-0 pt-0 pb-4 pe-4">
-                    <button type="button" class="btn btn-link text-decoration-none text-muted fw-semibold" data-bs-dismiss="modal">Discard</button>
-                    <button type="submit" class="btn btn-primary px-4 fw-bold shadow-sm" style="border-radius: 8px;">
-                        <i class="fas fa-save me-2"></i>Update Version
+                    <button type="button" class="btn fw-semibold rounded-pill px-3 btn-outline-secondary" data-bs-dismiss="modal">Discard</button>
+                    <button type="submit" class="btn btn-success px-4 fw-bold shadow-sm rounded-pill px-3">
+                        <i class="fas fa-check-circle me-2"></i>Save Changes
                     </button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+<!-- Status Legend Modal -->
+<div class="modal fade" id="status-legend-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="statusLegendLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg"> <div class="modal-content border-0 shadow-lg" style="border-radius: 16px;">
+            
+            <div class="modal-header border-bottom-0 pb-0 mt-2">
+                <div class="d-flex align-items-center">
+                    <div class="bg-primary bg-opacity-10 text-primary p-2 rounded-3 me-3 d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <h5 class="modal-title fw-bold" id="statusLegendLabel">Status Lifecycle & Versioning Rules</h5>
+                </div>
+                <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body p-4">
+                
+                <div class="alert alert-warning border-0 bg-warning-subtle text-warning-emphasis p-3 rounded-3 mb-4" style="font-size: 0.85rem;">
+                    <div class="d-flex gap-2 mb-2">
+                        <i class="fas fa-shield-alt mt-0.5 text-warning"></i>
+                        <strong class="text-dark">Strict Versioning Guards & Constraints:</strong>
+                    </div>
+                    <ul class="mb-0 ps-3 d-flex flex-column gap-1.5 text-secondary">
+                        <li>
+                            <strong class="text-dark">The One-Draft Rule:</strong> You <span class="text-danger fw-semibold">cannot create a new version</span> if the project's latest entry is currently in <span class="badge bg-warning-subtle text-warning border border-warning-subtle font-monospace font-weight-bold" style="font-size: 0.65rem;">DEVELOPMENT</span> or <span class="badge bg-info-subtle text-info border border-info-subtle font-monospace font-weight-bold" style="font-size: 0.65rem;">PUBLISHED</span> status. The existing milestone package must be completed or deployed first.
+                        </li>
+                        <li>
+                            <strong class="text-dark">Auto-Archiving:</strong> Flipping any version's status to <span class="badge bg-success-subtle text-success border border-success-subtle font-monospace font-weight-bold" style="font-size: 0.65rem;">ACTIVE</span> will automatically transition the project's *previous* active version to <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle font-monospace font-weight-bold" style="font-size: 0.65rem;">ARCHIVED</span>. Only one version can run live at any single moment.
+                        </li>
+                        <li>
+                            <strong class="text-dark">Immutable Codes:</strong> Once a version string (e.g., <code class="font-monospace text-dark bg-dark bg-opacity-10 px-1 rounded">v1.2.0</code>) is generated during creation, it is locked. You can modify timelines, descriptions, and statuses, but the calculated SemVer identifier cannot be altered to preserve pipeline tracking data.
+                        </li>
+                    </ul>
+                </div>
+
+                <p class="text-muted small mb-3 fw-semibold text-uppercase tracking-wider">Status Definitions</p>
+                
+                <div class="d-flex flex-column gap-3.5">
+                    
+                    <div class="d-flex align-items-start gap-3 p-2.5 rounded-3 hover-bg-light transition-all">
+                        <div style="min-width: 120px;">
+                            <span class="badge bg-warning-subtle text-warning border border-warning-subtle rounded-3 px-2.5 py-1.5 font-monospace fw-bold w-100 d-inline-block text-center fs-7">
+                                DEVELOPMENT
+                            </span>
+                        </div>
+                        <div>
+                            <h6 class="fw-bold text-dark mb-0.5" style="font-size: 0.9rem;">Active Coding Phase</h6>
+                            <p class="text-muted small mb-0">The version branch is completely open. Features, bug fixes, and source updates are actively being integrated into this build profile.</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-start gap-3 p-2.5 rounded-3 hover-bg-light transition-all">
+                        <div style="min-width: 120px;">
+                            <span class="badge bg-info-subtle text-info border border-info-subtle rounded-3 px-2.5 py-1.5 font-monospace fw-bold w-100 d-inline-block text-center fs-7">
+                                PUBLISHED
+                            </span>
+                        </div>
+                        <div>
+                            <h6 class="fw-bold text-dark mb-0.5" style="font-size: 0.9rem;">Build Frozen / QA Stage</h6>
+                            <p class="text-muted small mb-0">Code modifications are stopped. The release candidate package has been generated and is undergoing environment testing or code reviews.</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-start gap-3 p-2.5 rounded-3 hover-bg-light transition-all">
+                        <div style="min-width: 120px;">
+                            <span class="badge bg-success-subtle text-success border border-success-subtle rounded-3 px-2.5 py-1.5 font-monospace fw-bold w-100 d-inline-block text-center fs-7">
+                                ACTIVE
+                            </span>
+                        </div>
+                        <div>
+                            <h6 class="fw-bold text-dark mb-0.5" style="font-size: 0.9rem;">Live in Production</h6>
+                            <p class="text-muted small mb-0">The running build deployed live to end-users. Represents the current stable standard baseline of the project ecosystem.</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-start gap-3 p-2.5 rounded-3 hover-bg-light transition-all">
+                        <div style="min-width: 120px;">
+                            <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle rounded-3 px-2.5 py-1.5 font-monospace fw-bold w-100 d-inline-block text-center fs-7">
+                                ARCHIVED
+                            </span>
+                        </div>
+                        <div>
+                            <h6 class="fw-bold text-dark mb-0.5" style="font-size: 0.9rem;">Legacy Record</h6>
+                            <p class="text-muted small mb-0">Deprecated historical release track. Preserved safely to protect data-logging metrics but completely sealed against ongoing workflow edits.</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-start gap-3 p-2.5 rounded-3 hover-bg-light transition-all">
+                        <div style="min-width: 120px;">
+                            <span class="badge bg-danger-subtle text-danger border border-danger-subtle rounded-3 px-2.5 py-1.5 font-monospace fw-bold w-100 d-inline-block text-center fs-7">
+                                WITHDRAWN
+                            </span>
+                        </div>
+                        <div>
+                            <h6 class="fw-bold text-dark mb-0.5" style="font-size: 0.9rem;">Revoked Branch</h6>
+                            <p class="text-muted small mb-0">Decommissioned or recalled build path. Used when a production version exhibits critical vulnerabilities or show-stopping deployment breaks.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal-footer border-top-0 pt-0 pb-4 pe-4">
+                <button type="button" class="btn btn-sm btn-light border border-light-subtle rounded-pill px-4 fw-semibold text-secondary" data-bs-dismiss="modal">
+                    Close Guide
+                </button>
+            </div>
         </div>
     </div>
 </div>

@@ -76,8 +76,6 @@ class ProjectVersion extends Database {
 
     public function update() {
         return $this->sqlUpdate([
-            'version_type' => $this->version_type,
-            'version_number' => $this->version_number,
             'remarks' => $this->remarks,
             'target_date_release' => $this->target_date_release,
             'date_released' => $this->date_released,
@@ -149,5 +147,42 @@ class ProjectVersion extends Database {
 
     public function getById($id) {
         return $this->sqlFetchById($id);
+    }
+
+    public function getActiveVersion() {
+        return $this->sqlSelect([
+                self::TABLE_NAME.'.version_number',
+            ])->join('version_statuses', 'version_statuses.id = '.self::TABLE_NAME.'.status', 'LEFT JOIN')
+            ->where([
+                'column_name' => 'project_id',
+                'operator' => '=',
+                'value' => $this->project_id
+            ])->andWhere([
+                'column_name' => self::TABLE_NAME.'.status',
+                'operator' => '=',
+                'value' => 3
+            ])->get();
+    }
+
+    public function hasVersion(){
+        return $this->sqlSelect(['id'])
+            ->where([
+                'column_name' => 'project_id',
+                'operator' => '=',
+                'value' => $this->project_id
+            ])->get();
+    }
+
+    public function getLatestVersion() {
+        return $this->sqlSelect([
+                self::TABLE_NAME.'.version_number',
+                self::TABLE_NAME.'.status',
+                'version_statuses.status AS status_name'
+            ])->join('version_statuses', 'version_statuses.id = '.self::TABLE_NAME.'.status', 'LEFT JOIN')
+            ->where([
+                'column_name' => 'project_id',
+                'operator' => '=',
+                'value' => $this->project_id
+            ])->orderBy('id', 'DESC')->get();
     }
 }

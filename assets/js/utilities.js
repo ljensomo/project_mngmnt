@@ -176,10 +176,14 @@ function frmSubmitHandler(parameter){
         }).done(function(response) {
             if (response.success) {
                 Swal.fire({
-                    title: 'Success!',
-                    text: response.message,
+                    title: response.title || 'Action Completed!',
+                    text: response.message || 'Your changes have been saved successfully.',
                     icon: 'success',
-                    confirmButtonColor: '#3085d6'
+                    confirmButtonText: 'Continue',
+                    confirmButtonColor: '#0d6efd',
+                    customClass: {
+                        popup: 'rounded-4 shadow p-3'
+                    }
                 }).then(() => {
                     if (parameter.dataTable) reloadDataTable(parameter.dataTable);
                     if (parameter.modalId) $(parameter.modalId).modal("hide");
@@ -218,9 +222,8 @@ function createDltRecordHandler(parameter) {
             confirmButtonColor: '#d33', // Red for delete
             cancelButtonColor: '#6c757d', // Neutral for cancel
             confirmButtonText: 'Yes, permanently delete',
-            showLoaderOnConfirm: true, // 2. Show loading spinner inside the button
+            showLoaderOnConfirm: true, // Show loading spinner inside the button
             preConfirm: () => {
-                // 3. Encapsulate the AJAX in preConfirm for better UX
                 return $.ajax({
                     url: parameter.utilityURL,
                     method: "POST",
@@ -235,7 +238,7 @@ function createDltRecordHandler(parameter) {
             if (result.isConfirmed) {
                 const response = result.value;
                 if (response.success) {
-                    Swal.fire('Deleted!', response.message, 'success');
+                    Swal.fire('Action Completed!', response.message, 'success');
                     if (parameter.dataTable) reloadDataTable(parameter.dataTable);
                     if (parameter.callback) parameter.callback(response);
                 } else {

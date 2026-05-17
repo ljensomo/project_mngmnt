@@ -23,33 +23,31 @@ let versionTable = initDataTable({
         { 
             data: "remarks",
             render: function(data) {
-                // Return fallback text if remarks column field is empty or null
                 return data ? data : `<span class="text-muted opacity-50 small"><em>No remarks</em></span>`;
             }
         },
         {
             data: "status",
             render: function(data, type, row) {
-                // High-visibility, modern semantic tag matrix matching the main system design
-                const statusStyles = {
-                    1: { icon: 'fa-code',               style: 'background-color: #eff6ff; color: #1d4ed8; border-color: #dbeafe;' }, // Development
-                    2: { icon: 'fa-paper-plane',        style: 'background-color: #faf5ff; color: #9333ea; border-color: #f3e8ff;' }, // Published
-                    3: { icon: 'fa-circle-check',       style: 'background-color: #f0fdf4; color: #15803d; border-color: #dcfce7;' }, // Active
-                    4: { icon: 'fa-archive',            style: 'background-color: #f1f5f9; color: #475569; border-color: #e2e8f0;' }, // Archived
-                    5: { icon: 'fa-ban',                style: 'background-color: #fef2f2; color: #dc2626; border-color: #fecaca;' }  // Withdrawn
+                const statusConfig = {
+                    1: { icon: 'fa-code',           classes: 'bg-warning-subtle text-warning border-warning-subtle' }, // DEVELOPMENT
+                    2: { icon: 'fa-paper-plane',    classes: 'bg-info-subtle text-info border-info-subtle' },          // PUBLISHED
+                    3: { icon: 'fa-circle-check',   classes: 'bg-success-subtle text-success border-success-subtle' }, // ACTIVE
+                    4: { icon: 'fa-box-archive',     classes: 'bg-secondary-subtle text-secondary border-secondary-subtle' }, // ARCHIVED
+                    5: { icon: 'fa-ban',             classes: 'bg-danger-subtle text-danger border-danger-subtle' }     // WITHDRAWN
                 };
 
-                const currentStatus = statusStyles[data] || { 
-                    icon: 'fa-question-circle', 
-                    style: 'background-color: #f8fafc; color: #64748b; border-color: #e2e8f0;' 
+                const currentStatus = statusConfig[data] || { 
+                    icon: 'fa-circle-question', 
+                    classes: 'bg-light text-muted border-light-subtle' 
                 };
 
                 return `
-                    <span class="badge border rounded-pill d-inline-flex align-items-center fw-bold px-2.5 py-1 text-uppercase" 
-                          style="font-size: 0.72rem; letter-spacing: 0.5px; ${currentStatus.style}">
-                        <i class="fa-solid ${currentStatus.icon} me-1" style="font-size: 0.7rem; width: 12px; text-align: center;"></i> 
+                    <span class="badge border rounded-3 d-inline-flex align-items-center fw-bold px-2 py-1 text-uppercase font-monospace fs-7" 
+                        style="letter-spacing: 0.5px; font-size: 0.7rem;">
+                        <i class="fa-solid ${currentStatus.icon} me-2" style="width: 12px; text-align: center;"></i> 
                         ${row.status_name}
-                    </span>`;
+                    </span>`.replace('class="badge border', `class="badge border ${currentStatus.classes}`);
             }
         },
         { 
@@ -60,7 +58,7 @@ let versionTable = initDataTable({
             data: "date_released",
             className: "text-secondary small",
             render: function(data) {
-                return data ? data : `<span class="badge bg-light text-muted border border-light-subtle rounded-3 font-monospace">PENDING</span>`;
+                return (data && data !== '0000-00-00') ? data : `<span class="badge bg-light text-muted border border-light-subtle rounded-3 font-monospace">PENDING</span>`;
             }
         },
         { 
@@ -92,11 +90,8 @@ document.getElementById('version_bump_type').addEventListener('change', function
     let parts = currentLatestVersion.replace('v', '').split('.').map(Number);
     
     if(parts.length !== 3) parts = [1, 0, 0]; // Safe recovery fallback
-
-    let major = parts[0];
     let minor = parts[1];
-    let patch = parts[2];
-
+    let patch = parts[2]
     // Semantic Calculation Calculations
     if (bumpType === 'major') {
         major += 1;
