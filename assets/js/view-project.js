@@ -162,6 +162,7 @@ $(document).on("click", ".project-nav-link", function(e){
     $(this).addClass('active').attr("aria-current", "page");
 
     let tab_name = $(this).text().toLowerCase().trim() + "-tab";
+
     $("#"+tab_name).show();
     
 });

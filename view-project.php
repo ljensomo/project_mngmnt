@@ -198,7 +198,7 @@
                                 ['id' => '#modules', 'label' => 'Modules', 'icon' => 'fa-cubes'],
                                 ['id' => '#features', 'label' => 'Features', 'icon' => 'fa-rocket'],
                                 ['id' => '#versions', 'label' => 'Versions', 'icon' => 'fa-code-branch'],
-                                ['id' => '#technologies', 'label' => 'Tech', 'icon' => 'fa-microchip']
+                                ['id' => '#technologies', 'label' => 'Technologies', 'icon' => 'fa-microchip']
                             ];
                             foreach($tabs as $tab):
                         ?>

@@ -1,18 +1,32 @@
 <div id="technologies-tab" style="display: none;">
-    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#tech-modal">
-        <i class="fas fa-plus"></i> New Technology
-    </button>
-    <hr>
-    <table id="tech-table" class="table table-bordered">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Technology</th>
-                <th>Description</th>
-                <th>Type</th>
-                <th>Date Added</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-    </table>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h5 class="card-title mb-0 text-dark fw-bold">Project Technologies</h5>
+            <div class="d-flex align-items-center gap-2">
+                <p class="text-muted small mb-0">Track core frameworks, libraries, APIs, and stack environments utilized across this project.</p>
+                <button type="button" class="btn p-0 text-muted border-0 bg-transparent lh-1" data-bs-toggle="modal" data-bs-target="#tech-guide-modal" title="View Technology Guide">
+                    <i class="fa-solid fa-circle-question text-primary opacity-75 small-hover"></i>
+                </button>
+            </div>
+        </div>
+        
+        <button type="button" class="btn btn-sm btn-primary rounded-pill px-3 shadow-sm" data-bs-toggle="modal" data-bs-target="#tech-modal">
+            <i class="fas fa-plus me-1"></i> New Technology
+        </button>
+    </div>
+
+    <div class="table-responsive bg-white rounded-3 border border-light-subtle">
+        <table id="tech-table" class="table align-middle mb-0" style="width:100%;">
+            <thead class="table-light text-uppercase tracking-wider small fw-bold" style="font-size: 0.75rem;">
+                <tr>
+                    <th class="ps-3 text-muted" style="width: 60px;">ID</th>
+                    <th class="text-muted" style="width: 180px;">Technology</th>
+                    <th class="text-muted">Description</th>
+                    <th class="text-muted" style="width: 140px;">Type</th>
+                    <th class="text-muted" style="width: 140px;">Date Added</th>
+                    <th class="pe-3 text-end text-muted" style="width: 100px;">Actions</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
 </div>

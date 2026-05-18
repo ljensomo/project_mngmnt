@@ -1,41 +1,82 @@
-<!-- Modal -->
+<!-- Add Modal -->
 <div class="modal fade" id="tech-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Add Technology</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal-dialog modal-dialog-centered"> <div class="modal-content border-0 shadow-lg" style="border-radius: 16px;">
+            
+            <div class="modal-header border-bottom-0 pb-0 mt-2">
+                <div class="d-flex align-items-center">
+                    <div class="bg-primary bg-opacity-10 text-primary p-2 rounded-3 me-3 d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h5 class="modal-title fw-bold" id="staticBackdropLabel">Add New Technology</h5>
+                </div>
+                <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="" id="tech-form">
+
+            <form action="" id="tech-form" autocomplete="off">
                 <input type="hidden" name="project-id" id="a-tech-project-id">
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <input class="form-control" type="text" name="technology" placeholder="Technology" aria-label="Technology" required>
-                    </div>
-                    <div class="mb-3">
-                        <textarea class="form-control" name="description" placeholder="Description"></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <select name="type" id="type" class="form-control">
-                            <option value="">-- Select Type</option>
-                            <option value="Frontend">Frontend</option>
-                            <option value="Backend">Backend</option>
-                            <option value="Database">Database</option>
-                            <option value="DevOps">DevOps</option>
-                            <option value="Other">Other</option>
-                        </select>
+                
+                <div class="modal-body p-4">
+                    <div class="row g-3">
+                        
+                        <div class="col-md-7">
+                            <label class="form-label small fw-bold text-muted text-uppercase mb-1">Technology Name</label>
+                            <input class="form-control bg-light border-0 py-2 shadow-none" 
+                                   type="text" 
+                                   name="technology" 
+                                   id="tech-name-autocomplete"
+                                   list="existing-technologies" 
+                                   placeholder="e.g., React, Laravel, Docker" 
+                                   required 
+                                   style="border-radius: 8px;">
+                            
+                            <datalist id="existing-technologies">
+                                <option value="React">
+                                <option value="Vue.js">
+                                <option value="Angular">
+                                <option value="Laravel">
+                                <option value="Node.js">
+                                <option value="Express.js">
+                                <option value="MySQL">
+                                <option value="PostgreSQL">
+                                <option value="MongoDB">
+                                <option value="Docker">
+                                <option value="AWS">
+                                <option value="Tailwind CSS">
+                            </datalist>
+                        </div>
+
+                        <div class="col-md-5">
+                            <label class="form-label small fw-bold text-muted text-uppercase mb-1">Stack Type</label>
+                            <select name="type" id="type" class="form-select bg-light border-0 py-2 shadow-none" required style="border-radius: 8px;">
+                                <option value="" disabled selected>-- Select Type</option>
+                                <option value="Frontend">Frontend</option>
+                                <option value="Backend">Backend</option>
+                                <option value="Database">Database</option>
+                                <option value="DevOps">DevOps</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label small fw-bold text-muted text-uppercase mb-1">Description / Integration Notes</label>
+                            <textarea class="form-control bg-light border-0 py-2 shadow-none" name="description" placeholder="Specify how this dependency integrates with the core architecture..." rows="3" style="border-radius: 8px;"></textarea>
+                        </div>
+
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Add</button>
+
+                <div class="modal-footer border-top-0 pt-0 pb-4 pe-4">
+                    <button type="button" class="btn fw-semibold rounded-pill px-3 btn-outline-secondary" data-bs-dismiss="modal">Discard</button>
+                    <button type="submit" class="btn btn-success px-4 fw-bold shadow-sm rounded-pill px-3">
+                        <i class="fas fa-check-circle me-2"></i>Add Technology
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Edit Modal -->
 <div class="modal fade" id="tech-edit-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
